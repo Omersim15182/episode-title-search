@@ -1,30 +1,39 @@
 import axios from "axios";
 
 interface TVShowRequest  {
-    showName : String
-    season : number
-    episode : number
+    showName : string
 }
 
-const BASE_URL = 'https://api.tvmaze.com/singlesearch/shows?q=girls&embed=episodes'
+
+const apiKey = import.meta.env.VITE_API_KEY;
 
 export const getEpisodeName = async (
     showDetails : TVShowRequest
-) : Promise<void> => {
-    const { showName, season, episode } = showDetails;
-    try {
-        const response = await axios.get(BASE_URL, {
-            params: {
-              q: showName,
-              season: `${season}`
-              embed: `${episode}`,
-            },
-          });
-    }
+) : Promise<string | null> => {
+    const { showName } = showDetails;
 
-    catch (error: any)  {
-    console.log('error',error.message);
+    const options = {
+        method: 'GET',
+        url: 'https://imdb8.p.rapidapi.com/auto-complete',
+        params: {q:showName },
+        headers: {
+          'x-rapidapi-key': apiKey,
+          'x-rapidapi-host': 'imdb8.p.rapidapi.com'
+        }
+      };
+      
+      try {
+          const response = await axios.request(options);
+          console.log(response.data);
 
-    }
+          const tvShowId = response.data.d?.[0]?.id || null;
+          console.log(tvShowId);
+          return tvShowId;
+          
+      } catch (error) {
+          console.error(error);
+          return null;
+      }
+   
 
 }
