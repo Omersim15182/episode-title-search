@@ -1,21 +1,18 @@
 import axios from "axios";
-
-interface TVShowRequest  {
-    showName : string
-}
+import {SeriesConfig} from '../types/config';
 
 
 const apiKey = import.meta.env.VITE_API_KEY;
 
-export const getEpisodeName = async (
-    showDetails : TVShowRequest
-) : Promise<string | null> => {
-    const { showName } = showDetails;
+export const getSeriesNameService = async (
+    showDetails : SeriesConfig  
+) : Promise <string | null> => {
+    const { seriesName } = showDetails;
 
     const options = {
         method: 'GET',
         url: 'https://imdb8.p.rapidapi.com/auto-complete',
-        params: {q:showName },
+        params: {q: seriesName },
         headers: {
           'x-rapidapi-key': apiKey,
           'x-rapidapi-host': 'imdb8.p.rapidapi.com'
@@ -25,7 +22,6 @@ export const getEpisodeName = async (
       try {
           const response = await axios.request(options);
           console.log(response.data);
-
           const tvShowId = response.data.d?.[0]?.id || null;
           console.log(tvShowId);
           return tvShowId;

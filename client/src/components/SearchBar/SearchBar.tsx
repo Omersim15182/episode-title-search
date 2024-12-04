@@ -2,10 +2,15 @@ import Box from '@mui/material/Box';
 import SearchInput from './SearchInput';
 import React, { useState } from 'react';
 import AddButton from '../Button/AddButton'
-import { getEpisodeName } from '../../api/episodeService';
+import { getSeriesNameService } from '../../api/SeriesNameService';
+import { getEpisodeNameService } from '../../api/EpisodeNameService';
+import {DescEpisode } from '../../types/config';
+import {SeriesConfig } from '../../types/config';
+
 export default function SearchBar() {
 
   const [tvShowId, setTvShowId] = useState<string | null>('');
+  const [tvShowName, setTvShowName] = useState<string | null>('');
 
   const [seriesInput, setSeriesInput] = useState('');
   const [seasonInput, setSeasonInput] = useState('');
@@ -47,10 +52,18 @@ export default function SearchBar() {
         console.log("Please fill in all fields.");
         return;
       }
-      const showDetails = {
-        showName : seriesInput,
+      const showDetails : SeriesConfig = {
+        seriesName : seriesInput ,
       }
-      setTvShowId(await getEpisodeName(showDetails))
+      setTvShowId(await getSeriesNameService(showDetails))
+
+      const updateData : DescEpisode = {
+        seriesId: tvShowId ,
+        seasonNumber : seasonInput ,
+        episodeNumber : episodeInput ,
+
+      }
+      setTvShowName(await getEpisodeNameService(updateData))
 
     } catch (error) {
       console.error("Error fetching episode name:", error);
@@ -58,6 +71,7 @@ export default function SearchBar() {
     }
   }
 console.log('handleAdd value :' , tvShowId);
+console.log('title value :' , tvShowName);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -86,7 +100,7 @@ console.log('handleAdd value :' , tvShowId);
         />
       <AddButton onClick={handleAdd}/>
       </>
-    )}
+    )}<p>title is : {tvShowName}</p>
     </Box>
   );
 }
