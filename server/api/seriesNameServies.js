@@ -17,8 +17,8 @@ const getSeriesNameService = async (showDetails) => {
 
   try {
     const response = await axios.request(options);
-    const tvShowId = response.data.d?.[0]?.id || null;
-    return tvShowId;
+    const seriesId = response.data.d?.[0]?.id || null;
+    return seriesId;
   } catch (error) {
     console.error(error);
     return null;
