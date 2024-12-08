@@ -1,9 +1,11 @@
 const axios = require("axios");
+const Series = require("../models/Series");
 
 const apiKey = process.env.API_KEY;
 
-const getEpisodeTitleService = async (updateData) => {
-  const { seriesId, seasonNumber, episodeNumber } = updateData;
+const getEpisodeTitleService = async (updateData, seriesId) => {
+  const { seriesName, seasonNumber, episodeNumber } = updateData;
+  console.log("id", seriesId);
 
   const options = {
     method: "GET",
@@ -22,11 +24,19 @@ const getEpisodeTitleService = async (updateData) => {
     // console.log("res", response.data);
 
     const seasons = response.data[(parseInt(seasonNumber, 10) - 1).toString()];
+
     const episode =
       seasons.episodes[(parseInt(episodeNumber, 10) - 1).toString()];
+
     const title = episode.title;
     console.log("title ", title);
-
+    const newSeries = new Series({
+      episodeTitle: title,
+      seriesName,
+      seasonNumber,
+      episodeNumber,
+    });
+    await newSeries.save();
     // console.log(response.data[(parseInt(episodeNumber, 10) - 1).toString()]); //log for check the title
     // console.log("seasons", seasons);
     // console.log("episode", episode);

@@ -18,6 +18,7 @@ const getSeriesNameService = async (showDetails) => {
   try {
     const response = await axios.request(options);
     const seriesId = response.data.d?.[0]?.id || null;
+    console.log("first", seriesId);
     return seriesId;
   } catch (error) {
     console.error(error);
