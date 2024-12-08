@@ -1,5 +1,6 @@
 const { getSeriesNameService } = require("../api/seriesNameServies");
 const { getEpisodeTitleService } = require("../api/episodeTitleService");
+const { saveNewSeries } = require("../api/seriesService");
 
 async function sendSeriesData(req, res, next) {
   try {
@@ -13,7 +14,11 @@ async function sendSeriesData(req, res, next) {
       return res.status(404).json({ message: "Series not found" });
     }
     console.log("Found series ID:", seriesId);
-    await getEpisodeTitleService({ seriesId, seasonNumber, episodeNumber });
+    const title = await getEpisodeTitleService({
+      seriesId,
+      seasonNumber,
+      episodeNumber,
+    });
     res.status(200).json({
       message: "Series data received successfully",
       seriesName: seriesName,
@@ -28,6 +33,12 @@ async function sendSeriesData(req, res, next) {
       "episode ",
       episodeNumber
     );
+    const newSeries = await saveNewSeries({
+      episodeTitle: title,
+      seriesName,
+      seasonNumber,
+      episodeNumber,
+    });
   } catch (error) {
     console.error("Error in sendSeriesData:", error);
     res.status(500).json({ message: "Server error" });

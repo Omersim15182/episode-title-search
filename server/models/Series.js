@@ -6,6 +6,10 @@ const seriesSchema = new mongoose.Schema({
     type: String,
     default: uuidv4,
   },
+  episodeTitle: {
+    type: String,
+    required: true,
+  },
   seriesName: {
     type: String,
     required: true,
