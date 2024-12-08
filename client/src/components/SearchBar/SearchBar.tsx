@@ -4,8 +4,11 @@ import React, { useState } from "react";
 import AddButton from "../Button/AddButton";
 import { Series } from "../../types/types";
 import instance from "../../api/AxiosCreate";
+import style from "./SearchBar.module.css";
 
 export default function SearchBar() {
+  const [episodeTitle, setEpisodeTitle] = useState("");
+
   const [seriesInput, setSeriesInput] = useState("");
   const [seasonInput, setSeasonInput] = useState("");
   const [episodeInput, setEpisodeInput] = useState("");
@@ -50,15 +53,15 @@ export default function SearchBar() {
         "/episodeNamer/Series/series-data",
         seriesNameInput
       );
-      console.log("Series name successfully:", response.data);
+      setEpisodeTitle(response.data.episodeTitle);
+      console.log("Series name successfully:", response.data.episodeTitle);
     } catch (error) {
       console.error("Error fetching episode name:", error);
     }
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      {/*put inside classname */}
+    <Box className={style["search-bar-container"]}>
       <SearchInput
         value={seriesInput}
         onChange={handleSeriesChange}
@@ -83,7 +86,7 @@ export default function SearchBar() {
           <AddButton onClick={handleAdd} />
         </>
       )}
-      <p>title is : dont forget to add here</p>
+      <h3>title is : {episodeTitle}</h3>
     </Box>
   );
 }

@@ -1,15 +1,17 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { createTheme } from '@mui/material/styles';
-import DescriptionIcon from '@mui/icons-material/Description';
-import FolderIcon from '@mui/icons-material/Folder';
-import { AppProvider } from '@toolpad/core/AppProvider';
-import { DashboardLayout } from '@toolpad/core/DashboardLayout';
-import { useDemoRouter } from '@toolpad/core/internal';
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { createTheme } from "@mui/material/styles";
+import DescriptionIcon from "@mui/icons-material/Description";
+import FolderIcon from "@mui/icons-material/Folder";
+import { AppProvider } from "@toolpad/core/AppProvider";
+import { DashboardLayout } from "@toolpad/core/DashboardLayout";
+import { useDemoRouter } from "@toolpad/core/internal";
+import SearchBar from "../SearchBar/SearchBar";
+import style from "./Home.module.css";
 
 const demoTheme = createTheme({
   cssVariables: {
-    colorSchemeSelector: 'data-toolpad-color-scheme',
+    colorSchemeSelector: "data-toolpad-color-scheme",
   },
   colorSchemes: { light: true, dark: true },
   breakpoints: {
@@ -23,18 +25,11 @@ const demoTheme = createTheme({
   },
 });
 
-function DemoPageContent({ pathname }: { pathname: string }) {
+function DemoPageContent() {
   return (
-    <Box
-      sx={{
-        py: 4,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        textAlign: 'center',
-      }}
-    >
-      <Typography>Dashboard content for {pathname}</Typography>
+    <Box className={style["demo-page-container"]}>
+      <Typography></Typography>
+      <SearchBar></SearchBar>
     </Box>
   );
 }
@@ -43,10 +38,10 @@ interface DemoProps {
   window?: () => Window;
 }
 
-export default function DashboardLayoutNavigationNested(props: DemoProps) {
+export default function Home(props: DemoProps) {
   const { window } = props;
 
-  const router = useDemoRouter('/movies/lord-of-the-rings');
+  const router = useDemoRouter("/movies/lord-of-the-rings");
 
   const demoWindow = window !== undefined ? window() : undefined;
 
@@ -55,18 +50,18 @@ export default function DashboardLayoutNavigationNested(props: DemoProps) {
     <AppProvider
       navigation={[
         {
-          segment: 'movies',
-          title: 'Movies',
+          segment: "movies",
+          title: "Movies search history",
           icon: <FolderIcon />,
           children: [
             {
-              segment: 'lord-of-the-rings',
-              title: 'Lord of the Rings',
+              segment: "lord-of-the-rings",
+              title: "Lord of the Rings",
               icon: <DescriptionIcon />,
             },
             {
-              segment: 'harry-potter',
-              title: 'Harry Potter',
+              segment: "harry-potter",
+              title: "Harry Potter",
               icon: <DescriptionIcon />,
             },
           ],
@@ -77,9 +72,8 @@ export default function DashboardLayoutNavigationNested(props: DemoProps) {
       window={demoWindow}
     >
       <DashboardLayout>
-        <DemoPageContent pathname={router.pathname} />
+        <DemoPageContent />
       </DashboardLayout>
     </AppProvider>
-    // preview-end
   );
 }

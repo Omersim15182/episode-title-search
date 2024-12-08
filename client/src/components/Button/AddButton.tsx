@@ -1,15 +1,19 @@
-import Button from '@mui/material/Button';
-import SearchIcon from '@mui/icons-material/Search';
-import Stack from '@mui/material/Stack';
+import Button from "@mui/material/Button";
+import SearchIcon from "@mui/icons-material/Search";
+import Stack from "@mui/material/Stack";
 
 interface AddButtonProps {
-  onClick: () => void
+  onClick: () => void;
 }
 
-export default function IconLabelButtons(props : AddButtonProps) {
+export default function AddButton(props: AddButtonProps) {
   return (
     <Stack direction="row" spacing={2}>
-      <Button variant="contained" endIcon={<SearchIcon />} onClick={props.onClick}>
+      <Button
+        variant="contained"
+        endIcon={<SearchIcon />}
+        onClick={props.onClick}
+      >
         Search
       </Button>
     </Stack>

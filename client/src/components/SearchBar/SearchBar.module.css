@@ -1,0 +1,27 @@
+.search-bar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+
+/*Search input CSS*/
+.paper-container {
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+  }
+
+.input-base-container {
+    margin-left: 16px;
+    flex: 1px;
+}
+
+.icon-button {
+    padding: 10px;
+  }
+
+.divider-container {
+    height: 28;
+    margin: 0.5;
+}
