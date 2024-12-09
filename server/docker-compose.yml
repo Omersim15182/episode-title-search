@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  server:
+    build: .
+    ports:
+      - "3500:3500"
+    environment:
+      - NODE_ENV=development
+      - PORT=3500
+      - MONGO_URI=mongodb://mongo:27017/episode-namer
+    depends_on:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: ["nodemon", "index.js"]
+
+  mongo:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
