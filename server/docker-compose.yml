@@ -14,7 +14,6 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    command: ["nodemon", "index.js"]
 
   mongo:
     image: mongo:5.0
