@@ -1,22 +1,16 @@
 const axios = require("axios");
-
+const { imdbInstance } = require("../common/axios-instance");
 const apiKey = process.env.API_KEY;
 
 const getSeriesNameService = async (showDetails) => {
   const { seriesName } = showDetails;
 
-  const options = {
-    method: "GET",
-    url: "https://imdb8.p.rapidapi.com/auto-complete",
-    params: { q: seriesName },
-    headers: {
-      "x-rapidapi-key": apiKey,
-      "x-rapidapi-host": "imdb8.p.rapidapi.com",
-    },
-  };
-
   try {
-    const response = await axios.request(options);
+    const response = await imdbInstance.get("/auto-complete", {
+      params: { q: seriesName },
+    });
+
+    //filter the data to get the id of the series
     const seriesId = response.data.d?.[0]?.id || null;
     console.log("first", seriesId);
     return seriesId;
