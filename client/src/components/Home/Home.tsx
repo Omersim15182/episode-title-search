@@ -1,49 +1,43 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { createTheme } from "@mui/material/styles";
+import demoTheme from "./theme";
 import DescriptionIcon from "@mui/icons-material/Description";
 import FolderIcon from "@mui/icons-material/Folder";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
-import SearchBar from "../SearchBar/SearchBar";
-import style from "./Home.module.css";
-
-const demoTheme = createTheme({
-  cssVariables: {
-    colorSchemeSelector: "data-toolpad-color-scheme",
-  },
-  colorSchemes: { light: true, dark: true },
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 600,
-      lg: 1200,
-      xl: 1536,
-    },
-  },
-});
-
-function DemoPageContent() {
-  return (
-    <Box className={style["demo-page-container"]}>
-      <Typography></Typography>
-      <SearchBar></SearchBar>
-    </Box>
-  );
-}
+import DemoPageContent from "./DemoPageContent.";
+import { useEffect, useState } from "react";
+import instance from "../../api/AxiosCreate";
 
 interface DemoProps {
   window?: () => Window;
 }
 
 export default function Home(props: DemoProps) {
+  const [title, setTitle] = useState<string>("");
+  console.log("title test :", title);
+
   const { window } = props;
 
   const router = useDemoRouter("/movies/lord-of-the-rings");
 
   const demoWindow = window !== undefined ? window() : undefined;
+
+  // useEffect(() => {
+  //   const getSeriesData = async () => {
+  //     try {
+  //       const response = await instance.get(
+  //         "/episodeNamer/Series/retrieve-data"
+  //       );
+  //       const data = response.data;
+  //       console.log("data retrieve successfully : ", data);
+  //     } catch (error) {
+  //       console.error("Error retrieve data:", error);
+  //     }
+  //   };
+  //   getSeriesData();
+  // }, [title]);
+
+  console.log("titile omer ", title);
 
   return (
     // preview-start
@@ -72,7 +66,7 @@ export default function Home(props: DemoProps) {
       window={demoWindow}
     >
       <DashboardLayout>
-        <DemoPageContent />
+        <DemoPageContent setTitle={setTitle}></DemoPageContent>
       </DashboardLayout>
     </AppProvider>
   );
