@@ -11,12 +11,15 @@ interface Props {
 }
 
 export default function SearchBar({ setTitle }: Props) {
+  //The title of the search episode
   const [episodeTitle, setEpisodeTitle] = useState("");
 
+  //Input labels value
   const [seriesInput, setSeriesInput] = useState("");
   const [seasonInput, setSeasonInput] = useState("");
   const [episodeInput, setEpisodeInput] = useState("");
 
+  //Visibility of the input labels
   const [showSeasonInput, setShowSeasonInput] = useState(false);
   const [showEpisodeInput, setShowEpisodeInput] = useState(false);
 
@@ -45,7 +48,7 @@ export default function SearchBar({ setTitle }: Props) {
     setEpisodeInput(event.target.value);
   };
 
-  const handleAdd = async () => {
+  const getEpisodeTitle = async () => {
     try {
       const seriesNameInput: Series = {
         seriesName: seriesInput,
@@ -88,7 +91,7 @@ export default function SearchBar({ setTitle }: Props) {
             onChange={handleEpisodeChange}
             placeholder="Search episode"
           />
-          <AddButton onClick={handleAdd} />
+          <AddButton onClick={getEpisodeTitle} />
         </>
       )}
       <h3>title is : {episodeTitle}</h3>
