@@ -16,10 +16,13 @@ export const getEpisodeTitleService = async (updateData, seriesId) => {
 
     //filter the data for get the title
     const seasons = response.data[(parseInt(seasonNumber, 10) - 1).toString()];
-    const episode =
-      seasons.episodes[(parseInt(episodeNumber, 10) - 1).toString()];
+
+    const episodeIndex = parseInt(episodeNumber, 10) - 1;
+    const episode = seasons.episodes[episodeIndex.toString()];
     const title = episode.title;
     console.log("title ", title);
+
+  
 
     const newSeries = new Series({
       episodeTitle: title,
@@ -30,7 +33,7 @@ export const getEpisodeTitleService = async (updateData, seriesId) => {
     await newSeries.save();
     await redisClient.setEx(cacheKey, 3600, title);
 
-    return title;
+    return { title, seasons };
   } catch (error) {
     console.error(error);
     return null;
@@ -63,4 +66,3 @@ export const getSeriesNameService = async (showDetails) => {
     return null;
   }
 };
-
