@@ -1,7 +1,9 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import dotenv from "dotenv"
 
-const mongoURI =
-  process.env.MONGO_URI || "mongodb://localhost:27017/episode-namer";
+dotenv.config()
+
+const mongoURI = process.env.MONGO_URI;
 
 const connectDB = async () => {
   try {
@@ -14,4 +16,4 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB;
+export default connectDB;

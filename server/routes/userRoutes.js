@@ -1,11 +1,11 @@
-const express = require("express");
+import express from "express";
+
 const router = express.Router();
 
-const serverUserController = require("../controllers/userController");
-
+import sendSeriesData from "../controllers/userController.js";
 /*GET user controllers*/
 
 /*POST user controllers*/
-router.post("/Series/series-data", serverUserController.sendSeriesData);
+router.post("/Series/series-data", sendSeriesData);
 
-module.exports = router;
+export default router;

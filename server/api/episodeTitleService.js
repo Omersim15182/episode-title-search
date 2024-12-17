@@ -1,8 +1,10 @@
-const Series = require("../models/Series");
-const { imdbInstance } = require("../common/axios-instance");
+import Series from "../models/Series.js";
+import imdbInstance from "../common/axios-instance.js";
+import redisClient from "../config/redisClient.js";
 
-const getEpisodeTitleService = async (updateData, seriesId) => {
+export const getEpisodeTitleService = async (updateData, seriesId) => {
   const { seriesName, seasonNumber, episodeNumber } = updateData;
+  const cacheKey = `${seriesName}:season:${seasonNumber}:episode:${episodeNumber}`;
   console.log("id", seriesId);
 
   try {
@@ -26,6 +28,7 @@ const getEpisodeTitleService = async (updateData, seriesId) => {
       episodeNumber,
     });
     await newSeries.save();
+    await redisClient.setEx(cacheKey, 3600, title);
 
     return title;
   } catch (error) {
@@ -34,10 +37,19 @@ const getEpisodeTitleService = async (updateData, seriesId) => {
   }
 };
 
-const getSeriesNameService = async (showDetails) => {
-  const { seriesName } = showDetails;
+export const getSeriesNameService = async (showDetails) => {
+  const { seriesName, seasonNumber, episodeNumber } = showDetails;
+  const cacheKey = `${seriesName}:season:${seasonNumber}:episode:${episodeNumber}`;
 
   try {
+    const cachedTitle = await redisClient.get(cacheKey);
+    console.log("cacahe", cachedTitle);
+
+    if (cachedTitle) {
+      console.log("Cache hit");
+      return cachedTitle;
+    }
+
     const response = await imdbInstance.get("/auto-complete", {
       params: { q: seriesName },
     });
@@ -52,4 +64,3 @@ const getSeriesNameService = async (showDetails) => {
   }
 };
 
-module.exports = { getEpisodeTitleService, getSeriesNameService };

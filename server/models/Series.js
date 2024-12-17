@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { v4: uuidv4 } = require("uuid");
+import mongoose from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
 const seriesSchema = new mongoose.Schema({
   _id: {
@@ -30,4 +30,4 @@ const seriesSchema = new mongoose.Schema({
 
 const Series = mongoose.model("Series", seriesSchema);
 
-module.exports = Series;
+export default Series;

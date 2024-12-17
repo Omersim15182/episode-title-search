@@ -1,4 +1,5 @@
-const axios = require("axios");
+import axios from "axios";
+
 const apiKey = process.env.API_KEY;
 
 const imdbInstance = axios.create({
@@ -9,4 +10,4 @@ const imdbInstance = axios.create({
     "x-rapidapi-host": "imdb8.p.rapidapi.com",
   },
 });
-module.exports = { imdbInstance };
+export default imdbInstance;
