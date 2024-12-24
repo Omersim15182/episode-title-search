@@ -5,14 +5,15 @@ import style from "./Home.module.css";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
+  title: string;
   setTitle: Dispatch<SetStateAction<string>>;
 }
 
-function DemoPageContent({ setTitle }: Props) {
+function DemoPageContent({ title, setTitle }: Props) {
   return (
     <Box className={style["demo-page-container"]}>
       <Typography>Episoder Namer</Typography>
-      <SearchBar setTitle={setTitle} />
+      <SearchBar title={title} setTitle={setTitle} />
     </Box>
   );
 }

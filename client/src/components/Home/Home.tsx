@@ -5,8 +5,7 @@ import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
 import DemoPageContent from "./DemoPageContent.";
-import { useEffect, useState } from "react";
-import instance from "../../api/AxiosCreate";
+import { useState } from "react";
 
 interface DemoProps {
   window?: () => Window;
@@ -66,7 +65,7 @@ export default function Home(props: DemoProps) {
       window={demoWindow}
     >
       <DashboardLayout>
-        <DemoPageContent setTitle={setTitle}></DemoPageContent>
+        <DemoPageContent title={title} setTitle={setTitle}></DemoPageContent>
       </DashboardLayout>
     </AppProvider>
   );

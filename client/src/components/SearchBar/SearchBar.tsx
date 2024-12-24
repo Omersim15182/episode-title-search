@@ -2,17 +2,17 @@ import Box from "@mui/material/Box";
 import SearchInput from "./SearchInput";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import AddButton from "../Button/AddButton";
-import { Series } from "../../types/types";
-import instance from "../../api/AxiosCreate";
+import { Episode } from "../../types/types";
 import style from "./SearchBar.module.css";
+import { getEpisodeTitle } from "../../api/series/series.api";
 
 interface Props {
+  title: string;
   setTitle: Dispatch<SetStateAction<string>>;
 }
 
-export default function SearchBar({ setTitle }: Props) {
+export default function SearchBar({ title, setTitle }: Props) {
   //The title of the search episode
-  const [episodeTitle, setEpisodeTitle] = useState("");
 
   //Input labels value
   const [seriesInput, setSeriesInput] = useState("");
@@ -35,7 +35,7 @@ export default function SearchBar({ setTitle }: Props) {
   };
 
   const handleSeasonChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSeasonInput(event.target.value);
+    setSeasonInput(event.target.value); //create a const for eve.et.target.value
 
     if (event.target.value) {
       setShowEpisodeInput(true);
@@ -43,29 +43,20 @@ export default function SearchBar({ setTitle }: Props) {
       setShowEpisodeInput(false);
     }
   };
-
   const handleEpisodeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEpisodeInput(event.target.value);
   };
 
-  const getEpisodeTitle = async () => {
-    try {
-      const seriesNameInput: Series = {
-        seriesName: seriesInput,
-        seasonNumber: seasonInput,
-        episodeNumber: episodeInput,
-      };
+  const handleAddEpisode = async () => {
+    const seriesEpisode: Episode = {
+      seriesName: seriesInput,
+      seasonNumber: seasonInput,
+      episodeNumber: episodeInput,
+    };
 
-      const response = await instance.post(
-        "/episodeNamer/Series/series-data",
-        seriesNameInput
-      );
-      setEpisodeTitle(response.data.episodeTitle);
-      setTitle(response.data.episodeTitle);
-      console.log("Series name successfully:", response.data.episodeTitle);
-    } catch (error) {
-      console.error("Error fetching episode name:", error);
-    }
+    const episodeTitle = await getEpisodeTitle(seriesEpisode);
+    setTitle(episodeTitle);
+    console.log("Series name successfully:", episodeTitle);
   };
 
   return (
@@ -91,10 +82,10 @@ export default function SearchBar({ setTitle }: Props) {
             onChange={handleEpisodeChange}
             placeholder="Search episode"
           />
-          <AddButton onClick={getEpisodeTitle} />
+          <AddButton onClick={handleAddEpisode} />
         </>
       )}
-      <h3>title is : {episodeTitle}</h3>
+      <h3>title is : {title}</h3>
     </Box>
   );
 }
