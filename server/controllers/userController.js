@@ -20,6 +20,8 @@ export async function registerUser(req, res) {
   if (result)
     return res.status(200).json({ message: "successful to create user" });
   else {
-    return res.status(500).json({ message: "Faild to register user" });
+    return res
+      .status(500)
+      .json({ message: "Faild to register user try diffrent email" });
   }
 }
