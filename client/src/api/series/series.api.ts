@@ -1,9 +1,9 @@
 import axiosInstance from "../axiosInstance";
 import { Episode } from "../../types/types";
 
-export const getEpisodeTitle = async (series: Episode): Promise<string> => {
+export const getEpisodeTitle = async (series: Episode) => {
   try {
-    const response = await axiosInstance.post<{ episodeTitle: string }>(
+    const response = await axiosInstance.post(
       "/episodeNamer/Series/series-data",
       series
     );

@@ -4,10 +4,10 @@ services:
   server:
     build: .
     ports:
-      - "3500:3500"
+      - "3501:3501"
     environment:
       - NODE_ENV=development
-      - PORT=3500
+      - PORT=3501
       - MONGO_URI=mongodb://mongo:27017/episode-namer
       - REDIS_HOST=redis
       - REDIS_PORT=6379

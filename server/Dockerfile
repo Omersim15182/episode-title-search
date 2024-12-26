@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose the port your app runs on
-EXPOSE 3500
+EXPOSE 3501
 
 # Command to run your application with nodemon
 CMD ["npm", "start"]

@@ -28,7 +28,7 @@ def check_service_health():
     containers = client.containers.list()
     container_names = {container.name for container in containers}
 
-    expected_containers = ['server-server-1', 'server-mongo-1', 'server-redis-1', 'server-client-1']
+    expected_containers = ['server-express', 'server-mongo-1', 'server-redis-1', 'client']
     for container in expected_containers:
         print(f"Container {container} is {'running' if container in container_names else 'not running'}.")
 
