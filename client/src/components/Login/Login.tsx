@@ -10,7 +10,7 @@ import {
   Grid,
 } from "@mui/material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import style from "./Login.module.css";
 import { userLogin } from "../../types/types";
 import { authLogin } from "../../api/series/login.api";
@@ -18,6 +18,7 @@ import { authLogin } from "../../api/series/login.api";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     const user: userLogin = {
@@ -25,7 +26,10 @@ export default function Login() {
       password: password,
     };
 
-    await authLogin(user);
+    const existingUser = await authLogin(user);
+    console.log(existingUser);
+
+    if (existingUser) navigate("/home");
   };
 
   return (

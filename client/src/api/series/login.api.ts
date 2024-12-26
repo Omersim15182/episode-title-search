@@ -3,11 +3,9 @@ import { userLogin } from "../../types/types";
 
 export const authLogin = async (user: userLogin) => {
   try {
-    const paramsEmail = user.email;
-    const response = await axiosInstance.get("/episodeNamer/user/Login", {
-      params: { paramsEmail },
-    });
+    const response = await axiosInstance.post("/episodeNamer/user/Login", user);
     console.log("status user login : ", response.data);
+    return true;
   } catch (err: any) {
     console.error(
       "Error occurred:",
