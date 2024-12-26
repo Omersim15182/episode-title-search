@@ -1,27 +1,25 @@
-import {
-  getSeriesNameService,
-  getEpisodeTitleService,
-} from "../api/episodeTitleService.js";
-import { getOfferEpisode } from "../api/offerEpisodesService.js";
-import { isInvalidSeriesId } from "../utils/idValidator.js";
+import { isLoggedIn, register } from "../api/usersService.js";
 
-async function sendSeriesData(req, res) {
-  try {
-    const seriesId = await getSeriesNameService(req.body);
-    if (isInvalidSeriesId(seriesId)) {
-      return res.status(200).json({
-        episodeTitle: seriesId,
-      });
-    }
-    const dataSeries = await getEpisodeTitleService(req.body, seriesId);
-    await getOfferEpisode(req.body, dataSeries.seasons);
+export async function loginUser(req, res) {
+  const { email } = req.body;
+  console.log("test");
 
-    return res.status(200).json({
-      seriesId,
-      episodeTitle: dataSeries.title,
+  const response = await isLoggedIn(email);
+  if (response) {
+    return res.status(200).json({ message: "user is logged in" });
+  } else {
+    return res.status(500).json({
+      message: "Error in check if logged in.",
     });
-  } catch (error) {
-    return res.status(500).json({ message: "Internal Server Error" });
   }
 }
-export default sendSeriesData;
+
+export async function registerUser(req, res) {
+  const user = req.body;
+  const result = await register(user);
+  if (result)
+    return res.status(200).json({ message: "successful to create user" });
+  else {
+    return res.status(500).json({ message: "Faild to register user" });
+  }
+}

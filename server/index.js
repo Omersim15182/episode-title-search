@@ -1,13 +1,14 @@
-const cors = require("cors");
-const express = require("express");
+import cors from "cors";
+import express from "express";
+import connectDB from "./config/db.js";
+import dotenv from "dotenv";
+import userRoutes from "./routes/userRoutes.js";
+dotenv.config();
+
 const app = express();
-const connectDB = require("./config/db");
-require("dotenv").config();
-const port = 3500;
+const PORT = process.env.PORT_SERVER;
 
 connectDB();
-
-const userRoutes = require("./routes/userRoutes");
 
 app.use(cors());
 
@@ -19,6 +20,6 @@ app.get("/", (req, res) => {
 
 app.use("/episodeNamer", userRoutes);
 
-app.listen(port, () => {
-  console.log(`app listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`app listening on port ${PORT}`);
 });

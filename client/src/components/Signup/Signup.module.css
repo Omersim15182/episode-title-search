@@ -1,0 +1,51 @@
+.body {
+    display:flex;
+    flex-direction: column;
+}
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .avatar {
+    margin: 1rem;
+    background-color: #1976d2; 
+  }
+  
+  .form-box {
+    margin-top: 3rem;
+    width: 100%;
+  }
+  
+  .header-text {
+    margin-top: 1rem;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  .grid-container {
+    margin-top: 1rem;
+  }
+  
+  .text-field {
+    margin-bottom: 1.5rem;
+  }
+  
+  .register-button {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .link-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+  
+  .link-text {
+    color: #1976d2;
+    text-decoration: none;
+  }
+  
