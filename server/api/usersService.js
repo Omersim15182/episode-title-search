@@ -1,10 +1,15 @@
 import Users from "../models/Users.js";
+import { generateAccessToken } from "../auth/token.js";
 
-export const isLoggedIn = async (email) => {
+export const login = async (user) => {
   try {
-    const existingUser = await Users.findOne({ email: email });
+    const existingUser = await Users.findOne({
+      email: user.email,
+      password: user.password,
+    });
     if (existingUser) {
-      return true;
+      const token = generateAccessToken(user);
+      return token;
     }
     return false;
   } catch (error) {
@@ -14,13 +19,18 @@ export const isLoggedIn = async (email) => {
 
 export const register = async (user) => {
   console.log(user);
-
+  const existingUser = await Users.findOne({ email: user.email });
+  if (existingUser) {
+    console.log("Email already exists");
+    return false;
+  }
   try {
     const newUser = new Users({
       name: user.name,
       email: user.email,
       password: user.password,
     });
+
     const isUserCreated = await newUser.save();
     console.log("iscreated", isUserCreated);
 

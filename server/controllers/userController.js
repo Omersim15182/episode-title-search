@@ -1,16 +1,21 @@
-import { isLoggedIn, register } from "../api/usersService.js";
+import { login as login, register } from "../api/usersService.js";
 
 export async function loginUser(req, res) {
-  const { email } = req.body;
-  console.log("test");
+  const user = req.body;
+  console.log("body", req.body);
 
-  const response = await isLoggedIn(email);
-  if (response) {
-    return res.status(200).json({ message: "user is logged in" });
-  } else {
-    return res.status(500).json({
-      message: "Error in check if logged in.",
+  const token = await login(user);
+  if (token) {
+    res.cookie("token", token, {
+      path: "/",
+      maxAge: 3600000,
+      httpOnly: true,
+      secure: true,
     });
+    return res.status(200).json({ message: "User logged in successfully." });
+  } else {
+    console.error("Error in loginUser:", error);
+    return res.status(500).json({ message: "An error occurred during login." });
   }
 }
 

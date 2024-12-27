@@ -5,7 +5,8 @@ export const getEpisodeTitle = async (series: Episode) => {
   try {
     const response = await axiosInstance.post(
       "/episodeNamer/Series/series-data",
-      series
+      series,
+      { withCredentials: true }
     );
     const episodeTitle = response.data.episodeTitle;
     console.log("Series name successfully:", episodeTitle);

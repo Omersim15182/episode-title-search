@@ -13,12 +13,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./Login.module.css";
 import { userLogin } from "../../types/types";
-import { authLogin } from "../../api/series/login.api";
+import { inLogging } from "../../api/login/login.api";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const navigator = useNavigate();
 
   const handleLogin = async () => {
     const user: userLogin = {
@@ -26,10 +26,8 @@ export default function Login() {
       password: password,
     };
 
-    const existingUser = await authLogin(user);
-    console.log(existingUser);
-
-    if (existingUser) navigate("/home");
+    const existingUser = await inLogging(user);
+    if (existingUser) navigator("/home");
   };
 
   return (
