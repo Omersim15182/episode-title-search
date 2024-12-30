@@ -14,8 +14,16 @@ export async function loginUser(req, res) {
     });
     return res.status(200).json({ message: "User logged in successfully." });
   } else {
-    console.error("Error in loginUser:", error);
     return res.status(500).json({ message: "An error occurred during login." });
+  }
+}
+
+export async function verifyUser(req, res) {
+  try {
+    console.log("user is verify");
+    return res.status(200).json({ message: "User is verify" });
+  } catch (error) {
+    return res.status(401).json({ message: "User is not verify" });
   }
 }
 
