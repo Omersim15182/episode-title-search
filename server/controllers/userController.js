@@ -35,6 +35,8 @@ export async function registerUser(req, res) {
   else {
     return res
       .status(500)
-      .json({ message: "Faild to register user try diffrent email" });
+      .json({
+        message: "Faild to register user try diffrent email or password",
+      });
   }
 }

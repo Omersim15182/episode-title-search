@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-
+import { isInvalidEmail } from "../utils/emailValidator.js";
 import Users from "../models/Users.js";
 import { generateAccessToken } from "../auth/token.js";
 
@@ -29,6 +29,16 @@ export const login = async (user) => {
 
 export const register = async (user) => {
   console.log(user);
+
+  if (isInvalidEmail(user.email)) {
+    console.log("Invalid email format");
+    return false;
+  }
+
+  if (user.password.length < 8) {
+    console.log("Password must be at least 8 characters long");
+    return false;
+  }
   const existingUser = await Users.findOne({ email: user.email });
   if (existingUser) {
     console.log("Email already exists");
