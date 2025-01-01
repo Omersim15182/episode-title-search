@@ -1,5 +1,8 @@
 import cors from "cors";
 import express from "express";
+import fs from "fs";
+import https from "https";
+import path from "path";
 import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
@@ -10,18 +13,37 @@ const app = express();
 const PORT = process.env.PORT_SERVER;
 
 connectDB();
+const dirname = path.resolve();
+const options = {
+  key: fs.readFileSync(path.join(dirname, "localhost-key.pem")),
+
+  cert: fs.readFileSync(path.join(dirname, "localhost.pem")),
+};
+
 app.use(cookieParser());
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({
+    origin: "https://localhost:5173",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
+app.use("/episodeNamer", userRoutes);
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello World! This is a secure HTTPS server.");
 });
 
-app.use("/episodeNamer", userRoutes);
+app.get("/get", (req, res) => {
+  const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+  console.log("Full URL:", fullUrl); // Log the full URL
+  res.setHeader("X-Full-URL", fullUrl);
+  res.send("Check the 'X-Full-URL' header for the full URL.");
+});
+const server = https.createServer(options, app);
 
-app.listen(PORT, () => {
-  console.log(`app listening on port ${PORT}`);
+server.listen(PORT, () => {
+  console.log(`App is listening on port ${PORT} with HTTPS`);
 });
