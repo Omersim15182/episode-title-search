@@ -84,14 +84,14 @@ Backend: https://localhost:3501
 
 Here is an example of the .env file:
 
-env
-Copy code
-API_KEY=your-api-key
-PORT_SERVER=3501
-MONGO_URI=mongodb://127.0.0.1:27017/episode-namer
-REDIS_HOST=127.0.0.1
-REDIS_PORT=6379
-TOKEN_SECRET=your-secret-key
+env                                                                                                                   
+Copy code                                                                                                                   
+API_KEY=your-api-key                                                                                                                   
+PORT_SERVER=3501                                                                                                                   
+MONGO_URI=mongodb://127.0.0.1:27017/episode-namer                                                                                                                   
+REDIS_HOST=127.0.0.1                                                                                                                   
+REDIS_PORT=6379                                                                                                                   
+TOKEN_SECRET=your-secret-key                                                                                                                   
 
 🌟 Key Benefits
 Simplified HTTP Communication: Axios streamlines client-server and server-server requests.
