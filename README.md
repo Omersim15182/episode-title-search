@@ -43,7 +43,7 @@ The backend securely verifies the user's identity by checking the JWT token stor
 4. Data Fetching
 The backend checks Redis to see if the episode title is already cached:
 If cached: The title is returned immediately.
-If not cached: The backend fetches the title from MongoDB, caches it in Redis for future requests, and then returns it.
+If not cached: The backend fetches the title with api request, caches it in Redis for future requests, and then returns it.
 5. Frontend Display
 The episode title is displayed on the frontend using Material-UI components for a smooth and responsive user experience.
 📦 Setup Instructions
