@@ -82,16 +82,28 @@ Access the Application
 Frontend: https://localhost:3000
 Backend: https://localhost:3501
 
-Here is an example of the .env file:
+## Environment Variables
 
-env                                                                                                                   
-Copy code                                                                                                                   
-API_KEY=your-api-key                                                                                                                   
-PORT_SERVER=3501                                                                                                                   
-MONGO_URI=mongodb://127.0.0.1:27017/episode-namer                                                                                                                   
-REDIS_HOST=127.0.0.1                                                                                                                   
-REDIS_PORT=6379                                                                                                                   
-TOKEN_SECRET=your-secret-key                                                                                                                   
+To set up your local development environment, create a `.env` file in the root directory of the project and add the following variables:
+
+API_KEY=your-api-key
+PORT_SERVER=3501
+MONGO_URI=mongodb://127.0.0.1:27017/episode-namer
+REDIS_HOST=127.0.0.1 
+REDIS_PORT=6379 
+TOKEN_SECRET=your-secret-key
+
+vbnet
+Copy code
+
+Make sure to replace `your-api-key` and `your-secret-key` with actual values before starting the application.
+
+### How to set up:
+
+1. Copy the environment variables above.
+2. Create a `.env` file in the root of your project.
+3. Paste the copied environment variables into the `.env` file.
+4. Replace `your-api-key` and `your-secret-key` with your real API key and secret key.
 
 🌟 Key Benefits
 Simplified HTTP Communication: Axios streamlines client-server and server-server requests.
