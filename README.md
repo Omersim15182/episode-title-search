@@ -54,11 +54,11 @@ Self-signed certificates (localhost-key.pem and localhost.pem) are provided for 
 Steps
 Clone the Repository
 
-bash__            
-Copy code__                                                                                                                                                                                                         
-git clone https://github.com/Omersim15182/episode-namer.git  # 🖱️ Click to copy__                                                                                                                                  
-cd episode-namer__                                                                                                                                                                                                 
-Install Dependencies__                                                                                                                                                                                              
+bash            
+Copy code <br>                                                                                                                                                                                                      
+git clone https://github.com/Omersim15182/episode-namer.git  # 🖱️ Click to copy <br>                                                                                                                  
+cd episode-namer <br>                                                                                                                                                                                         
+Install Dependencies  <br>                                                                                                                                                                                   
 Frontend:__                                                                                                                                                                                                    
 bash__                                                                                                                                                                                                
 Copy code__                                                                                                                                                                                                
