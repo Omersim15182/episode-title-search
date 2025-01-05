@@ -32,27 +32,28 @@ Docker: Containerized deployment of frontend, backend, and Redis.
 Docker Compose: Orchestrates all services seamlessly.
 
 ⚙️ How It Works
+
 1. User Registers and Logs In
-The user registers an account with a valid email address, which is validated using email-validator.
-After registration, the user logs in and receives a JWT token, stored securely in HTTP-only cookies for authentication.
+   The user registers an account with a valid email address, which is validated using email-validator.
+   After registration, the user logs in and receives a JWT token, stored securely in HTTP-only cookies for authentication.
 2. User Selects an Episode
-The user enters the series name, season, and episode number in the frontend.
-The frontend sends this information as a request to the backend using Axios.
+   The user enters the series name, season, and episode number in the frontend.
+   The frontend sends this information as a request to the backend using Axios.
 3. Authentication
-The backend securely verifies the user's identity by checking the JWT token stored in the HTTP-only cookie to ensure the user is authorized.
+   The backend securely verifies the user's identity by checking the JWT token stored in the HTTP-only cookie to ensure the user is authorized.
 4. Data Fetching
-The backend checks Redis to see if the episode title is already cached:
-If cached: The title is returned immediately.
-If not cached: The backend fetches the title from MongoDB, caches it in Redis for future requests, and then returns it.
+   The backend checks Redis to see if the episode title is already cached:
+   If cached: The title is returned immediately.
+   If not cached: The backend fetches the title from MongoDB, caches it in Redis for future requests, and then returns it.
 5. Frontend Display
-The episode title is displayed on the frontend using Material-UI components for a smooth and responsive user experience.
-📦 Setup Instructions
-Prerequisites
-Docker installed on your machine.
-SSL certificate for HTTPS (e.g., via Let's Encrypt for production).
-Self-signed certificates (localhost-key.pem and localhost.pem) are provided for local development.
-Steps
-Clone the Repository
+   The episode title is displayed on the frontend using Material-UI components for a smooth and responsive user experience.
+   📦 Setup Instructions
+   Prerequisites
+   Docker installed on your machine.
+   SSL certificate for HTTPS (e.g., via Let's Encrypt for production).
+   Self-signed certificates (localhost-key.pem and localhost.pem) are provided for local development.
+   Steps
+   Clone the Repository
 
 bash
 Copy code
@@ -87,31 +88,31 @@ plaintext
 Copy code
 📁 episode-namer
 ├── 📁 client
-│   ├── src/
-│   │   ├── components/       (React components styled with Material-UI)
-│   │   ├── api/              (Frontend API logic)
-│   │   ├── auth/             (Authentication logic)
-│   │   ├── routes/           (Route definitions)
-│   │   ├── types/            (TypeScript definitions)
-│   │   └── cert/             (SSL certificates for HTTPS)
-│   ├── dockerfile
-│   ├── docker-compose.yml
-│   └── package.json
+│ ├── src/
+│ │ ├── components/ (React components styled with Material-UI)
+│ │ ├── api/ (Frontend API logic)
+│ │ ├── auth/ (Authentication logic)
+│ │ ├── routes/ (Route definitions)
+│ │ ├── types/ (TypeScript definitions)
+│ │ └── cert/ (SSL certificates for HTTPS)
+│ ├── dockerfile
+│ ├── docker-compose.yml
+│ └── package.json
 ├── README.md
 ├── 📁 server
-│   ├── models/               (MongoDB schemas)
-│   ├── routes/               (Express routes)
-│   ├── common/               (Axios instances)
-│   ├── config/               (MongoDB and Redis configuration)
-│   ├── controllers/          (Controllers for series and users)
-│   ├── middleware/           (JWT authentication middleware)
-│   ├── api/                  (External API calls)
-│   ├── utils/                (Utility functions)
-│   ├── dockerfile
-│   ├── docker-compose.yml
-│   ├── .env                  (Environment variables)
-│   ├── localhost-key.pem     (SSL key for local HTTPS)
-│   └── localhost.pem         (SSL certificate for local HTTPS)
+│ ├── models/ (MongoDB schemas)
+│ ├── routes/ (Express routes)
+│ ├── common/ (Axios instances)
+│ ├── config/ (MongoDB and Redis configuration)
+│ ├── controllers/ (Controllers for series and users)
+│ ├── middleware/ (JWT authentication middleware)
+│ ├── api/ (External API calls)
+│ ├── utils/ (Utility functions)
+│ ├── dockerfile
+│ ├── docker-compose.yml
+│ ├── .env (Environment variables)
+│ ├── localhost-key.pem (SSL key for local HTTPS)
+│ └── localhost.pem (SSL certificate for local HTTPS)
 🔑 Environment Variables (.env)
 Here is an example of the .env file:
 
