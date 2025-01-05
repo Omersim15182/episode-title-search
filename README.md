@@ -54,44 +54,42 @@ Self-signed certificates (localhost-key.pem and localhost.pem) are provided for 
 Steps
 Clone the Repository
 
-bash
-Copy code
-git clone https://github.com/Omersim15182/episode-namer.git  # 🖱️ Click to copy
-cd episode-namer
-Install Dependencies
-Frontend:
-bash
-Copy code
-cd client
-npm install  # 🖱️ Click to copy
-docker-compose up --build client  # 🖱️ Click to copy
-cd ..
-Backend:
-bash
-Copy code
-cd server
-npm install  # 🖱️ Click to copy
-cd ..
-Start Services with Docker Compose 
-
-bash
-Copy code
-docker-compose up --build  # 🖱️ Click to copy
-Access the Application
-
-Frontend: https://localhost:3000
-Backend: https://localhost:3501
+bash__            
+Copy code__                                                                                                                                                                                                         
+git clone https://github.com/Omersim15182/episode-namer.git  # 🖱️ Click to copy__                                                                                                                                  
+cd episode-namer__                                                                                                                                                                                                 
+Install Dependencies__                                                                                                                                                                                              
+Frontend:__                                                                                                                                                                                                    
+bash__                                                                                                                                                                                                
+Copy code__                                                                                                                                                                                                
+cd client__                                                                                                                                                                                                
+npm install  # 🖱️ Click to copy__                                                                                                                                                                                  
+docker-compose up --build client  # 🖱️ Click to copy__                                                                                                                                                             
+cd ..__                                                                                                                                                                                                
+Backend:__                                                                                                                                                                                                
+bash__                                                                                                                                                                                                
+Copy code__                                                                                                                                                                                                
+cd server__                                                                                                                                                                                                
+npm install  # 🖱️ Click to copy__                                                                                                                                                                                  
+cd ..__                                                                                                                                                                                                
+Start Services with Docker Compose__                                                                                                                                                                               
+bash__                                                                                                                                                                                                
+Copy code__                                                                                                                                                                                                
+docker-compose up --build  # 🖱️ Click to copy__                                                                                                                                                                    
+Access the Application__                                                                                                                                                                                              
+Frontend: https://localhost:3000__                                                                                                                                                                                    
+Backend: https://localhost:3501__
 
 ## Environment Variables
 
 To set up your local development environment, create a `.env` file in the root directory of the project and add the following variables:
 
-API_KEY=your-api-key                                                                                                                                                                                                
-PORT_SERVER=3501                                                                                                                                                                                                    
-MONGO_URI=mongodb://127.0.0.1:27017/episode-namer                                                                                                                                                                   
-REDIS_HOST=127.0.0.1                                                                                                                                                                                                
-REDIS_PORT=6379                                                                                                                                                                                                     
-TOKEN_SECRET=your-secret-key                                                                                                                                                                     
+API_KEY=your-api-key\                                                                                                                                                                                             
+PORT_SERVER=3501\                                                                                                                                                                                                   
+MONGO_URI=mongodb://127.0.0.1:27017/episode-namer\                                                                                                                                                                 
+REDIS_HOST=127.0.0.1\                                                                                                                                                                                           
+REDIS_PORT=6379\                                                                                                                                                                                               
+TOKEN_SECRET=your-secret-key\                                                                                                                                                               
 
 vbnet
 Copy code
