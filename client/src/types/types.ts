@@ -1,7 +1,7 @@
 export type Episode = {
   seriesId?: string | null;
   seriesName?: string;
-  episodeDescription?: string;
+  episodeTitle?: string;
   seasonNumber?: string;
   episodeNumber?: string;
 };

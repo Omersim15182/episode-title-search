@@ -2,7 +2,7 @@ import axiosInstance from "../axiosInstance";
 import { userLogin } from "../../types/types";
 import { setCookie } from "typescript-cookie";
 
-export const inLogging = async (user: userLogin) => {
+export const loginUser = async (user: userLogin) => {
   try {
     const response = await axiosInstance.post(
       "/episodeNamer/user/auth/Login",
@@ -14,8 +14,10 @@ export const inLogging = async (user: userLogin) => {
       expires: 1 / 24,
       path: "/",
     });
-
+    const userId = response.data.userId;
+    localStorage.setItem("userId", userId);
     console.log("status user login : ", response.data);
+
     return true;
   } catch (err: any) {
     console.error(

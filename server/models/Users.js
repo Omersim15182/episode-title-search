@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 import { v4 as uuidv4 } from "uuid";
 
 const UsersSchema = new mongoose.Schema({
@@ -19,7 +18,14 @@ const UsersSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    set: (value) => value.toLowerCase(),
   },
+  watchedSeries: [
+    {
+      type: String,
+      ref: "Series",
+    },
+  ],
 });
 
 const Users = mongoose.model("Users", UsersSchema);

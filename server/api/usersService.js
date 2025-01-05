@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
-import { isInvalidEmail } from "../utils/emailValidator.js";
 import Users from "../models/Users.js";
+
 import { generateAccessToken } from "../auth/token.js";
+import validator from "email-validator";
 
 export const login = async (user) => {
   try {
@@ -14,8 +15,10 @@ export const login = async (user) => {
         existingUser.password
       );
       if (isPasswordValid) {
-        const token = generateAccessToken(user);
-        return token;
+        const token = await generateAccessToken(user);
+        console.log(existingUser._id);
+
+        return { token, userId: existingUser._id };
       } else {
         console.log("Invalid password");
         return false;
@@ -29,8 +32,8 @@ export const login = async (user) => {
 
 export const register = async (user) => {
   console.log(user);
-
-  if (isInvalidEmail(user.email)) {
+  const isValid = validator.validate(user.email);
+  if (!isValid) {
     console.log("Invalid email format");
     return false;
   }

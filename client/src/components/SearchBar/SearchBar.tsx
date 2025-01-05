@@ -12,8 +12,6 @@ interface Props {
 }
 
 export default function SearchBar({ title, setTitle }: Props) {
-  //The title of the search episode
-
   //Input labels value
   const [seriesInput, setSeriesInput] = useState("");
   const [seasonInput, setSeasonInput] = useState("");
@@ -35,7 +33,7 @@ export default function SearchBar({ title, setTitle }: Props) {
   };
 
   const handleSeasonChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSeasonInput(event.target.value); //create a const for eve.et.target.value
+    setSeasonInput(event.target.value); 
 
     if (event.target.value) {
       setShowEpisodeInput(true);
@@ -53,10 +51,13 @@ export default function SearchBar({ title, setTitle }: Props) {
       seasonNumber: seasonInput,
       episodeNumber: episodeInput,
     };
-
-    const episodeTitle = await getEpisodeTitle(seriesEpisode);
-    setTitle(episodeTitle);
-    console.log("Series name successfully:", episodeTitle);
+    try {
+      const episodeTitle = await getEpisodeTitle(seriesEpisode);
+      setTitle(episodeTitle);
+      console.log("Series name successfully:", episodeTitle);
+    } catch (error) {
+      console.error("error in search title", error);
+    }
   };
 
   return (
