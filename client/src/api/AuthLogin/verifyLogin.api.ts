@@ -9,6 +9,7 @@ export const verifyUser = async (): Promise<boolean> => {
     console.log("status user verify : ", response.data);
     return true;
   } catch (err: any) {
+    localStorage.setItem("userId", "");
     console.error(
       "Error verify user:",
       err.response ? err.response.data : err.message

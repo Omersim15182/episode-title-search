@@ -13,7 +13,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./Signup.module.css"; // Import the CSS module
 import { userRegister } from "../../types/types";
-import { registerUser } from "../../api/series/register.api";
+import { registerUser } from "../../api/register/register.api";
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -28,24 +28,6 @@ export default function Signup() {
     };
     await registerUser(user);
   };
-  // const handleRegister = async () => {
-  //   try {
-  //     const user: userRegister = {
-  //       name: name,
-  //       email: email,
-  //       password: password,
-  //     };
-  //     const response = await instance.post("/episodeNamer/user/register", user);
-
-  //     if (response.status === 201) {
-  //       console.log("Registration successful");
-  //     } else {
-  //       console.log("Registration failed:", response.data);
-  //     }
-  //   } catch (error) {
-  //     console.error("Registration error:", error);
-  //   }
-  // };
 
   return (
     <>

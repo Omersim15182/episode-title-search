@@ -2,9 +2,10 @@ import { login as login, register } from "../api/usersService.js";
 
 export async function loginUser(req, res) {
   const user = req.body;
-  console.log("body", req.body);
 
-  const token = await login(user);
+  const { token, userId } = await login(user);
+  console.log("token", token);
+
   if (token) {
     res.cookie("token", token, {
       path: "/",
@@ -12,7 +13,9 @@ export async function loginUser(req, res) {
       httpOnly: true,
       secure: true,
     });
-    return res.status(200).json({ message: "User logged in successfully." });
+    return res
+      .status(200)
+      .json({ message: "User logged in successfully.", userId: userId });
   } else {
     return res.status(500).json({ message: "An error occurred during login." });
   }
@@ -33,10 +36,8 @@ export async function registerUser(req, res) {
   if (result)
     return res.status(200).json({ message: "successful to create user" });
   else {
-    return res
-      .status(500)
-      .json({
-        message: "Faild to register user try diffrent email or password",
-      });
+    return res.status(500).json({
+      message: "Faild to register user try diffrent email or password",
+    });
   }
 }

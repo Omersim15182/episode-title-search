@@ -4,8 +4,10 @@ import FolderIcon from "@mui/icons-material/Folder";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
-import DemoPageContent from "./DemoPageContent.";
-import { useState } from "react";
+import DemoPageContent from "./DemoPageContent";
+import { useEffect, useState } from "react";
+import { getRecentSearches } from "../../api/series/recentSearches.api";
+import { Episode } from "../../types/types";
 
 interface DemoProps {
   window?: () => Window;
@@ -13,51 +15,57 @@ interface DemoProps {
 
 export default function Home(props: DemoProps) {
   const [title, setTitle] = useState<string>("");
-  console.log("title test :", title);
+  const [series, setSeries] = useState<Episode[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { window } = props;
-
   const router = useDemoRouter("/movies/lord-of-the-rings");
-
   const demoWindow = window !== undefined ? window() : undefined;
 
-  // useEffect(() => {
-  //   const getSeriesData = async () => {
-  //     try {
-  //       const response = await instance.get(
-  //         "/episodeNamer/Series/retrieve-data"
-  //       );
-  //       const data = response.data;
-  //       console.log("data retrieve successfully : ", data);
-  //     } catch (error) {
-  //       console.error("Error retrieve data:", error);
-  //     }
-  //   };
-  //   getSeriesData();
-  // }, [title]);
+  useEffect(() => {
+    const fetchRecentSearches = async () => {
+      try {
+        setIsLoading(true);
+        const fetchedSeries = await getRecentSearches();
 
-  console.log("titile omer ", title);
+        if (fetchedSeries && Array.isArray(fetchedSeries.data)) {
+          setSeries(fetchedSeries.data);
+        } else {
+          console.error("Unexpected data structure:", fetchedSeries);
+        }
+
+        setIsLoading(false);
+      } catch (err) {
+        setIsLoading(false);
+        console.error("Error fetching series data:", err);
+      }
+    };
+
+    fetchRecentSearches();
+  }, [title]);
+
+  const seriesName = isLoading
+    ? []
+    : series.map((item) => ({
+        episodeNumber: item.episodeNumber,
+        episodeTitle: item.episodeTitle,
+        seasonNumber: item.seasonNumber,
+        seriesName: item.seriesName,
+      }));
 
   return (
-    // preview-start
     <AppProvider
       navigation={[
         {
           segment: "movies",
-          title: "Movies search history",
+          title: "Search history",
           icon: <FolderIcon />,
-          children: [
-            {
-              segment: "lord-of-the-rings",
-              title: "Lord of the Rings",
-              icon: <DescriptionIcon />,
-            },
-            {
-              segment: "harry-potter",
-              title: "Harry Potter",
-              icon: <DescriptionIcon />,
-            },
-          ],
+          children: seriesName.map((item, index) => ({
+            segment: item.episodeTitle,
+            title: item.episodeTitle,
+            icon: <DescriptionIcon />,
+            key: index,
+          })),
         },
       ]}
       router={router}
