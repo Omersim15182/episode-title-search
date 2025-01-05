@@ -59,37 +59,37 @@ Copy code <br>
 git clone https://github.com/Omersim15182/episode-namer.git  # 🖱️ Click to copy <br>                                                                                                                  
 cd episode-namer <br>                                                                                                                                                                                         
 Install Dependencies  <br>                                                                                                                                                                                   
-Frontend:__                                                                                                                                                                                                    
-bash__                                                                                                                                                                                                
-Copy code__                                                                                                                                                                                                
-cd client__                                                                                                                                                                                                
-npm install  # 🖱️ Click to copy__                                                                                                                                                                                  
-docker-compose up --build client  # 🖱️ Click to copy__                                                                                                                                                             
-cd ..__                                                                                                                                                                                                
-Backend:__                                                                                                                                                                                                
-bash__                                                                                                                                                                                                
-Copy code__                                                                                                                                                                                                
-cd server__                                                                                                                                                                                                
-npm install  # 🖱️ Click to copy__                                                                                                                                                                                  
-cd ..__                                                                                                                                                                                                
-Start Services with Docker Compose__                                                                                                                                                                               
-bash__                                                                                                                                                                                                
-Copy code__                                                                                                                                                                                                
-docker-compose up --build  # 🖱️ Click to copy__                                                                                                                                                                    
-Access the Application__                                                                                                                                                                                              
-Frontend: https://localhost:3000__                                                                                                                                                                                    
-Backend: https://localhost:3501__
+Frontend: <br>                                                                                                                                                                                          
+bash <br>                                                                                                                                                                                         
+Copy code <br>                                                                                                                                                                                            
+cd client <br>                                                                                                                                                                                             
+npm install  # 🖱️ Click to copy <br>                                                                                                                                                                            
+docker-compose up --build client  # 🖱️ Click to copy <br>                                                                                                                                                          
+cd .. <br>                                                                                                                                                                                          
+Backend: <br>                                                                                                                                                                                             
+bash <br>                                                                                                                                                                                           
+Copy code <br>                                                                                                                                                                                            
+cd server <br>                                                                                                                                                                                               
+npm install  # 🖱️ Click to copy <br>                                                                                                                                                                               
+cd .. <br>                                                                                                                                                                                           
+Start Services with Docker Compose <br>                                                                                                                                                                             
+bash <br>                                                                                                                                                                                               
+Copy code <br>                                                                                                                                                                                              
+docker-compose up --build  # 🖱️ Click to copy <br>                                                                                                                                                      
+Access the Application <br>                                                                                                                                                                                           
+Frontend: https://localhost:3000 <br>                                                                                                                                                                               
+Backend: https://localhost:3501 <br>
 
 ## Environment Variables
 
 To set up your local development environment, create a `.env` file in the root directory of the project and add the following variables:
 
-API_KEY=your-api-key\                                                                                                                                                                                             
-PORT_SERVER=3501\                                                                                                                                                                                                   
-MONGO_URI=mongodb://127.0.0.1:27017/episode-namer\                                                                                                                                                                 
-REDIS_HOST=127.0.0.1\                                                                                                                                                                                           
-REDIS_PORT=6379\                                                                                                                                                                                               
-TOKEN_SECRET=your-secret-key\                                                                                                                                                               
+API_KEY=your-api-key                                                                                                                                                                                                
+PORT_SERVER=3501                                                                                                                                                                                                    
+MONGO_URI=mongodb://127.0.0.1:27017/episode-namer                                                                                                                                                                   
+REDIS_HOST=127.0.0.1                                                                                                                                                                                                
+REDIS_PORT=6379                                                                                                                                                                                                     
+TOKEN_SECRET=your-secret-key                                                                                                                                                                                          
 
 vbnet
 Copy code
