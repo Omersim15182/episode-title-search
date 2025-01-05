@@ -86,12 +86,12 @@ Backend: https://localhost:3501
 
 To set up your local development environment, create a `.env` file in the root directory of the project and add the following variables:
 
-API_KEY=your-api-key
-PORT_SERVER=3501
-MONGO_URI=mongodb://127.0.0.1:27017/episode-namer
-REDIS_HOST=127.0.0.1 
-REDIS_PORT=6379 
-TOKEN_SECRET=your-secret-key
+API_KEY=your-api-key                                                                                                                                                                                                
+PORT_SERVER=3501                                                                                                                                                                                                    
+MONGO_URI=mongodb://127.0.0.1:27017/episode-namer                                                                                                                                                                   
+REDIS_HOST=127.0.0.1                                                                                                                                                                                                
+REDIS_PORT=6379                                                                                                                                                                                                     
+TOKEN_SECRET=your-secret-key                                                                                                                                                                     
 
 vbnet
 Copy code
