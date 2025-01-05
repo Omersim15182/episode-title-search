@@ -56,63 +56,32 @@ Clone the Repository
 
 bash
 Copy code
-git clone https://github.com/Omersim15182/episode-namer.git
+git clone https://github.com/Omersim15182/episode-namer.git  # 🖱️ Click to copy
 cd episode-namer
 Install Dependencies
-
 Frontend:
 bash
 Copy code
 cd client
-npm install
-docker-compose up --build client
+npm install  # 🖱️ Click to copy
+docker-compose up --build client  # 🖱️ Click to copy
 cd ..
 Backend:
 bash
 Copy code
 cd server
-npm install
+npm install  # 🖱️ Click to copy
 cd ..
-Start Services with Docker Compose
+Start Services with Docker Compose 
 
 bash
 Copy code
-docker-compose up --build
+docker-compose up --build  # 🖱️ Click to copy
 Access the Application
 
 Frontend: https://localhost:3000
 Backend: https://localhost:3501
-📂 Folder Structure
-plaintext
-Copy code
-📁 episode-namer
-├── 📁 client
-│   ├── src/
-│   │   ├── components/       (React components styled with Material-UI)
-│   │   ├── api/              (Frontend API logic)
-│   │   ├── auth/             (Authentication logic)
-│   │   ├── routes/           (Route definitions)
-│   │   ├── types/            (TypeScript definitions)
-│   │   └── cert/             (SSL certificates for HTTPS)
-│   ├── dockerfile
-│   ├── docker-compose.yml
-│   └── package.json
-├── README.md
-├── 📁 server
-│   ├── models/               (MongoDB schemas)
-│   ├── routes/               (Express routes)
-│   ├── common/               (Axios instances)
-│   ├── config/               (MongoDB and Redis configuration)
-│   ├── controllers/          (Controllers for series and users)
-│   ├── middleware/           (JWT authentication middleware)
-│   ├── api/                  (External API calls)
-│   ├── utils/                (Utility functions)
-│   ├── dockerfile
-│   ├── docker-compose.yml
-│   ├── .env                  (Environment variables)
-│   ├── localhost-key.pem     (SSL key for local HTTPS)
-│   └── localhost.pem         (SSL certificate for local HTTPS)
-🔑 Environment Variables (.env)
+
 Here is an example of the .env file:
 
 env
@@ -131,19 +100,12 @@ Secure: HTTPS, JWT, and HTTP-only cookies safeguard user data.
 Modern UI: Material-UI enhances user experience with a clean design.
 Scalable Architecture: Supports growing demands with Redis and MongoDB.
 Containerized Deployment: Docker ensures all dependencies and services work seamlessly across environments.
-🤝 Contributions
-Contributions are welcome! Here are ways you can help:
 
-Improve documentation clarity.
-Fix bugs or add new features.
-Suggest or develop performance improvements.
-Feel free to open issues or submit pull requests to the project repository.
-
-🔗 Repository
-GitHub: Series Episode Title Finder
-
-Clone the project:
-
+Clone the project
 bash
 Copy code
 git clone https://github.com/Omersim15182/episode-namer.git
+
+
+[folder strcture]![Screenshot 2025-01-05 225721](https://github.com/user-attachments/assets/f0f62fe6-583e-4a70-a24b-592e5d92150b)
+
