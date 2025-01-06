@@ -114,7 +114,7 @@ Containerized Deployment: Docker ensures all dependencies and services work seam
 Clone the project
 bash
 Copy code
-git clone https://github.com/Omersim15182/episode-namer.git
+git clone https://github.com/Omersim15182/episode-title-search.git
 
 
 [folder strcture]![Screenshot 2025-01-05 225721](https://github.com/user-attachments/assets/f0f62fe6-583e-4a70-a24b-592e5d92150b)
