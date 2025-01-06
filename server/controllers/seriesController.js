@@ -8,7 +8,6 @@ import { isInvalidSeriesId } from "../utils/idValidator.js";
 
 export async function getTitle(req, res) {
   const { series, userId } = req.body;
-  console.log("series", series);
 
   try {
     const seriesId = await getSeriesIdService(series, userId);

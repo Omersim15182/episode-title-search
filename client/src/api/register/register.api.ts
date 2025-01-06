@@ -8,7 +8,6 @@ export const registerUser = async (user: userRegister) => {
       user,
       { withCredentials: true }
     );
-    console.log("status user register : ", response.data);
   } catch (err: any) {
     console.error(
       "Error occurred:",

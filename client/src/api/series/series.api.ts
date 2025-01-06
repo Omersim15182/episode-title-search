@@ -15,7 +15,6 @@ export const getEpisodeTitle = async (series: Episode) => {
       { withCredentials: true }
     );
     const episodeTitle = response.data.episodeTitle;
-    console.log("Series name successfully:", episodeTitle);
     return episodeTitle;
   } catch (e: any) {
     return e.response.data;
