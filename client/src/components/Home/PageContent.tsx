@@ -9,7 +9,7 @@ interface Props {
   setTitle: Dispatch<SetStateAction<string>>;
 }
 
-function DemoPageContent({ title, setTitle }: Props) {
+function PageContent({ title, setTitle }: Props) {
   return (
     <Box className={style["demo-page-container"]}>
       <Typography>Episoder Namer</Typography>
@@ -18,4 +18,4 @@ function DemoPageContent({ title, setTitle }: Props) {
   );
 }
 
-export default DemoPageContent;
+export default PageContent;

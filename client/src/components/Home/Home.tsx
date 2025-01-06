@@ -1,26 +1,20 @@
-import demoTheme from "./theme";
-import DescriptionIcon from "@mui/icons-material/Description";
-import FolderIcon from "@mui/icons-material/Folder";
-import { AppProvider } from "@toolpad/core/AppProvider";
-import { DashboardLayout } from "@toolpad/core/DashboardLayout";
-import { useDemoRouter } from "@toolpad/core/internal";
-import DemoPageContent from "./DemoPageContent";
 import { useEffect, useState } from "react";
 import { getRecentSearches } from "../../api/series/recentSearches.api";
 import { Episode } from "../../types/types";
+import ShowEpisodeData from "./ShowEpisodeData";
+import PageContent from "./PageContent";
+import DescriptionIcon from "@mui/icons-material/Description";
+import FolderIcon from "@mui/icons-material/Folder";
 
-interface DemoProps {
-  window?: () => Window;
-}
+// Import the CSS module
+import style from "./Home.module.css";
 
-export default function Home(props: DemoProps) {
+export default function Home() {
   const [title, setTitle] = useState<string>("");
   const [series, setSeries] = useState<Episode[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  const { window } = props;
-  const router = useDemoRouter("/movies/lord-of-the-rings");
-  const demoWindow = window !== undefined ? window() : undefined;
+  const [open, setOpen] = useState<boolean>(false);
+  const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRecentSearches = async () => {
@@ -53,28 +47,45 @@ export default function Home(props: DemoProps) {
         seriesName: item.seriesName,
       }));
 
+  // Handle menu item click
+  const handleMenuItemClick = (episodeTitle: string) => {
+    setSelectedMenu(episodeTitle);
+    setTitle(episodeTitle);
+  };
+
+  const setCloseModal = () => {
+    setOpen(false);
+  };
+
   return (
-    <AppProvider
-      navigation={[
-        {
-          segment: "movies",
-          title: "Search history",
-          icon: <FolderIcon />,
-          children: seriesName.map((item, index) => ({
-            segment: item.episodeTitle,
-            title: item.episodeTitle,
-            icon: <DescriptionIcon />,
-            key: index,
-          })),
-        },
-      ]}
-      router={router}
-      theme={demoTheme}
-      window={demoWindow}
-    >
-      <DashboardLayout>
-        <DemoPageContent title={title} setTitle={setTitle}></DemoPageContent>
-      </DashboardLayout>
-    </AppProvider>
+    <div className={style["demo-page-container"]}>
+      <nav className={style["nav-container"]}>
+        <div className={style["nav-title"]}>Movies</div>
+
+        <div className={style["search-history-title"]}>
+          <FolderIcon className={style.icon} />
+          <span>Search History</span>
+        </div>
+
+        <div className={style["series-list-container"]}>
+          {seriesName.map((item, index) => (
+            <div
+              key={index}
+              className={`${style["series-item"]} ${
+                selectedMenu === item.episodeTitle ? style["selected"] : ""
+              }`}
+              onClick={() => setOpen(true)}
+            >
+              <DescriptionIcon className={style.icon} />
+              <span>{item.episodeTitle}</span>
+            </div>
+          ))}
+        </div>
+      </nav>
+      <div className={style["content-container"]}>
+        <ShowEpisodeData open={open} setCloseModal={setCloseModal} />
+        <PageContent title={title} setTitle={setTitle} />
+      </div>
+    </div>
   );
 }
