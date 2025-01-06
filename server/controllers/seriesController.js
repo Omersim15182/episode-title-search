@@ -11,7 +11,7 @@ export async function getTitle(req, res) {
   console.log("series", series);
 
   try {
-    const seriesId = await getSeriesIdService(series,userId);
+    const seriesId = await getSeriesIdService(series, userId);
 
     if (isInvalidSeriesId(seriesId)) {
       return res.status(200).json({
@@ -31,14 +31,12 @@ export async function getTitle(req, res) {
 
 export async function recentSearches(req, res) {
   const { userId } = req.body;
-  console.log("Received userId:", userId);
-  const recentSearches = await getRecentEpisodes(userId);
-  if (recentSearches) {
+  try {
+    const recentSearches = await getRecentEpisodes(userId);
     return res.status(200).json({
       data: recentSearches,
     });
+  } catch (err) {
+    return res.status(err.status).json({ message: err.message });
   }
-  return res
-    .status(500)
-    .json({ message: "An error occurred during fetch series data." });
 }

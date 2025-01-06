@@ -147,4 +147,4 @@ Clone the project:
 
 bash
 Copy code
-git clone https://github.com/Omersim15182/episode-namer.git
+git clone https://github.com/Omersim15182/episode-namer.git 

@@ -2,6 +2,7 @@ import Users from "../models/Users.js";
 import Series from "../models/Series.js";
 import imdbInstance from "../common/axios-instance.js";
 import redisClient from "../config/redisClient.js";
+import { NotFoundError, InternalServerError } from "../custom-errors/errors.js";
 
 export const getSeriesIdService = async (showDetails, userId) => {
   const { seriesName, seasonNumber, episodeNumber } = showDetails;
@@ -9,11 +10,8 @@ export const getSeriesIdService = async (showDetails, userId) => {
 
   try {
     const cachedEpisodeTitle = await redisClient.get(cacheKey);
-    console.log("cache", cachedEpisodeTitle);
 
     if (cachedEpisodeTitle) {
-      console.log("Cache hit");
-
       const newSeries = new Series({
         episodeTitle: cachedEpisodeTitle,
         seriesName,
@@ -108,7 +106,7 @@ export const getRecentEpisodes = async (userId) => {
 
     if (!user) {
       console.log("User not found");
-      return null;
+      throw new NotFoundError("User not found");
     }
 
     return user.watchedSeries && user.watchedSeries.length > 0
@@ -116,6 +114,6 @@ export const getRecentEpisodes = async (userId) => {
       : null;
   } catch (error) {
     console.error("Error fetching recent episodes:", error);
-    return null;
+    throw InternalServerError("Error fetching recent episodes");
   }
 };
