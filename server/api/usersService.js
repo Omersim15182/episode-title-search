@@ -16,11 +16,10 @@ export const login = async (user) => {
       );
       if (isPasswordValid) {
         const token = await generateAccessToken(user);
-        console.log(existingUser._id);
 
         return { token, userId: existingUser._id };
       } else {
-        console.log("Invalid password");
+        console.error("Invalid password");
         return false;
       }
     }
@@ -31,20 +30,18 @@ export const login = async (user) => {
 };
 
 export const register = async (user) => {
-  console.log(user);
   const isValid = validator.validate(user.email);
   if (!isValid) {
-    console.log("Invalid email format");
+    console.error("Invalid email format");
     return false;
   }
 
   if (user.password.length < 8) {
-    console.log("Password must be at least 8 characters long");
+    console.error("Password must be at least 8 characters long");
     return false;
   }
   const existingUser = await Users.findOne({ email: user.email });
   if (existingUser) {
-    console.log("Email already exists");
     return false;
   }
   try {
@@ -57,7 +54,6 @@ export const register = async (user) => {
     });
 
     const isUserCreated = await newUser.save();
-    console.log("iscreated", isUserCreated);
 
     return isUserCreated ? true : false;
   } catch (error) {

@@ -16,7 +16,6 @@ export const loginUser = async (user: userLogin) => {
     });
     const userId = response.data.userId;
     localStorage.setItem("userId", userId);
-    console.log("status user login : ", response.data);
 
     return true;
   } catch (err: any) {

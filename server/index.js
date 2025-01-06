@@ -32,16 +32,7 @@ app.use(
 app.use(express.json());
 
 app.use("/episodeNamer", userRoutes);
-app.get("/", (req, res) => {
-  res.send("Hello World! This is a secure HTTPS server.");
-});
 
-app.get("/get", (req, res) => {
-  const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
-  console.log("Full URL:", fullUrl); // Log the full URL
-  res.setHeader("X-Full-URL", fullUrl);
-  res.send("Check the 'X-Full-URL' header for the full URL.");
-});
 const server = https.createServer(options, app);
 
 server.listen(PORT, () => {

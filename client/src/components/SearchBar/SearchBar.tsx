@@ -54,7 +54,6 @@ export default function SearchBar({ title, setTitle }: Props) {
     try {
       const episodeTitle = await getEpisodeTitle(seriesEpisode);
       setTitle(episodeTitle);
-      console.log("Series name successfully:", episodeTitle);
     } catch (error) {
       console.error("error in search title", error);
     }

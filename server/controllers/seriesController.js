@@ -8,7 +8,6 @@ import { isInvalidSeriesId } from "../utils/idValidator.js";
 
 export async function getTitle(req, res) {
   const { series, userId } = req.body;
-  console.log("series", series);
 
   try {
     const seriesId = await getSeriesIdService(series,userId);
@@ -31,7 +30,6 @@ export async function getTitle(req, res) {
 
 export async function recentSearches(req, res) {
   const { userId } = req.body;
-  console.log("Received userId:", userId);
   const recentSearches = await getRecentEpisodes(userId);
   if (recentSearches) {
     return res.status(200).json({

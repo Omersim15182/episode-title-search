@@ -14,7 +14,6 @@ export const getOfferEpisodes = async (data, seasons) => {
         const episodeNum = i + 1;
         const cacheKey = `${seriesName}:season:${seasonNumber}:episode:${episodeNum}`;
         await redisClient.setEx(cacheKey, 3600, title);
-        console.log(`Episode ${episodeNum} cached with key: ${cacheKey}`);
       }
     }
   } catch (error) {

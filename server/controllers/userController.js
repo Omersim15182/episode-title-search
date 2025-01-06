@@ -4,7 +4,6 @@ export async function loginUser(req, res) {
   const user = req.body;
 
   const { token, userId } = await login(user);
-  console.log("token", token);
 
   if (token) {
     res.cookie("token", token, {
@@ -23,7 +22,6 @@ export async function loginUser(req, res) {
 
 export async function verifyUser(req, res) {
   try {
-    console.log("user is verify");
     return res.status(200).json({ message: "User is verify" });
   } catch (error) {
     return res.status(401).json({ message: "User is not verify" });

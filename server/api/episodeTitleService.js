@@ -9,11 +9,8 @@ export const getSeriesIdService = async (showDetails, userId) => {
 
   try {
     const cachedEpisodeTitle = await redisClient.get(cacheKey);
-    console.log("cache", cachedEpisodeTitle);
 
     if (cachedEpisodeTitle) {
-      console.log("Cache hit");
-
       const newSeries = new Series({
         episodeTitle: cachedEpisodeTitle,
         seriesName,
@@ -23,7 +20,6 @@ export const getSeriesIdService = async (showDetails, userId) => {
       });
 
       const savedSeries = await newSeries.save();
-      console.log("Saved series to the database:", savedSeries);
 
       const updatedUser = await Users.findByIdAndUpdate(
         userId,
@@ -34,7 +30,6 @@ export const getSeriesIdService = async (showDetails, userId) => {
       );
 
       if (!updatedUser) {
-        console.log("User not found.");
         return null;
       }
       return cachedEpisodeTitle;
@@ -54,7 +49,6 @@ export const getSeriesIdService = async (showDetails, userId) => {
 export const getEpisodeTitleService = async (updateData, seriesId, userId) => {
   const { seriesName, seasonNumber, episodeNumber } = updateData;
   const cacheKey = `${seriesName}:season:${seasonNumber}:episode:${episodeNumber}`;
-  console.log("ssss", userId);
 
   try {
     const response = await imdbInstance.get("/title/get-seasons", {
@@ -68,8 +62,6 @@ export const getEpisodeTitleService = async (updateData, seriesId, userId) => {
     const episodeIndex = parseInt(episodeNumber, 10) - 1;
     const episode = seasons.episodes[episodeIndex.toString()];
     const title = episode.title;
-    console.log("title", title);
-    console.log(4);
 
     const newSeries = new Series({
       episodeTitle: title,
@@ -89,7 +81,7 @@ export const getEpisodeTitleService = async (updateData, seriesId, userId) => {
       { new: true }
     );
     if (!updatedUser) {
-      console.log("User not found.");
+      console.error("User not found.");
       return null;
     }
     return { status: "success", title, seasons };
@@ -107,7 +99,7 @@ export const getRecentEpisodes = async (userId) => {
     });
 
     if (!user) {
-      console.log("User not found");
+      console.error("User not found");
       return null;
     }
 

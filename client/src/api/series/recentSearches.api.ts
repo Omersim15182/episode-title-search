@@ -9,7 +9,6 @@ export const getRecentSearches = async () => {
       { userId },
       { withCredentials: true }
     );
-    console.log("Series name successfully:", response.data);
     return response.data;
   } catch (e) {
     if (e instanceof AxiosError) {
