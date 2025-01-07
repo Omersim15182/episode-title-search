@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
-import Users from "../models/Users.js";
-
+import Users from "./model/Users.js";
+import { NotFoundError } from "../custom-errors/errors.js";
 import { generateAccessToken } from "../auth/token.js";
-import validator from "email-validator";
+import validator from "../utils/idValidator.js";
 
 export const login = async (user) => {
   try {
@@ -25,7 +25,7 @@ export const login = async (user) => {
     }
     return false;
   } catch (error) {
-    console.error("Failed to find user");
+    throw new NotFoundError("Login failed", error.message);
   }
 };
 

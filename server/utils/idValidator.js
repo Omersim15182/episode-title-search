@@ -1,5 +1,5 @@
 //Function checks if series ID is invalid
-export function isInvalidSeriesId(seriesId) {
+export default function isInvalidSeriesId(seriesId) {
   return (
     seriesId === null ||
     typeof seriesId !== "string" ||

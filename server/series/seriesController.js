@@ -2,9 +2,9 @@ import {
   getSeriesIdService,
   getEpisodeTitleService,
   getRecentEpisodes,
-} from "../api/episodeTitleService.js";
-import { getOfferEpisodes } from "../api/nearbyEpisodesService.js";
-import { isInvalidSeriesId } from "../utils/idValidator.js";
+} from "../series/episodeTitleService.js";
+import { getOfferEpisodes } from "../series/nearbyEpisodesService.js";
+import isInvalidSeriesId from "../utils/idValidator.js";
 
 export async function getTitle(req, res) {
   const { series, userId } = req.body;

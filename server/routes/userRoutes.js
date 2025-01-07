@@ -1,12 +1,12 @@
 import express from "express";
 const router = express.Router();
 
-import { getTitle } from "../controllers/seriesController.js";
-import { loginUser } from "../controllers/userController.js";
-import { registerUser } from "../controllers/userController.js";
+import { getTitle } from "../series/seriesController.js";
+import { loginUser } from "../users/userController.js";
+import { registerUser } from "../users/userController.js";
 import { checkAuth } from "../middleware/checkAuth.js";
-import { verifyUser } from "../controllers/userController.js";
-import { recentSearches } from "../controllers/seriesController.js";
+import { verifyUser } from "../users/userController.js";
+import { recentSearches } from "../series/seriesController.js";
 /*GET user controllers*/
 
 /*POST user controllers*/

@@ -1,49 +1,39 @@
-import Users from "../models/Users.js";
-import Series from "../models/Series.js";
+import Series from "./model/Series.js";
 import imdbInstance from "../common/axios-instance.js";
 import redisClient from "../config/redisClient.js";
+import UserRepository from "../users/user-repository.js";
 import { NotFoundError, InternalServerError } from "../custom-errors/errors.js";
 
 export const getSeriesIdService = async (showDetails, userId) => {
   const { seriesName, seasonNumber, episodeNumber } = showDetails;
   const cacheKey = `${seriesName}:season:${seasonNumber}:episode:${episodeNumber}`;
 
+  const cachedEpisodeTitle = await redisClient.get(cacheKey);
+  if (cachedEpisodeTitle) {
+    const newSeries = new Series({
+      episodeTitle: cachedEpisodeTitle,
+      seriesName,
+      seasonNumber,
+      episodeNumber,
+      userId: userId,
+    });
+    const savedSeries = await newSeries.save();
+    const updatedUser = await UserRepository.updateWatchedSeries(
+      userId,
+      savedSeries._id
+    );
+    return updatedUser ? cachedEpisodeTitle : null;
+  }
   try {
-    const cachedEpisodeTitle = await redisClient.get(cacheKey);
-
-    if (cachedEpisodeTitle) {
-      const newSeries = new Series({
-        episodeTitle: cachedEpisodeTitle,
-        seriesName,
-        seasonNumber,
-        episodeNumber,
-        userId: userId,
-      });
-
-      const savedSeries = await newSeries.save();
-
-      const updatedUser = await Users.findByIdAndUpdate(
-        userId,
-        {
-          $push: { watchedSeries: savedSeries._id },
-        },
-        { new: true }
-      );
-
-      if (!updatedUser) {
-        return null;
-      }
-      return cachedEpisodeTitle;
-    }
     const response = await imdbInstance.get("/auto-complete", {
       params: { q: seriesName },
     });
+    console.log(1);
 
     const seriesId = response.data.d?.[0]?.id || null;
     return seriesId;
-  } catch (error) {
-    console.error("error", error);
-    return null;
+  } catch (e) {
+    throw new NotFoundError("series ID not found", error.message);
   }
 };
 
@@ -74,41 +64,32 @@ export const getEpisodeTitleService = async (updateData, seriesId, userId) => {
 
     const savedSeries = await newSeries.save();
     await redisClient.setEx(cacheKey, 3600, title);
-    const updatedUser = await Users.findByIdAndUpdate(
+    const updatedUser = await UserRepository.updateWatchedSeries(
       userId,
-      {
-        $push: { watchedSeries: savedSeries._id },
-      },
-      { new: true }
+      savedSeries._id
     );
     if (!updatedUser) {
-      console.error("User not found.");
-      return null;
+      throw new NotFoundError("User not found");
     }
     return { status: "success", title, seasons };
   } catch (error) {
-    console.error("error", error);
-    return null;
+    throw new InternalServerError("api request failed", error.message);
   }
 };
 
 export const getRecentEpisodes = async (userId) => {
   try {
-    const user = await Users.findById(userId).populate({
-      path: "watchedSeries",
-      model: "Series",
-    });
-
-    if (!user) {
-      console.log("User not found");
-      throw new NotFoundError("User not found");
+    const watchedSeries = await UserRepository.getUserWithPopulatedSeries(
+      userId
+    );
+    if (!watchedSeries) {
+      throw new NotFoundError("Not found watched series");
     }
-
-    return user.watchedSeries && user.watchedSeries.length > 0
-      ? user.watchedSeries
-      : null;
+    return watchedSeries;
   } catch (error) {
-    console.error("Error fetching recent episodes:", error);
-    throw InternalServerError("Error fetching recent episodes");
+    throw new InternalServerError(
+      "Error fetching recent episodes",
+      error.message
+    );
   }
 };

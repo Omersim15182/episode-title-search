@@ -1,9 +1,18 @@
-import { login as login, register } from "../api/usersService.js";
+import { login as login, register } from "./usersService.js";
 
 export async function loginUser(req, res) {
   const user = req.body;
 
-  const { token, userId } = await login(user);
+  let response;
+  try {
+    response = await login(user);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  const { token, userId } = response;
+  console.log("to", token);
+  console.log("userId", userId);
 
   if (token) {
     res.cookie("token", token, {
@@ -16,7 +25,7 @@ export async function loginUser(req, res) {
       .status(200)
       .json({ message: "User logged in successfully.", userId: userId });
   } else {
-    return res.status(500).json({ message: "An error occurred during login." });
+    return res.status(404).json({ message: "User not found." });
   }
 }
 
