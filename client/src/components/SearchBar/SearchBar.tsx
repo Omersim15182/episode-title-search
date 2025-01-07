@@ -33,7 +33,7 @@ export default function SearchBar({ title, setTitle }: Props) {
   };
 
   const handleSeasonChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSeasonInput(event.target.value); 
+    setSeasonInput(event.target.value);
 
     if (event.target.value) {
       setShowEpisodeInput(true);
