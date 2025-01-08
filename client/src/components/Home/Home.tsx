@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
 import { getRecentSearches } from "../../api/series/recentSearches.api";
 import { Episode } from "../../types/types";
-import ShowEpisodeData from "./ShowEpisodeData";
+import ShowEpisodeData from "./EpisodeModal";
 import PageContent from "./PageContent";
 import DescriptionIcon from "@mui/icons-material/Description";
 import FolderIcon from "@mui/icons-material/Folder";
-
-// Import the CSS module
 import style from "./Home.module.css";
 
 export default function Home() {
   const [title, setTitle] = useState<string>("");
   const [series, setSeries] = useState<Episode[]>([]);
+  const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [open, setOpen] = useState<boolean>(false);
-  const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRecentSearches = async () => {
@@ -45,22 +43,24 @@ export default function Home() {
         episodeTitle: item.episodeTitle,
         seasonNumber: item.seasonNumber,
         seriesName: item.seriesName,
+        seriesId: item.seriesId,
       }));
-
-  // Handle menu item click
-  const handleMenuItemClick = (episodeTitle: string) => {
-    setSelectedMenu(episodeTitle);
-    setTitle(episodeTitle);
-  };
 
   const setCloseModal = () => {
     setOpen(false);
   };
 
+  const handleClickItem = (episode: Episode) => {
+    setSelectedEpisode(episode);
+    setOpen(true);
+  };
+
+  console.log("series", series);
+
   return (
     <div className={style["demo-page-container"]}>
       <nav className={style["nav-container"]}>
-        <div className={style["nav-title"]}>Movies</div>
+        <div className={style["nav-title"]}>Episode Title Search</div>
 
         <div className={style["search-history-title"]}>
           <FolderIcon className={style.icon} />
@@ -72,9 +72,9 @@ export default function Home() {
             <div
               key={index}
               className={`${style["series-item"]} ${
-                selectedMenu === item.episodeTitle ? style["selected"] : ""
+                item.episodeTitle ? style["selected"] : ""
               }`}
-              onClick={() => setOpen(true)}
+              onClick={() => handleClickItem(item)}
             >
               <DescriptionIcon className={style.icon} />
               <span>{item.episodeTitle}</span>
@@ -83,7 +83,11 @@ export default function Home() {
         </div>
       </nav>
       <div className={style["content-container"]}>
-        <ShowEpisodeData open={open} setCloseModal={setCloseModal} />
+        <ShowEpisodeData
+          episode={selectedEpisode}
+          open={open}
+          setCloseModal={setCloseModal}
+        />
         <PageContent title={title} setTitle={setTitle} />
       </div>
     </div>
