@@ -1,5 +1,7 @@
-
-
+import { useActorContext } from "../../context/ActorContext";
 export default function ActorCard() {
-  return <div>ActorCard</div>;
+  const { actorData } = useActorContext();
+  console.log("actor data from card", actorData);
+
+  return <div aria-hidden="true">ActorCard</div>;
 }

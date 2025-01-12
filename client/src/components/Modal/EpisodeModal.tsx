@@ -5,6 +5,7 @@ import { Episode } from "../../types/types";
 import style from "./EpisodeModal.module.css";
 import { useEffect } from "react";
 import { getActor } from "../../api/actors/actor.api";
+import { useActorContext } from "../../context/ActorContext";
 
 interface ShowEpisodeDataProps {
   open: boolean;
@@ -19,17 +20,19 @@ export default function ShowEpisodeData({
 }: ShowEpisodeDataProps) {
   console.log(episode);
 
+  const { setActorData } = useActorContext();
+
   useEffect(() => {
     const fetchActorData = async () => {
       try {
         const actorData = await getActor({ seriesId: episode?.seriesId });
-        console.log("actor data", actorData);
+        setActorData(actorData);
       } catch (error) {
         console.error(error);
       }
     };
     fetchActorData();
-  }, [episode]);
+  }, [episode, setActorData]);
 
   return (
     <div>

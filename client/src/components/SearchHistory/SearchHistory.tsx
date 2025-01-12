@@ -6,6 +6,7 @@ import PageContent from "../SearchBar/BoxSearch";
 import DescriptionIcon from "@mui/icons-material/Description";
 import FolderIcon from "@mui/icons-material/Folder";
 import style from "./SearchHistory.module.css";
+import ActorCard from "../Card/ActorCard";
 
 export default function SearchHistory() {
   const [title, setTitle] = useState<string>("");
@@ -89,8 +90,10 @@ export default function SearchHistory() {
           open={open}
           setCloseModal={setCloseModal}
         />
+
         <PageContent title={title} setTitle={setTitle} />
       </div>
+      <ActorCard></ActorCard>
     </div>
   );
 }
