@@ -7,11 +7,13 @@ import { registerUser } from "../users/userController.js";
 import { checkAuth } from "../middleware/checkAuth.js";
 import { verifyUser } from "../users/userController.js";
 import { recentSearches } from "../series/seriesController.js";
+import { actorId } from "../actors/actorController.js";
 /*GET user controllers*/
 
 /*POST user controllers*/
 router.post("/Series/series-data", checkAuth, getTitle);
 router.post("/Series/series-data/recent-searches", checkAuth, recentSearches);
+router.post("/Series/series-data/actorId", checkAuth, actorId);
 
 router.post("/user/auth/Login", loginUser);
 router.post("/user/auth/register", registerUser);

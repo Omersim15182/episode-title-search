@@ -22,8 +22,6 @@ export default function ShowEpisodeData({
   useEffect(() => {
     const fetchActorData = async () => {
       try {
-        console.log("ssss", episode?.seriesId);
-
         const actorData = await getActor({ seriesId: episode?.seriesId });
         console.log("actor data", actorData);
       } catch (error) {

@@ -3,6 +3,7 @@ import { NotFoundError } from "../custom-errors/errors.js";
 
 export const getOfferEpisodes = async (data, seasons) => {
   const { seriesName, seasonNumber, episodeNumber } = data;
+  console.log("in nearby");
 
   const episodeIndex = parseInt(episodeNumber, 10) - 1;
 

@@ -18,6 +18,7 @@ class UserRepository {
         },
         { new: true }
       );
+
       if (!updatedUser) {
         throw new NotFoundError("User not found");
       }

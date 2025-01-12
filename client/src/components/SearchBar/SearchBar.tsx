@@ -5,6 +5,7 @@ import AddButton from "../Button/AddButton";
 import { Episode } from "../../types/types";
 import style from "./SearchBar.module.css";
 import { getEpisodeTitle } from "../../api/series/series.api";
+import { AxiosError } from "axios";
 
 interface Props {
   title: string;
@@ -55,9 +56,15 @@ export default function SearchBar({ title, setTitle }: Props) {
       const episodeTitle = await getEpisodeTitle(seriesEpisode);
       setTitle(episodeTitle);
     } catch (error) {
-      console.error("error in search title", error);
+      if (error instanceof AxiosError) {
+        console.error("Axios error in search title", error);
+      } else {
+        console.error("error in fetch title ", error);
+      }
     }
   };
+
+  console.log("title", title);
 
   return (
     <Box className={style["search-bar-container"]}>

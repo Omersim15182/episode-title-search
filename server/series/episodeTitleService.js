@@ -9,28 +9,37 @@ export const getSeriesIdService = async (showDetails, userId) => {
   const cacheKey = `${seriesName}:season:${seasonNumber}:episode:${episodeNumber}`;
 
   const cachedEpisodeTitle = await redisClient.get(cacheKey);
+  console.log(`Cache Key: ${cacheKey}, Cached Title: ${cachedEpisodeTitle}`);
+
   if (cachedEpisodeTitle) {
     const newSeries = new Series({
       episodeTitle: cachedEpisodeTitle,
       seriesName,
       seasonNumber,
       episodeNumber,
-      userId: userId,
+      userId,
     });
+    console.log(newSeries);
+
     const savedSeries = await newSeries.save();
+
+    console.log(1);
     const updatedUser = await UserRepository.updateWatchedSeries(
       userId,
       savedSeries._id
     );
+
     return updatedUser ? cachedEpisodeTitle : null;
   }
+
   try {
     const response = await imdbInstance.get("/auto-complete", {
       params: { q: seriesName },
     });
-    console.log(1);
 
     const seriesId = response.data.d?.[0]?.id || null;
+    console.log("Id", seriesId);
+
     return seriesId;
   } catch (e) {
     throw new NotFoundError("series ID not found", error.message);
@@ -53,10 +62,12 @@ export const getEpisodeTitleService = async (updateData, seriesId, userId) => {
     const episodeIndex = parseInt(episodeNumber, 10) - 1;
     const episode = seasons.episodes[episodeIndex.toString()];
     const title = episode.title;
+    console.log("title", title);
 
     const newSeries = new Series({
       episodeTitle: title,
       seriesName,
+      seriesId,
       seasonNumber,
       episodeNumber,
       userId: userId,

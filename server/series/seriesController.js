@@ -11,14 +11,18 @@ export async function getTitle(req, res) {
 
   try {
     const seriesId = await getSeriesIdService(series, userId);
+    console.log(5);
 
     if (isInvalidSeriesId(seriesId)) {
       return res.status(200).json({
         episodeTitle: seriesId,
       });
     }
+
     const dataSeries = await getEpisodeTitleService(series, seriesId, userId);
     await getOfferEpisodes(req.body.series, dataSeries.seasons);
+    console.log("dataSeries", dataSeries);
+
     return res.status(200).json({
       seriesId,
       episodeTitle: dataSeries.title,

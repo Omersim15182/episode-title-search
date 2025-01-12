@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import Users from "./model/Users.js";
 import { NotFoundError } from "../custom-errors/errors.js";
 import { generateAccessToken } from "../auth/token.js";
-import validator from "../utils/idValidator.js";
+import emailValid from "email-validator";
 
 export const login = async (user) => {
   try {
@@ -30,7 +30,7 @@ export const login = async (user) => {
 };
 
 export const register = async (user) => {
-  const isValid = validator.validate(user.email);
+  const isValid = emailValid.validate(user.email);
   if (!isValid) {
     console.error("Invalid email format");
     return false;

@@ -3,9 +3,14 @@ import { userRegister } from "../../types/types";
 
 export const registerUser = async (user: userRegister) => {
   try {
-    await axiosInstance.post("/episodeNamer/user/auth/register", user, {
-      withCredentials: true,
-    });
+    const response = await axiosInstance.post(
+      "/episodeNamer/user/auth/register",
+      user,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log("rgister ", response.data);
   } catch (err: any) {
     console.error(
       "Error occurred:",

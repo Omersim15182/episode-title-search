@@ -11,8 +11,6 @@ export async function loginUser(req, res) {
   }
 
   const { token, userId } = response;
-  console.log("to", token);
-  console.log("userId", userId);
 
   if (token) {
     res.cookie("token", token, {
@@ -39,10 +37,11 @@ export async function verifyUser(req, res) {
 
 export async function registerUser(req, res) {
   const user = req.body;
-  const result = await register(user);
-  if (result)
-    return res.status(200).json({ message: "successful to create user" });
-  else {
+  try {
+    const result = await register(user);
+    if (result)
+      return res.status(200).json({ message: "successful to create user" });
+  } catch (error) {
     return res.status(500).json({
       message: "Faild to register user try diffrent email or password",
     });

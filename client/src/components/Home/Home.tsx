@@ -19,6 +19,7 @@ export default function Home() {
       try {
         setIsLoading(true);
         const fetchedSeries = await getRecentSearches();
+        console.log("fetchedSeries", fetchedSeries);
 
         if (fetchedSeries && Array.isArray(fetchedSeries.data)) {
           setSeries(fetchedSeries.data);
