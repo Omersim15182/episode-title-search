@@ -4,7 +4,6 @@ import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
 import style from "./SearchBar.module.css";
 
 interface SearchInputProps {
@@ -31,9 +30,7 @@ export default function SearchInput(props: SearchInputProps) {
         type="button"
         className={style["icon-button"]}
         aria-label="search"
-      >
-        <SearchIcon />
-      </IconButton>
+      ></IconButton>
       <Divider className={style["divider-container"]} orientation="vertical" />
     </Paper>
   );

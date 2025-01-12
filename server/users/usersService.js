@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import Users from "./model/Users.js";
-import { NotFoundError } from "../custom-errors/errors.js";
+import { InternalServerError, NotFoundError } from "../custom-errors/errors.js";
 import { generateAccessToken } from "../auth/token.js";
 import emailValid from "email-validator";
 
@@ -9,23 +9,20 @@ export const login = async (user) => {
     const existingUser = await Users.findOne({
       email: user.email,
     });
-    if (existingUser) {
-      const isPasswordValid = await bcrypt.compare(
-        user.password,
-        existingUser.password
-      );
-      if (isPasswordValid) {
-        const token = await generateAccessToken(user);
-
-        return { token, userId: existingUser._id };
-      } else {
-        console.error("Invalid password");
-        return false;
-      }
+    if (!existingUser) {
+      throw new NotFoundError("User not exist failed");
     }
-    return false;
+    const isPasswordValid = await bcrypt.compare(
+      user.password,
+      existingUser.password
+    );
+    if (!isPasswordValid) {
+      throw new NotFoundError("Invalid password");
+    }
+    const token = await generateAccessToken(user);
+    return { token, userId: existingUser._id };
   } catch (error) {
-    throw new NotFoundError("Login failed", error.message);
+    throw new InternalServerError("Login Failed", error.message);
   }
 };
 

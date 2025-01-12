@@ -92,7 +92,7 @@ export default function SearchBar({ title, setTitle }: Props) {
           <AddButton onClick={handleAddEpisode} />
         </>
       )}
-      <h3>title is : {title}</h3>
+      <h3 className={style["h3-container"]}>{title}</h3>
     </Box>
   );
 }

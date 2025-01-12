@@ -34,6 +34,7 @@ export default function ShowEpisodeData({
   return (
     <div>
       <Modal
+        aria-hidden="true"
         keepMounted
         open={open}
         aria-labelledby="keep-mounted-modal-title"

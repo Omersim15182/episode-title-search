@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { getRecentSearches } from "../../api/series/recentSearches.api";
 import { Episode } from "../../types/types";
-import ShowEpisodeData from "./EpisodeModal";
-import PageContent from "./PageContent";
+import ShowEpisodeData from "../Modal/EpisodeModal";
+import PageContent from "../SearchBar/BoxSearch";
 import DescriptionIcon from "@mui/icons-material/Description";
 import FolderIcon from "@mui/icons-material/Folder";
-import style from "./Home.module.css";
+import style from "./SearchHistory.module.css";
 
-export default function Home() {
+export default function SearchHistory() {
   const [title, setTitle] = useState<string>("");
   const [series, setSeries] = useState<Episode[]>([]);
   const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
@@ -59,7 +59,7 @@ export default function Home() {
   console.log("series", series);
 
   return (
-    <div className={style["demo-page-container"]}>
+    <div className={style["page-container"]}>
       <nav className={style["nav-container"]}>
         <div className={style["nav-title"]}>Episode Title Search</div>
 

@@ -5,8 +5,6 @@ interface ActorDataPrpos {
 }
 
 export const getActor = async ({ seriesId }: ActorDataPrpos) => {
-  console.log("tes", seriesId);
-
   try {
     const response = await axiosInstance.post(
       "/episodeNamer/Series/series-data/actorId",
@@ -14,6 +12,7 @@ export const getActor = async ({ seriesId }: ActorDataPrpos) => {
       { withCredentials: true }
     );
     console.log("response from actor id server", response.data);
+    return response.data;
   } catch (e: any) {
     return e.response.data;
   }

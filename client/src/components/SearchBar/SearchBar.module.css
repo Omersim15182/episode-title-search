@@ -6,6 +6,13 @@
     margin-left: 25vh;
   }
   
+  .page-container {
+    display: flex;
+    align-items: center;
+    text-align: center;height: 100vh;
+    width: 100%;
+    background-color:hsla(50, 24.7%, 71.4%, 0.75)
+  }
 
 /*Search input CSS*/
 .paper-container {
@@ -26,4 +33,9 @@
 .divider-container {
     height: 28;
     margin: 0.5;
+}
+
+.h3-container{
+  width: 0px;
+  min-width: 100%;
 }

@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
-import SearchBar from "../SearchBar/SearchBar";
-import style from "./Home.module.css";
+import SearchBar from "./SearchBar";
+import style from "./SearchBar.module.css";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
@@ -8,12 +8,10 @@ interface Props {
   setTitle: Dispatch<SetStateAction<string>>;
 }
 
-function PageContent({ title, setTitle }: Props) {
+export default function BoxSearch({ title, setTitle }: Props) {
   return (
-    <Box className={style["demo-page-container"]}>
+    <Box className={style["page-container"]}>
       <SearchBar title={title} setTitle={setTitle} />
     </Box>
   );
 }
-
-export default PageContent;

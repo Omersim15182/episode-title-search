@@ -21,6 +21,6 @@ export const getEpisodeTitle = async (series: Episode) => {
     if (e instanceof AxiosError) {
       console.error("Unexpected error:", e);
     }
-    console.error("Unexpected error:", e);
+    console.error("episode title error:", e);
   }
 };

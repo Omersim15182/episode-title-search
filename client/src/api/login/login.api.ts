@@ -1,6 +1,7 @@
 import axiosInstance from "../axiosInstance";
 import { userLogin } from "../../types/types";
 import { setCookie } from "typescript-cookie";
+import { AxiosError } from "axios";
 
 export const loginUser = async (user: userLogin) => {
   try {
@@ -16,12 +17,13 @@ export const loginUser = async (user: userLogin) => {
     });
     const userId = response.data.userId;
     localStorage.setItem("userId", userId);
+    console.log("Status ", response.data.message);
 
     return true;
-  } catch (err: any) {
-    console.error(
-      "Error occurred:",
-      err.response ? err.response.data : err.message
-    );
+  } catch (e) {
+    if (e instanceof AxiosError) {
+      console.error("Axios error:", e.response?.data || e.message);
+    }
+    console.error("Login error:", e);
   }
 };

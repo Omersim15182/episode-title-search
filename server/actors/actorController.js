@@ -2,13 +2,12 @@ import { getActorId } from "./actorService.js";
 
 export async function actorId(req, res) {
   const { seriesId } = req.body;
-  console.log("seires", seriesId);
   try {
     const isActorIdExisting = await getActorId(seriesId);
     if (isActorIdExisting) {
       return res.status(200).json({
         message: "actor successfully.",
-        actorData: isActorIdExisting,
+        actorData: isActorIdExisting.data,
       });
     } else {
       return res.status(500).json({

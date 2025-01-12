@@ -7,9 +7,7 @@ import { NotFoundError, InternalServerError } from "../custom-errors/errors.js";
 export const getSeriesIdService = async (showDetails, userId) => {
   const { seriesName, seasonNumber, episodeNumber } = showDetails;
   const cacheKey = `${seriesName}:season:${seasonNumber}:episode:${episodeNumber}`;
-
   const cachedEpisodeTitle = await redisClient.get(cacheKey);
-  console.log(`Cache Key: ${cacheKey}, Cached Title: ${cachedEpisodeTitle}`);
 
   if (cachedEpisodeTitle) {
     const newSeries = new Series({
@@ -19,11 +17,8 @@ export const getSeriesIdService = async (showDetails, userId) => {
       episodeNumber,
       userId,
     });
-    console.log(newSeries);
 
     const savedSeries = await newSeries.save();
-
-    console.log(1);
     const updatedUser = await UserRepository.updateWatchedSeries(
       userId,
       savedSeries._id
@@ -31,18 +26,18 @@ export const getSeriesIdService = async (showDetails, userId) => {
 
     return updatedUser ? cachedEpisodeTitle : null;
   }
-
   try {
     const response = await imdbInstance.get("/auto-complete", {
       params: { q: seriesName },
     });
 
     const seriesId = response.data.d?.[0]?.id || null;
-    console.log("Id", seriesId);
-
+    if (!seriesId) {
+      throw new NotFoundError("series ID not found");
+    }
     return seriesId;
-  } catch (e) {
-    throw new NotFoundError("series ID not found", error.message);
+  } catch (error) {
+    throw new InternalServerError("api request failed", error.message);
   }
 };
 
@@ -62,7 +57,6 @@ export const getEpisodeTitleService = async (updateData, seriesId, userId) => {
     const episodeIndex = parseInt(episodeNumber, 10) - 1;
     const episode = seasons.episodes[episodeIndex.toString()];
     const title = episode.title;
-    console.log("title", title);
 
     const newSeries = new Series({
       episodeTitle: title,
@@ -82,7 +76,7 @@ export const getEpisodeTitleService = async (updateData, seriesId, userId) => {
     if (!updatedUser) {
       throw new NotFoundError("User not found");
     }
-    return { status: "success", title, seasons };
+    return { title, seasons };
   } catch (error) {
     throw new InternalServerError("api request failed", error.message);
   }
