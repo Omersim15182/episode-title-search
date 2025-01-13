@@ -90,10 +90,9 @@ export default function SearchHistory() {
           open={open}
           setCloseModal={setCloseModal}
         />
-
+        <ActorCard></ActorCard>
         <PageContent title={title} setTitle={setTitle} />
       </div>
-      <ActorCard></ActorCard>
     </div>
   );
 }

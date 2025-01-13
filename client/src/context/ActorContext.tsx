@@ -7,8 +7,8 @@ interface Actor {
 }
 
 interface ActorContextType {
-  actorData: Actor[] | null;
-  setActorData: (data: Actor[]) => void;
+  actorData: Actor[] | any;
+  setActorData: (data: Actor[] | any) => void;
 }
 
 interface ActorProviderProps {
@@ -33,4 +33,3 @@ export const useActorContext = (): ActorContextType => {
   }
   return context;
 };
-export default useActorContext;
