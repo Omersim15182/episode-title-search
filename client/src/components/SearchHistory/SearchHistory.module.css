@@ -83,3 +83,9 @@
     flex: 1;
     
   }
+
+  .card-box{
+    display: flex  ;
+    height: 70vh;
+    
+  }

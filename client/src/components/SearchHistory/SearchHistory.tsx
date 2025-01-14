@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import { getRecentSearches } from "../../api/series/recentSearches.api";
 import { Episode } from "../../types/types";
 import ShowEpisodeData from "../Modal/EpisodeModal";
-import PageContent from "../SearchBar/BoxSearch";
 import DescriptionIcon from "@mui/icons-material/Description";
 import FolderIcon from "@mui/icons-material/Folder";
 import style from "./SearchHistory.module.css";
 import ActorCard from "../Card/ActorCard";
+// import SearchBar from "../SearchLabel/SearchBar";
 
-export default function SearchHistory() {
-  const [title, setTitle] = useState<string>("");
+interface Props {
+  title: string;
+}
+
+export default function SearchHistory({ title }: Props) {
   const [series, setSeries] = useState<Episode[]>([]);
   const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -56,11 +59,11 @@ export default function SearchHistory() {
     setSelectedEpisode(episode);
     setOpen(true);
   };
-
-  console.log("series", series);
+  console.log("title in history", title);
 
   return (
-    <div className={style["page-container"]}>
+    <div style={{ display: "flex" }}>
+      {/* <div className={style["page-container"]}> */}
       <nav className={style["nav-container"]}>
         <div className={style["nav-title"]}>Episode Title Search</div>
 
@@ -90,9 +93,12 @@ export default function SearchHistory() {
           open={open}
           setCloseModal={setCloseModal}
         />
-        <ActorCard></ActorCard>
-        <PageContent title={title} setTitle={setTitle} />
+        <div className={style["card-box"]}>
+          <ActorCard></ActorCard>
+        </div>
+        {/* <SearchBar title={title} setTitle={setTitle} /> */}
       </div>
+      {/* </div> */}
     </div>
   );
 }

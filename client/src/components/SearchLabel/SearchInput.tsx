@@ -26,11 +26,6 @@ export default function SearchInput(props: SearchInputProps) {
         onChange={props.onChange}
         inputProps={{ "aria-label": props.placeholder }}
       />
-      <IconButton
-        type="button"
-        className={style["icon-button"]}
-        aria-label="search"
-      ></IconButton>
       <Divider className={style["divider-container"]} orientation="vertical" />
     </Paper>
   );

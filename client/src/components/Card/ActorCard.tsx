@@ -1,49 +1,78 @@
+import { useState } from "react";
 import { useActorContext } from "../../context/ActorContext";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
+import Button from "@mui/material/Button";
 import style from "./Actor.module.css";
+
 export default function ActorCard() {
   const { actorData } = useActorContext();
   const credits =
     actorData?.actorData?.title?.principalCredits[1]?.credits ?? [];
 
-  if (!actorData || actorData.length === 0) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (!actorData || credits.length === 0) {
     return <Typography>No actor data available</Typography>;
   }
 
-  console.log(
-    "actor formal from card",
-    actorData?.actorData?.title?.principalCredits[1]?.credits
-  );
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % credits.length);
+  };
+
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? credits.length - 1 : prevIndex - 1
+    );
+  };
+
+  const currentCredit = credits[currentIndex];
+
   return (
     <div className={style["actor"]}>
-      {credits.map((credit: any, index) => (
-        <Card style={{ height: "50%" }} sx={{ maxWidth: 345 }} key={index}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="140"
-              image={credit.name.primaryImage?.url}
-              alt={
-                credit.name.primaryImage?.url
-                  ? "Character image"
-                  : "Default image"
-              }
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {credit.characters[0]?.name || "Unknown Character"}
-              </Typography>
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                Actor: {credit.name.nameText?.text || "Unknown Actor"}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      ))}
+      <Card aria-hidden="true" style={{ height: "50%" }} sx={{ maxWidth: 345 }}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height="140"
+            image={currentCredit.name.primaryImage?.url}
+            alt={
+              currentCredit.name.primaryImage?.url
+                ? "Character image"
+                : "Default image"
+            }
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5">
+              Actor: {currentCredit.name.nameText?.text || "Unknown Actor"}
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ color: "text.secondary" }}
+              component="div"
+            >
+              {currentCredit.characters[0]?.name || "Unknown Character"}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "10px",
+        }}
+      >
+        <Button onClick={handlePrevious} variant="outlined">
+          Previous
+        </Button>
+        <Button onClick={handleNext} variant="outlined">
+          Next
+        </Button>
+      </div>
     </div>
   );
 }
