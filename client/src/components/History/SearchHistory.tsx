@@ -5,8 +5,7 @@ import ShowEpisodeData from "../Modal/EpisodeModal";
 import DescriptionIcon from "@mui/icons-material/Description";
 import FolderIcon from "@mui/icons-material/Folder";
 import style from "./SearchHistory.module.css";
-import ActorCard from "../Card/ActorCard";
-// import SearchBar from "../SearchLabel/SearchBar";
+// import ActorCard from "../Card/ActorCard";
 
 interface Props {
   title: string;
@@ -20,22 +19,18 @@ export default function SearchHistory({ title }: Props) {
 
   useEffect(() => {
     const fetchRecentSearches = async () => {
-      try {
-        setIsLoading(true);
-        const fetchedSeries = await getRecentSearches();
-        console.log("fetchedSeries", fetchedSeries);
+      setIsLoading(true);
+      const fetchedSeries = await getRecentSearches();
+      console.log("fetchedSeries", fetchedSeries);
 
-        if (fetchedSeries && Array.isArray(fetchedSeries.data)) {
-          setSeries(fetchedSeries.data);
-        } else {
-          console.error("Unexpected data structure:", fetchedSeries);
-        }
-
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
-        console.error("Error fetching series data:", err);
+      if (fetchedSeries && Array.isArray(fetchedSeries.data)) {
+        setSeries(fetchedSeries.data);
+      } else {
+        console.error("Unexpected data structure:", fetchedSeries);
       }
+
+      setIsLoading(false);
+      setIsLoading(false);
     };
 
     fetchRecentSearches();
@@ -62,9 +57,8 @@ export default function SearchHistory({ title }: Props) {
   console.log("title in history", title);
 
   return (
-    <div style={{ display: "flex" }}>
-      {/* <div className={style["page-container"]}> */}
-      <nav className={style["nav-container"]}>
+    <div className={style["search-history-container"]}>
+      <nav className={style["search-history-block"]}>
         <div className={style["nav-title"]}>Episode Title Search</div>
 
         <div className={style["search-history-title"]}>
@@ -93,12 +87,7 @@ export default function SearchHistory({ title }: Props) {
           open={open}
           setCloseModal={setCloseModal}
         />
-        <div className={style["card-box"]}>
-          <ActorCard></ActorCard>
-        </div>
-        {/* <SearchBar title={title} setTitle={setTitle} /> */}
       </div>
-      {/* </div> */}
     </div>
   );
 }

@@ -15,6 +15,7 @@
     "@mui/icons-material": "^6.1.9",
     "@mui/material": "^6.1.9",
     "@mui/styled-engine-sc": "^6.1.9",
+    "@mui/x-charts": "^7.23.6",
     "@remix-run/react": "^2.15.2",
     "@toolpad/core": "^0.10.0",
     "axios": "^1.7.8",

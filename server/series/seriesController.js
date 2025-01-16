@@ -5,6 +5,7 @@ import {
 } from "../series/episodeTitleService.js";
 import { getOfferEpisodes } from "../series/nearbyEpisodesService.js";
 import isInvalidSeriesId from "../utils/idValidator.js";
+import { getSearchCount } from "./sereisChartService.js";
 
 export async function getTitle(req, res) {
   const { series, userId } = req.body;
@@ -37,5 +38,20 @@ export async function recentSearches(req, res) {
     });
   } catch (err) {
     return res.status(err.status).json({ message: err.message });
+  }
+}
+
+export async function seriesSearchCounts(req, res) {
+  const { userId } = req.body;
+
+  try {
+    const searchCounts = await getSearchCount(userId);
+    console.log("controller", searchCounts);
+
+    return res.status(200).json({
+      data: searchCounts,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 }

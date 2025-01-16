@@ -24,12 +24,8 @@ export default function ShowEpisodeData({
 
   useEffect(() => {
     const fetchActorData = async () => {
-      try {
-        const actorData = await getActor({ seriesId: episode?.seriesId });
-        setActorData(actorData);
-      } catch (error) {
-        console.error(error);
-      }
+      const actorData = await getActor({ seriesId: episode?.seriesId });
+      setActorData(actorData);
     };
     fetchActorData();
   }, [episode, setActorData]);
@@ -57,11 +53,8 @@ export default function ShowEpisodeData({
             <div className={style["modal-episode"]}>
               Episode number : {episode?.episodeNumber}
             </div>
-          </Typography>{" "}
-          <Typography
-            id="keep-mounted-modal-description"
-            sx={{ mt: 2 }}
-          ></Typography>
+          </Typography>
+          <Typography id="keep-mounted-modal-description"></Typography>
           <button onClick={() => setCloseModal()}>Close</button>
         </Box>
       </Modal>

@@ -4,7 +4,7 @@ import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import style from "./SearchBar.module.css";
+import style from "./SearchInput.module.css";
 
 interface SearchInputProps {
   value: string;

@@ -5,7 +5,7 @@ import AddButton from "../Button/AddButton";
 import { Episode } from "../../types/types";
 import style from "./SearchBar.module.css";
 import { getEpisodeTitle } from "../../api/series/series.api";
-import { AxiosError } from "axios";
+import ActorCard from "../Card/ActorCard";
 
 interface Props {
   title: string;
@@ -52,16 +52,8 @@ export default function SearchBar({ title, setTitle }: Props) {
       seasonNumber: seasonInput,
       episodeNumber: episodeInput,
     };
-    try {
-      const episodeTitle = await getEpisodeTitle(seriesEpisode);
-      setTitle(episodeTitle);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        console.error("Axios error in search title", error);
-      } else {
-        console.error("error in fetch title ", error);
-      }
-    }
+    const episodeTitle = await getEpisodeTitle(seriesEpisode);
+    setTitle(episodeTitle);
   };
 
   console.log("title", title);
@@ -92,6 +84,7 @@ export default function SearchBar({ title, setTitle }: Props) {
           <AddButton onClick={handleAddEpisode} />
         </>
       )}
+      <ActorCard></ActorCard>
       <h3 className={style["h3-container"]}>{title}</h3>
     </Box>
   );

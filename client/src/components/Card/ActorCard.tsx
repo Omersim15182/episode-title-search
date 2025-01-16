@@ -36,8 +36,9 @@ export default function ActorCard() {
       <Card aria-hidden="true" style={{ height: "50%" }} sx={{ maxWidth: 345 }}>
         <CardActionArea>
           <CardMedia
+            sx={{ objectFit: "contain" }}
             component="img"
-            height="140"
+            height="250"
             image={currentCredit.name.primaryImage?.url}
             alt={
               currentCredit.name.primaryImage?.url
@@ -66,10 +67,10 @@ export default function ActorCard() {
           marginTop: "10px",
         }}
       >
-        <Button onClick={handlePrevious} variant="outlined">
+        <Button onClick={handlePrevious} variant="contained" color="success">
           Previous
         </Button>
-        <Button onClick={handleNext} variant="outlined">
+        <Button onClick={handleNext} variant="contained" color="success">
           Next
         </Button>
       </div>

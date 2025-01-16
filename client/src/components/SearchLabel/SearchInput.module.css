@@ -1,0 +1,23 @@
+
+.paper-container {
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+  }
+
+  
+.icon-button {
+    padding: 10px;
+  }
+
+  
+.input-base-container {
+    margin-left: 16px;
+    flex: 1px;
+}
+
+
+.divider-container {
+    height: 28;
+    margin: 0.5;
+}

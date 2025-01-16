@@ -1,12 +1,9 @@
-.page-container {
+.search-history-container {
     display: flex;
-    align-items: center;
-    text-align: center;height: 100vh;
-    width: 100%;
     background-color:hsla(50, 24.7%, 71.4%, 0.75)
   }
 
-  .nav-container {
+  .search-history-block {
     width: 250px;
     height: 100vh;
     background-color: #f4f4f4;
@@ -22,20 +19,7 @@
     text-align: center;
     border-bottom: 1px solid #ccc;
   }
-  
-  .nav-item {
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: #333;
-  }
-  
-  .nav-item .icon {
-    margin-right: 10px;
-  }
-  
-  /* Search History Section */
+
   .search-history-title {
     padding: 10px 20px;
     display: flex;
@@ -43,12 +27,10 @@
     font-size: 14px;
     color: #333;
   }
-  
   .search-history-title .icon {
     margin-right: 10px;
   }
   
-  /* Series Episode List */
   .series-list-container {
     text-align: left;
     margin-top: 10px;
@@ -76,16 +58,4 @@
   
   .series-item:hover {
     background-color: #ddd;
-  }
-  
-  .content-container {
-    display: flex;
-    flex: 1;
-    
-  }
-
-  .card-box{
-    display: flex  ;
-    height: 70vh;
-    
   }
