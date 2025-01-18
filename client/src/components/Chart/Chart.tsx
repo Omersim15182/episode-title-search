@@ -1,6 +1,24 @@
 import { useEffect, useState } from "react";
+import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import { getSeriesSearchCount } from "../../api/chart/seriesChart.api";
-import { BarChart } from "@mui/x-charts";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 interface Props {
   title: string | null;
@@ -11,31 +29,79 @@ export default function Chart({ title }: Props) {
   const [loading, setLoading] = useState<string | boolean>(false);
 
   useEffect(() => {
-    if (!title) return;
     const fetchDataChart = async () => {
       setLoading(true);
-      const dataChart = await getSeriesSearchCount();
-      if (dataChart) {
-        setData(dataChart); // Directly set the fetched data
-        setLoading(false);
-      } else {
+      try {
+        const dataChart = await getSeriesSearchCount();
+        if (dataChart) {
+          setData(dataChart.data);
+          setLoading(false);
+        } else {
+          setLoading("Error loading data");
+        }
+      } catch (error) {
         setLoading("Error loading data");
       }
     };
+
     fetchDataChart();
   }, [title]);
 
-  console.log("data chart:", data);
+  const chartLabels = data.map((item) => item.name);
+  const chartValues = data.map((item) => item.count);
+
+  const chartData = {
+    labels: chartLabels,
+    datasets: [
+      {
+        label: "Search Count",
+        data: chartValues,
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+      },
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Series Name",
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: "Search Count",
+        },
+        beginAtZero: true,
+      },
+    },
+  };
+
   if (loading) return <div>{loading}</div>;
 
   return (
-    <div style={{ width: "100%", height: 400 }}>
-      <BarChart
-        xAxis={[{ scaleType: "band", data: ["group A", "group B", "group C"] }]}
-        series={[{ data: [4, 3, 5] }, { data: [1, 6, 3] }, { data: [2, 5, 6] }]}
-        width={500}
-        height={300}
-      />
+    <div
+      style={{
+        placeContent: "center",
+        display: "flex",
+        width: "50%",
+        height: "400px",
+      }}
+    >
+      <div style={{ width: "50%" }}>
+        <Bar data={chartData} options={chartOptions} />
+      </div>
     </div>
   );
 }

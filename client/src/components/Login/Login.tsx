@@ -70,6 +70,7 @@ export default function Login() {
               />
 
               <Button
+                sx={{ backgroundColor: "black" }}
                 fullWidth
                 variant="contained"
                 className={style["loginButton"]}
@@ -79,7 +80,7 @@ export default function Login() {
               </Button>
               <Grid container justifyContent={"flex-end"}>
                 <Grid item>
-                  <Link to="/sign-up">Don't have an account? Register</Link>
+                  <Link to="/sign-up" className={style["link-text"]}>Don't have an account? Register</Link>
                 </Grid>
               </Grid>
             </Box>

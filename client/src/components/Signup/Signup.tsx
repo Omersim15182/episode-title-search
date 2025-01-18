@@ -83,6 +83,7 @@ export default function Signup() {
               </Grid>
             </Grid>
             <Button
+              sx={{ backgroundColor: "black" }}
               fullWidth
               variant="contained"
               className={style["register-button"]}

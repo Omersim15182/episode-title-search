@@ -4,8 +4,10 @@
   }
 
   .search-history-block {
-    width: 250px;
-    height: 100vh;
+    width: 320px;
+    height: 91vh; 
+    margin: 0px; 
+    padding: 0px;
     background-color: #f4f4f4;
     padding-left: 10px;
     display: flex;

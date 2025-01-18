@@ -11,7 +11,7 @@ export default function Home() {
       <div
         style={{
           height: " 100%",
-          backgroundColor: "rgb(75 73 78)",
+          width: "100%",
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
