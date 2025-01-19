@@ -43,3 +43,14 @@ export async function registerUser(req, res) {
     });
   }
 }
+
+export async function logoutUser(req, res) {
+  try {
+    res.clearCookie("token");
+    return res.status(200).json({ message: "successful to logout user" });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Faild to logout user",
+    });
+  }
+}

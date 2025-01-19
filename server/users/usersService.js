@@ -54,6 +54,7 @@ export const register = async (user) => {
 
     return isUserCreated ? true : false;
   } catch (error) {
-    console.error("Failed to create user");
+    throw new InternalServerError("Failed to create user");
   }
 };
+
