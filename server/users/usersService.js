@@ -3,6 +3,7 @@ import Users from "./model/Users.js";
 import { InternalServerError, NotFoundError } from "../custom-errors/errors.js";
 import { generateAccessToken } from "../auth/token.js";
 import emailValid from "email-validator";
+import UserRepository from "./user-repository.js";
 
 export const login = async (user) => {
   try {
@@ -58,3 +59,14 @@ export const register = async (user) => {
   }
 };
 
+export const getUserInfo = async (userId) => {
+  try {
+    const user = await UserRepository.getUserInfoData(userId);
+    if (user) {
+      return user;
+    }
+    throw new NotFoundError("Invalid user Info");
+  } catch (error) {
+    throw new InternalServerError("Failed to fetch user info");
+  }
+};

@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,27 +7,43 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { useState } from "react";
-import { logoutUser } from "../../api/logout/logout.api";
+import { useEffect, useState } from "react";
+import { userLogout } from "../../api/logout/logout.api";
 import Account from "../MyAccount/Account";
+import { userInfo } from "../../api/info/info.api";
+import { useNavigate } from "react-router-dom";
+type UserInfo = {
+  name: string;
+  email: string;
+  id: string;
+};
 
 export default function MenuBar() {
+  const navigate = useNavigate();
   const [auth] = useState(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
+  // const [info, setInfo] = useState<UserInfo | null>(null);
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = async () => {
     setAnchorEl(null);
   };
 
   const handleLogout = async () => {
     setAnchorEl(null);
-    await logoutUser();
+    await userLogout();
+    navigate("/");
   };
 
+  // useEffect(() => {
+  //   const fetchUserInfo = async () => {
+  //     const user = await userInfo();
+  //     setInfo(user);
+  //   };
+  //   fetchUserInfo();
+  // }, []);
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -75,7 +90,7 @@ export default function MenuBar() {
                 >
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   <MenuItem onClick={handleClose}>
-                    <Account />
+                    <Account  />
                   </MenuItem>
                 </Menu>
               </div>

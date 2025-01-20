@@ -1,6 +1,6 @@
-import { login as login, register } from "./usersService.js";
+import { login as login, register, getUserInfo } from "./usersService.js";
 
-export async function loginUser(req, res) {
+export async function userLogin(req, res) {
   const user = req.body;
 
   let response;
@@ -23,7 +23,7 @@ export async function loginUser(req, res) {
   }
 }
 
-export async function verifyUser(req, res) {
+export async function userVerify(req, res) {
   try {
     return res.status(200).json({ message: "User is verify" });
   } catch (error) {
@@ -44,10 +44,24 @@ export async function registerUser(req, res) {
   }
 }
 
-export async function logoutUser(req, res) {
+export async function userLogout(req, res) {
   try {
     res.clearCookie("token");
     return res.status(200).json({ message: "successful to logout user" });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Faild to logout user",
+    });
+  }
+}
+
+export async function UserInfo(req, res) {
+  const { userId } = req.body;
+  try {
+    const info = await getUserInfo(userId);
+    return res
+      .status(200)
+      .json({ message: "successful to logout user", userInfo: info });
   } catch (error) {
     return res.status(500).json({
       message: "Faild to logout user",

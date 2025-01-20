@@ -16,3 +16,9 @@ export type userRegister = {
   email: string;
   password: string;
 };
+
+export type UserInfo = {
+  name: string;
+  email: string;
+  id: string;
+};

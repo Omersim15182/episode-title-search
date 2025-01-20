@@ -1,7 +1,7 @@
 import axiosInstance from "../axiosInstance";
 import { AxiosError } from "axios";
 
-export const logoutUser = async () => {
+export const userLogout = async () => {
   try {
     const response = await axiosInstance.post(
       "/episodeNamer/user/auth/Logout",

@@ -58,6 +58,29 @@ class UserRepository {
       );
     }
   }
+
+  /**
+   * Get the user data
+   * @param {string} userId - The ID of the user
+   * @returns {Object|null} - The user object with the details
+   */
+  static async getUserInfoData(userId) {
+    try {
+      const user = await Users.findById(userId, "_id name email").exec();
+      if (user) {
+        return {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+        };
+      }
+      throw new NotFoundError("Info user not founed");
+    } catch (error) {
+      throw new InternalServerError(
+        `Error fetch info user from db : ${error.message}`
+      );
+    }
+  }
 }
 
 export default UserRepository;

@@ -101,10 +101,9 @@ export default function Chart({ title }: Props) {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        // color: "black",
       }}
     >
-      <div style={{ backgroundColor: "#ADB5BD", width: "50%", height: "50%" }}>
+      <div style={{ width: "50%", height: "50%" }}>
         <Bar data={chartData} options={chartOptions} />
       </div>
     </div>

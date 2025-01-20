@@ -1,6 +1,6 @@
 import axiosInstance from "../axiosInstance";
 
-export const verifyUser = async (): Promise<boolean> => {
+export const userVerify = async (): Promise<boolean> => {
   try {
     const response = await axiosInstance.post(
       "/episodeNamer/user/auth/verify",
