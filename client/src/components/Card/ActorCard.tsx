@@ -67,10 +67,18 @@ export default function ActorCard() {
           marginTop: "10px",
         }}
       >
-        <Button onClick={handlePrevious} variant="contained" color="success">
+        <Button
+          onClick={handlePrevious}
+          variant="contained"
+          sx={{ backgroundColor: "#343A40" }}
+        >
           Previous
         </Button>
-        <Button onClick={handleNext} variant="contained" color="success">
+        <Button
+          onClick={handleNext}
+          variant="contained"
+          sx={{ backgroundColor: "#343A40" }}
+        >
           Next
         </Button>
       </div>

@@ -57,8 +57,8 @@ export default function Chart({ title }: Props) {
         label: "Search Count",
         data: chartValues,
         backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 1,
+        borderColor: "rgb(0, 0, 0)",
+        borderWidth: 2,
       },
     ],
   };
@@ -95,11 +95,16 @@ export default function Chart({ title }: Props) {
       style={{
         placeContent: "center",
         display: "flex",
-        width: "50%",
-        height: "400px",
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#CED4DA",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        // color: "black",
       }}
     >
-      <div style={{ width: "50%" }}>
+      <div style={{ backgroundColor: "#ADB5BD", width: "50%", height: "50%" }}>
         <Bar data={chartData} options={chartOptions} />
       </div>
     </div>

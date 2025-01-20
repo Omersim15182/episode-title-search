@@ -1,11 +1,11 @@
 .search-bar-container {
     display: flex;
-    width: 300px;
-    background-color: #b0c5be;
+    width: 30%;
     padding: 50px;
     flex-direction: column;
     gap: 16px;
     height: 80vh;
+    background-color: #DEE2E6;
   }
 
 .h3-container{

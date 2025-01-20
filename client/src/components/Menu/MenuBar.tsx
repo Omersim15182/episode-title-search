@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useState } from "react";
 import { logoutUser } from "../../api/logout/logout.api";
+import Account from "../MyAccount/Account";
 
 export default function MenuBar() {
   const [auth] = useState(true);
@@ -72,8 +73,10 @@ export default function MenuBar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>My account</MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <Account />
+                  </MenuItem>
                 </Menu>
               </div>
             )}

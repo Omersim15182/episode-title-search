@@ -7,8 +7,8 @@ import MenuBar from "../components/Menu/MenuBar";
 
 export default function RouteApp() {
   return (
-    <div>
-      <MenuBar></MenuBar>
+    <>
+      <MenuBar />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/sign-up" element={<Signup />} />
@@ -21,6 +21,6 @@ export default function RouteApp() {
           }
         />
       </Routes>
-    </div>
+    </>
   );
 }
