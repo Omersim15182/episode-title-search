@@ -7,22 +7,18 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { userLogout } from "../../api/logout/logout.api";
 import Account from "../MyAccount/Account";
-import { userInfo } from "../../api/info/info.api";
 import { useNavigate } from "react-router-dom";
-type UserInfo = {
-  name: string;
-  email: string;
-  id: string;
-};
 
 export default function MenuBar() {
   const navigate = useNavigate();
   const [auth] = useState(true);
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  // const [info, setInfo] = useState<UserInfo | null>(null);
+  const [accountDisplay, setAccountDisplay] = useState(false);
+
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -37,13 +33,11 @@ export default function MenuBar() {
     navigate("/");
   };
 
-  // useEffect(() => {
-  //   const fetchUserInfo = async () => {
-  //     const user = await userInfo();
-  //     setInfo(user);
-  //   };
-  //   fetchUserInfo();
-  // }, []);
+  const handleAccountClick = () => {
+    setAnchorEl(null);
+    setAccountDisplay(true);
+  };
+
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -89,9 +83,13 @@ export default function MenuBar() {
                   onClose={handleClose}
                 >
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <Account  />
-                  </MenuItem>
+                  <MenuItem onClick={handleAccountClick}>Account</MenuItem>
+                  {accountDisplay && (
+                    <Account
+                      display={accountDisplay}
+                      setDisplay={setAccountDisplay}
+                    />
+                  )}
                 </Menu>
               </div>
             )}

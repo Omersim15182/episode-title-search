@@ -1,8 +1,7 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
 import List from "@mui/material/List";
+import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -10,12 +9,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MailIcon from "@mui/icons-material/Mail";
 import PersonIcon from "@mui/icons-material/Person";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { userInfo } from "../../api/info/info.api";
-
-type AccountProps = {
-  userData: UserInfo | null;
-};
 
 type UserInfo = {
   name: string;
@@ -23,11 +18,13 @@ type UserInfo = {
   id: string;
 };
 
-export default function Account() {
-  const [open, setOpen] = React.useState(false);
+type displayProps = {
+  display: boolean;
+  setDisplay: Dispatch<SetStateAction<boolean>>;
+};
+export default function Account({ display, setDisplay }: displayProps) {
+  const [open, setOpen] = useState(false);
   const [info, setInfo] = useState<UserInfo | null>(null);
-
-  console.log("asd", info?.name);
 
   const toggleDrawer =
     (isOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -39,6 +36,7 @@ export default function Account() {
         return;
       }
       setOpen(isOpen);
+      setDisplay(isOpen);
     };
 
   useEffect(() => {
@@ -85,10 +83,8 @@ export default function Account() {
       <Button
         sx={{ display: "flex", color: "black" }}
         onClick={toggleDrawer(true)}
-      >
-        Account
-      </Button>
-      <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+      />
+      <Drawer anchor="right" open={display} onClose={toggleDrawer(false)}>
         {list()}
       </Drawer>
     </div>
