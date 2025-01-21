@@ -33,60 +33,58 @@ export default function Login() {
   };
 
   return (
-    <>
-      <div className={style["body"]}>
-        <Container maxWidth="xs">
-          <CssBaseline />
-          <Box className={style["loginBox"]}>
-            <Avatar className={style["avatar"]}>
-              <LockOutlined />
-            </Avatar>
-            <Typography variant="h5">Login</Typography>
-            <Box className={style["loginContent"]}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoFocus
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+    <div className={style["loginBoxContainer"]}>
+      <CssBaseline />
+      <Box className={style["loginBox"]}>
+        <Avatar className={style["avatar"]}>
+          <LockOutlined />
+        </Avatar>
+        <Typography variant="h5">Login</Typography>
+        <Box className={style["loginContent"]}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="password"
-                name="password"
-                label="Password"
-                type="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="password"
+            name="password"
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
 
-              <Button
-                sx={{ backgroundColor: "black" }}
-                fullWidth
-                variant="contained"
-                className={style["loginButton"]}
-                onClick={handleLogin}
-              >
-                Login
-              </Button>
-              <Grid container justifyContent={"flex-end"}>
-                <Grid item>
-                  <Link to="/sign-up" className={style["link-text"]}>Don't have an account? Register</Link>
-                </Grid>
-              </Grid>
-            </Box>
-          </Box>
-        </Container>
-      </div>
-    </>
+          <Button
+            sx={{ backgroundColor: "#343A40" }}
+            fullWidth
+            variant="contained"
+            className={style["loginButton"]}
+            onClick={handleLogin}
+          >
+            Login
+          </Button>
+          <Grid container justifyContent={"flex-end"}>
+            <Grid item>
+              <Link to="/sign-up" className={style["link-text"]}>
+                Don't have an account? Register
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </div>
   );
 }
