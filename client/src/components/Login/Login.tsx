@@ -1,6 +1,5 @@
 import { LockOutlined } from "@mui/icons-material";
 import {
-  Container,
   CssBaseline,
   Box,
   Avatar,
@@ -33,14 +32,14 @@ export default function Login() {
   };
 
   return (
-    <div className={style["loginBoxContainer"]}>
+    <div className={style["login-box-container"]}>
       <CssBaseline />
-      <Box className={style["loginBox"]}>
-        <Avatar className={style["avatar"]}>
+      <Box className={style["login-box"]}>
+        <Avatar className={style["login-avatar"]}>
           <LockOutlined />
         </Avatar>
         <Typography variant="h5">Login</Typography>
-        <Box className={style["loginContent"]}>
+        <Box className={style["login-content"]}>
           <TextField
             margin="normal"
             required
@@ -71,14 +70,14 @@ export default function Login() {
             sx={{ backgroundColor: "#343A40" }}
             fullWidth
             variant="contained"
-            className={style["loginButton"]}
+            className={style["login-button"]}
             onClick={handleLogin}
           >
             Login
           </Button>
           <Grid container justifyContent={"flex-end"}>
             <Grid item>
-              <Link to="/sign-up" className={style["link-text"]}>
+              <Link to="/sign-up" className={style["login-link-text"]}>
                 Don't have an account? Register
               </Link>
             </Grid>
