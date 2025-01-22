@@ -1,6 +1,5 @@
 .search-history-container {
     display: flex;
-    /* background-color:hsla(50, 24.7%, 71.4%, 0.75) */
   }
 
   .search-history-block {
@@ -15,7 +14,7 @@
     
   }
   
-  .nav-title {
+  .search-history-nav-title {
     font-weight: bold;
     padding: 20px 10px;
     text-align: center;
@@ -33,7 +32,7 @@
     margin-right: 10px;
   }
   
-  .series-list-container {
+  .search-history-series-list-container {
     text-align: left;
     margin-top: 10px;
     display: block; 
@@ -45,7 +44,7 @@
     overflow: auto;             
   }
   
-  .series-item {
+  .search-history-series-item {
     padding: 10px 20px;
     display: block; 
     margin-bottom: 8px; 

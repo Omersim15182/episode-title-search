@@ -1,3 +1,14 @@
+
 .actor{
     display: contents;
 }
+
+.actor-card{
+    height: 50%;
+    max-width: 345;
+}
+
+.actor-card-media {
+    object-fit: contain;
+    height: 250px;
+  }

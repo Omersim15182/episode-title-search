@@ -59,18 +59,20 @@ export default function SearchHistory({ title }: Props) {
   return (
     <div className={style["search-history-container"]}>
       <nav className={style["search-history-block"]}>
-        <div className={style["nav-title"]}>Episode Title Search</div>
+        <div className={style["search-history-nav-title"]}>
+          Episode Title Search
+        </div>
 
         <div className={style["search-history-title"]}>
           <FolderIcon className={style.icon} />
           <span>Search History</span>
         </div>
 
-        <div className={style["series-list-container"]}>
+        <div className={style["search-history-series-list-container"]}>
           {seriesName.map((item, index) => (
             <div
               key={index}
-              className={`${style["series-item"]} ${
+              className={`${style["search-history-series-item"]} ${
                 item.episodeTitle ? style["selected"] : ""
               }`}
               onClick={() => handleClickItem(item)}

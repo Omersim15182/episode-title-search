@@ -33,12 +33,11 @@ export default function ActorCard() {
 
   return (
     <div className={style["actor"]}>
-      <Card aria-hidden="true" style={{ height: "50%" }} sx={{ maxWidth: 345 }}>
+      <Card aria-hidden="true" className={style["actor-card"]}>
         <CardActionArea>
           <CardMedia
-            sx={{ objectFit: "contain" }}
+            className={style["actor-card-media"]}
             component="img"
-            height="250"
             image={currentCredit.name.primaryImage?.url}
             alt={
               currentCredit.name.primaryImage?.url

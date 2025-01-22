@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { getSeriesSearchCount } from "../../api/chart/seriesChart.api";
+import style from "./Chart.module.css";
 
 ChartJS.register(
   CategoryScale,
@@ -91,19 +92,8 @@ export default function Chart({ title }: Props) {
   if (loading) return <div>{loading}</div>;
 
   return (
-    <div
-      style={{
-        placeContent: "center",
-        display: "flex",
-        width: "100%",
-        height: "100%",
-        backgroundColor: "#CED4DA",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div style={{ width: "50%", height: "50%" }}>
+    <div className={style["chart"]}>
+      <div className={style["chart-container"]}>
         <Bar data={chartData} options={chartOptions} />
       </div>
     </div>
