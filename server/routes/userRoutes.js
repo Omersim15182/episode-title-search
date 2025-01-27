@@ -13,6 +13,7 @@ import {
   userVerify,
   UserInfo,
 } from "../users/userController.js";
+import { contacts } from "../chat/chatController.js";
 import { checkAuth } from "../middleware/checkAuth.js";
 import { actorId } from "../actors/actorController.js";
 
@@ -21,6 +22,8 @@ router.post("/Series/series-data", checkAuth, getTitle);
 router.post("/Series/series-data/recent-searches", checkAuth, recentSearches);
 router.post("/Series/series-data/actorId", checkAuth, actorId);
 router.post("/Series/series-data/seriesChart", checkAuth, seriesSearchCounts);
+
+router.post("/chat/contacts", checkAuth, contacts);
 
 router.post("/user/auth/Login", userLogin);
 router.post("/user/auth/register", registerUser);

@@ -49,6 +49,7 @@ export const register = async (user) => {
       name: user.name,
       email: user.email,
       password: hashedPassword,
+      photo: user.photo,
     });
 
     const isUserCreated = await newUser.save();

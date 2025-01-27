@@ -30,10 +30,21 @@
   box-sizing: border-box;
   border-radius: 4px;
   background-color: rgb(185 209 215 / 66%);
-  flex-direction: row;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
-  justify-content: center;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+}
+
+.contacts-box{
+  display: flex;
+  flex-direction: column;
+  height: 10vh;
+  width: 25vh;
+}
+
+.contact{
+  border: 2px solid rgb(79 79 79 / 45%);
+  margin-top: 10px;
 }

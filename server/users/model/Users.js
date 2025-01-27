@@ -20,6 +20,10 @@ const UsersSchema = new mongoose.Schema({
     unique: true,
     set: (value) => value.toLowerCase(),
   },
+  photo: {
+    type: String,
+    required: false,
+  },
   watchedSeries: [
     {
       type: String,

@@ -81,6 +81,24 @@ class UserRepository {
       );
     }
   }
+
+  /**
+   * Get the contacts data
+   * @returns {Array<Object>} - An array of user objects
+   */
+  static async getContacts(userId) {
+    try {
+      const users = await Users.find({});
+      if (!users || users.length === 0) {
+        throw new NotFoundError("No users found");
+      }
+      return users;
+    } catch (error) {
+      throw new InternalServerError(
+        `Error fetch info contacts from db : ${error.message}`
+      );
+    }
+  }
 }
 
 export default UserRepository;
