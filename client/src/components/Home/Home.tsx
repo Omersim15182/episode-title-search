@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div
       style={{
-        height: " 91%",
+        height: " 93%",
         width: "100%",
         display: "flex",
         flexDirection: "row",

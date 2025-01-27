@@ -1,0 +1,39 @@
+
+.chat-container
+{   
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #E9ECEF;
+
+}
+
+.contacts-container{
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    height: 80%;
+    width: 80%;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: #DEE2E6;
+    padding: 30px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+}
+
+.contacts{
+  display: flex;
+  height: 90%;
+  width: 30%;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background-color: rgb(185 209 215 / 66%);
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 20px;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+}

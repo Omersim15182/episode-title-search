@@ -14,19 +14,49 @@ import { Link } from "react-router-dom";
 import style from "./Signup.module.css";
 import { userRegister } from "../../types/types";
 import { registerUser } from "../../api/register/register.api";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [photo, setPhoto] = useState<string>("");
 
   const handleRegister = async () => {
     const user: userRegister = {
       name: name,
       email: email,
       password: password,
+      photo: photo,
     };
-    await registerUser(user);
+    const registered = await registerUser(user);
+    if (registered) {
+      setName("");
+      setEmail("");
+      setPassword("");
+      setPhoto("");
+    }
+  };
+
+  const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const base64 = await convertToBase64(file);
+      setPhoto(base64 as string);
+    }
+  };
+
+  const convertToBase64 = (file: any) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
   };
 
   return (
@@ -86,7 +116,30 @@ export default function Signup() {
                     className={style["signup-text-field"]}
                   />
                 </Grid>
+                <Grid>
+                  <Button
+                    style={{
+                      marginTop: "7px",
+                      marginLeft: "15px",
+                      backgroundColor: "#343A40",
+                    }}
+                    component="label"
+                    role={undefined}
+                    variant="contained"
+                    tabIndex={-1}
+                    startIcon={<CloudUploadIcon />}
+                  >
+                    Upload files
+                    <input
+                      type="file"
+                      className={style["visually-hidden"]}
+                      onChange={handlePhotoChange}
+                      multiple
+                    />
+                  </Button>
+                </Grid>
               </Grid>
+
               <Button
                 sx={{ backgroundColor: "#343A40" }}
                 fullWidth

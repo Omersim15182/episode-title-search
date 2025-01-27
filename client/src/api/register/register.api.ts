@@ -11,6 +11,7 @@ export const registerUser = async (user: userRegister) => {
       }
     );
     console.log("rgister ", response.data);
+    return true;
   } catch (err: any) {
     console.error(
       "Error occurred:",

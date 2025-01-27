@@ -11,6 +11,7 @@ import { useState } from "react";
 import { userLogout } from "../../api/logout/logout.api";
 import Account from "../MyAccount/Account";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function MenuBar() {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ export default function MenuBar() {
 
   return (
     <div>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ display: "flex" }}>
         <AppBar style={{ backgroundColor: "black" }} position="static">
           <Toolbar>
             <IconButton
@@ -52,9 +53,26 @@ export default function MenuBar() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" component="div">
               Episeoder Title Search
             </Typography>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "80vw",
+              }}
+            >
+              <MenuItem onClick={handleClose} component={Link} to="/Home">
+                Home
+              </MenuItem>
+              <MenuItem onClick={handleClose} component={Link} to="/chat">
+                Chat
+              </MenuItem>
+              <MenuItem onClick={handleClose}>My account</MenuItem>
+            </div>
+
             {auth && (
               <div>
                 <IconButton

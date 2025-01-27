@@ -47,6 +47,8 @@
   
   .signup-grid-container {
     margin-top: 1rem;
+    padding: 10px;
+
   }
   
   .signup-text-field {
@@ -68,5 +70,21 @@
   .signup-link-text {
     color:black;
     text-decoration: none;
+  }
+
+  /* .signup-upload-button{
+    margin-top: 7px;
+    margin-left: 15px ;
+  } */
+
+
+  .visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
   }
   
