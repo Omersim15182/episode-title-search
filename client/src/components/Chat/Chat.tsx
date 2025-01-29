@@ -4,6 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useEffect, useState } from "react";
 import { fetchContacts } from "../../api/chat/contacts.api";
+import Messages from "./Messages";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 
 interface user {
   name: string;
@@ -35,8 +37,8 @@ export default function Chat() {
   );
 
   return (
-    <div className={style["chat-container"]}>
-      <form className={style["contacts-container"]}>
+    <div className={style["chat"]}>
+      <form className={style["chat-container"]}>
         <div className={style["contacts"]}>
           <TextField
             id="standard-basic"
@@ -66,16 +68,17 @@ export default function Chat() {
           <div className={style["contact-box"]}>
             {fillteredUser.map((user, index) => (
               <div className={style["contact"]} key={index}>
-                <img
-                  style={{ width: "30%", height: "100%" }}
-                  src={user.photo}
-                  alt="Profile"
-                />
+                {user.photo ? (
+                  <img className={style["contact-img"]} src={user.photo} />
+                ) : (
+                  <AccountCircle sx={{ width: "30%", height: "100%" }} />
+                )}
                 {user.name}
               </div>
             ))}
           </div>
         </div>
+        <Messages />
       </form>
     </div>
   );
