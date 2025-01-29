@@ -13,7 +13,9 @@ interface user {
 }
 export default function Chat() {
   const [users, setUsers] = useState<user[]>([]);
+  const [searchUser, setSearchUser] = useState<string>("");
 
+  //Fetch contacts
   useEffect(() => {
     const contactsData = async () => {
       try {
@@ -27,6 +29,11 @@ export default function Chat() {
     contactsData();
   }, []);
 
+  //Filter contacts in order input search
+  const fillteredUser = users.filter((user) =>
+    user.name.toLowerCase().includes(searchUser.toLowerCase())
+  );
+
   return (
     <div className={style["chat-container"]}>
       <form className={style["contacts-container"]}>
@@ -35,6 +42,8 @@ export default function Chat() {
             id="standard-basic"
             label="Search Contact"
             variant="standard"
+            value={searchUser}
+            onChange={(e) => setSearchUser(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -54,17 +63,15 @@ export default function Chat() {
               },
             }}
           />
-          <div
-            style={{ display: "flex", height: "15vh", flexDirection: "column" }}
-          >
-            {users.map((user, index) => (
-              <div className={style["contact"]}>
+          <div className={style["contact-box"]}>
+            {fillteredUser.map((user, index) => (
+              <div className={style["contact"]} key={index}>
                 <img
-                  key={index}
-                  style={{ width: "30%", height: "30%" }}
+                  style={{ width: "30%", height: "100%" }}
                   src={user.photo}
                   alt="Profile"
                 />
+                {user.name}
               </div>
             ))}
           </div>
