@@ -5,6 +5,7 @@ import { PrivateRoute } from "../auth/PrivateRoute";
 import Home from "../components/Home/Home";
 import MenuBar from "../components/Menu/MenuBar";
 import Chat from "../components/Chat/Chat";
+import EmailCode from "../components/Signup/EmailCode";
 
 export default function RouteApp() {
   return (
@@ -13,6 +14,8 @@ export default function RouteApp() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/sign-up" element={<Signup />} />
+        <Route path="/emailcode" element={<EmailCode />} />
+
         <Route
           path="/home"
           element={

@@ -12,6 +12,7 @@ import {
   userLogout,
   userVerify,
   UserInfo,
+  registerVerify,
 } from "../users/userController.js";
 import { contacts } from "../chat/chatController.js";
 import { checkAuth } from "../middleware/checkAuth.js";
@@ -27,6 +28,7 @@ router.post("/chat/contacts", checkAuth, contacts);
 
 router.post("/user/auth/Login", userLogin);
 router.post("/user/auth/register", registerUser);
+router.post("/user/auth/verifyemail", registerVerify);
 router.post("/user/auth/Logout", checkAuth, userLogout);
 router.post("/user/auth/verify", checkAuth, userVerify);
 router.post("/user/auth/info", checkAuth, UserInfo);

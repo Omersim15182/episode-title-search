@@ -1,22 +1,29 @@
 import bcrypt from "bcryptjs";
 import Users from "./model/Users.js";
+import RegistrationProcess from "./model/RegistrationProcess.js";
 import { InternalServerError, NotFoundError } from "../custom-errors/errors.js";
 import { generateAccessToken } from "../auth/token.js";
 import emailValid from "email-validator";
 import UserRepository from "./user-repository.js";
+import { verifyEmail } from "../auth/sendEmail.js";
+import createEmailCode from "../utils/generateEmailCode.js";
 
 export const login = async (user) => {
   try {
     const existingUser = await Users.findOne({
       email: user.email,
     });
+
     if (!existingUser) {
       throw new NotFoundError("User not exist failed");
     }
+
     const isPasswordValid = await bcrypt.compare(
       user.password,
       existingUser.password
     );
+    console.log("pass", isPasswordValid);
+
     if (!isPasswordValid) {
       throw new NotFoundError("Invalid password");
     }
@@ -42,24 +49,42 @@ export const register = async (user) => {
   if (existingUser) {
     return false;
   }
+
   try {
     const hashedPassword = await bcrypt.hash(user.password, 10);
-
-    const newUser = new Users({
+    const key = createEmailCode();
+    const newRegistrationProcess = new RegistrationProcess({
       name: user.name,
       email: user.email,
       password: hashedPassword,
       photo: user.photo,
+      code: key,
     });
-
-    const isUserCreated = await newUser.save();
-
-    return isUserCreated ? true : false;
+    await newRegistrationProcess.save();
+    await verifyEmail(user.email, key);
+    return true;
   } catch (error) {
     throw new InternalServerError("Failed to create user");
   }
 };
 
+export const inProcess = async (code) => {
+  try {
+    const user = await RegistrationProcess.findOne({ code });
+    if (!user) throw new NotFoundError("Invalid user ");
+
+    const newUser = new Users({
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      photo: user.photo,
+    });
+    await newUser.save();
+    return true;
+  } catch (error) {
+    throw new InternalServerError("Failed to confirm register user ");
+  }
+};
 export const getUserInfo = async (userId) => {
   try {
     const user = await UserRepository.getUserInfoData(userId);

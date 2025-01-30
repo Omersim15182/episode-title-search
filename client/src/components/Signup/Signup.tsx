@@ -15,12 +15,15 @@ import style from "./Signup.module.css";
 import { userRegister } from "../../types/types";
 import { registerUser } from "../../api/register/register.api";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Navigate } from "react-router-dom";
 
 export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [photo, setPhoto] = useState<string>("");
+  const [registrationProcess, setRegistrationProcess] =
+    useState<boolean>(false);
 
   const handleRegister = async () => {
     const user: userRegister = {
@@ -31,12 +34,17 @@ export default function Signup() {
     };
     const registered = await registerUser(user);
     if (registered) {
+      setRegistrationProcess(true);
       setName("");
       setEmail("");
       setPassword("");
       setPhoto("");
     }
   };
+
+  if (registrationProcess) {
+    return <Navigate to="/emailcode" />;
+  }
 
   const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -58,6 +66,7 @@ export default function Signup() {
       };
     });
   };
+  console.log("te", registrationProcess);
 
   return (
     <>
@@ -122,6 +131,7 @@ export default function Signup() {
                       marginTop: "7px",
                       marginLeft: "15px",
                       backgroundColor: "#343A40",
+                      borderRadius: "3px",
                     }}
                     component="label"
                     role={undefined}
