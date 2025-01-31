@@ -1,12 +1,14 @@
-import axiosInstance from "../axiosInstance";
-import { userRegister } from "../../types/types";
 import { AxiosError } from "axios";
+import axiosInstance from "../axiosInstance";
 
-export const registerUser = async (user: userRegister) => {
+export const registerInProcess = async (code: string) => {
+  console.log(code);
+  console.log(1);
+
   try {
     const response = await axiosInstance.post(
-      "/episodeNamer/user/auth/register",
-      user,
+      "/episodeNamer/user/auth/verifyemail",
+      { code },
       {
         withCredentials: true,
       }

@@ -39,8 +39,9 @@ export async function registerUser(req, res) {
   const user = req.body;
   try {
     const result = await register(user);
-    if (result)
+    if (result) {
       return res.status(200).json({ message: "successful to create user" });
+    }
   } catch (error) {
     return res.status(500).json({
       message: "Faild to register user try diffrent email or password",
@@ -57,10 +58,12 @@ export async function registerVerify(req, res) {
   try {
     const result = await inProcess(code.code);
     if (result)
-      return res.status(200).json({ message: "successful to create user" });
+      return res
+        .status(200)
+        .json({ message: "successful to create user and confirm email" });
   } catch (error) {
     return res.status(500).json({
-      message: "Faild to register user try diffrent email or password",
+      message: "Faild to confirm email",
     });
   }
 }

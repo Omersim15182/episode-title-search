@@ -11,25 +11,34 @@ import {
 import style from "./Signup.module.css";
 import { useState } from "react";
 import { LockOutlined } from "@mui/icons-material";
-import { registerInProcess } from "../../api/register/RegistrationProcess";
-import { Navigate } from "react-router-dom";
+import { registerInProcess } from "../../api/register/RegistrationProcess.api";
+import { useNavigate } from "react-router-dom";
+import Notification from "../Notifications/Notification";
 
 export default function EmailCode() {
   const [code, setCode] = useState<string>("");
-  const [isUserRegister, setIsUserRegister] = useState<boolean>(false);
+  const [alert, setAlert] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+  const navigator = useNavigate();
 
   const handaleRegistrationProcess = async () => {
-    const process = await registerInProcess(code);
-    if (process) {
-      setIsUserRegister(true);
-      setCode("");
+    try {
+      const process = await registerInProcess(code);
+      if (process) {
+        setAlert({ type: "success", message: process });
+        setCode("");
+        setTimeout(() => navigator("/"), 1000);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setAlert({ type: "error", message: error.message });
+      } else {
+        setAlert({ type: "error", message: "try later." });
+      }
     }
   };
-
-  if (isUserRegister) {
-    return <Navigate to="/" />;
-  }
-  console.log("ASDA", code);
 
   return (
     <>
@@ -81,6 +90,7 @@ export default function EmailCode() {
             </Box>
           </Box>
         </Container>
+        <Notification alert={alert} setAlert={setAlert} />
       </div>
     </>
   );

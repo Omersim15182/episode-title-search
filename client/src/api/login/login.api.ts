@@ -19,7 +19,7 @@ export const userLogging = async (user: userLogin) => {
     localStorage.setItem("userId", userId);
     console.log("Status ", response.data.message);
 
-    return true;
+    return response.data.message;
   } catch (e) {
     if (e instanceof AxiosError) {
       throw new Error(e.response?.data?.message || "Login failed!");

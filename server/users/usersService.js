@@ -37,17 +37,15 @@ export const login = async (user) => {
 export const register = async (user) => {
   const isValid = emailValid.validate(user.email);
   if (!isValid) {
-    console.error("Invalid email format");
-    return false;
+    throw new NotFoundError("Invalid email format");
   }
 
   if (user.password.length < 8) {
-    console.error("Password must be at least 8 characters long");
-    return false;
+    throw new NotFoundError("Password must be at least 8 characters long");
   }
   const existingUser = await Users.findOne({ email: user.email });
   if (existingUser) {
-    return false;
+    throw new NotFoundError("user is already registered");
   }
 
   try {
