@@ -22,8 +22,8 @@ export const userLogging = async (user: userLogin) => {
     return true;
   } catch (e) {
     if (e instanceof AxiosError) {
-      console.error("Axios error:", e.response?.data || e.message);
+      throw new Error(e.response?.data?.message || "Login failed!");
     }
-    console.error("Login error:", e);
+    throw new Error("An unexpected error occurred.");
   }
 };
