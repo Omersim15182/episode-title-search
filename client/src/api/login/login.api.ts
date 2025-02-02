@@ -1,9 +1,9 @@
 import axiosInstance from "../axiosInstance";
-import { userLogin } from "../../types/types";
+import { UserLogin } from "../../types/types";
 import { setCookie } from "typescript-cookie";
 import { AxiosError } from "axios";
 
-export const userLogging = async (user: userLogin) => {
+export const userLogging = async (user: UserLogin) => {
   try {
     const response = await axiosInstance.post(
       "/episodeNamer/user/auth/Login",

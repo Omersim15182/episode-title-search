@@ -7,15 +7,13 @@ import {
   TextField,
   Button,
   Grid,
-  Snackbar,
 } from "@mui/material";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./Login.module.css";
-import { userLogin } from "../../types/types";
+import { UserLogin } from "../../types/types";
 import { userLogging } from "../../api/login/login.api";
+import Notification from "../Notifications/Notification";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -28,15 +26,15 @@ export default function Login() {
   const navigator = useNavigate();
 
   const handleLogin = async () => {
-    const user: userLogin = {
+    const user: UserLogin = {
       email: email,
       password: password,
     };
     try {
       const isSuccess = await userLogging(user);
       if (isSuccess) {
-        setAlert({ type: "success", message: "Logged in successfully!" });
-        setTimeout(() => navigator("/home"), 1000);
+        // setAlert({ type: "success", message: isSuccess });
+        navigator("/home");
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -99,27 +97,7 @@ export default function Login() {
           </Grid>
         </Box>
       </Box>
-      <Snackbar
-        open={!!alert}
-        autoHideDuration={1000}
-        onClose={() => setAlert(null)}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <div>
-          {alert && (
-            <Alert
-              sx={{ width: "300px" }}
-              severity={alert.type}
-              onClose={() => setAlert(null)}
-            >
-              <AlertTitle>
-                {alert.type === "success" ? "Success" : "Error"}
-              </AlertTitle>
-              {alert.message}
-            </Alert>
-          )}
-        </div>
-      </Snackbar>
+      <Notification alert={alert} setAlert={setAlert} />
     </div>
   );
 }

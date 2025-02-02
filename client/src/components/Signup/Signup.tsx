@@ -12,7 +12,7 @@ import { LockOutlined } from "@mui/icons-material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./Signup.module.css";
-import { userRegister } from "../../types/types";
+import { UserRegister } from "../../types/types";
 import { registerUser } from "../../api/register/register.api";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +31,7 @@ export default function Signup() {
   const navigator = useNavigate();
 
   const handleRegister = async () => {
-    const user: userRegister = {
+    const user: UserRegister = {
       name: name,
       email: email,
       password: password,
@@ -40,12 +40,12 @@ export default function Signup() {
     try {
       const registered = await registerUser(user);
       if (registered) {
-        setAlert({ type: "success", message: registered });
+        // setAlert({ type: "success", message: registered });
         setName("");
         setEmail("");
         setPassword("");
         setPhoto("");
-        setTimeout(() => navigator("/emailcode"), 1000);
+        navigator("/emailcode");
       }
     } catch (error) {
       if (error instanceof Error) {

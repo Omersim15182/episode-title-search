@@ -38,3 +38,28 @@
     border-color: rgb(100, 153, 255);
   }
   
+
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .custom-input {
+    width: 100%;
+    padding: 10px 40px 10px 10px; /* Space for icon */
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    font-size: 16px;
+  }
+  
+  .send-icon {
+    position: absolute;
+    right: 16px;
+    cursor: pointer;
+    color: #f3e9e9;
+    
+  }
+  

@@ -6,16 +6,12 @@ import { useEffect, useState } from "react";
 import { fetchContacts } from "../../api/chat/contacts.api";
 import Messages from "./Messages";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import { User } from "../../types/types";
 
-interface user {
-  name: string;
-  email: string;
-  password: string;
-  photo: string | undefined;
-}
 export default function Chat() {
-  const [users, setUsers] = useState<user[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [searchUser, setSearchUser] = useState<string>("");
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   //Fetch contacts
   useEffect(() => {
@@ -23,7 +19,6 @@ export default function Chat() {
       try {
         const contacts = await fetchContacts();
         setUsers(contacts);
-        console.log("users", users);
       } catch (error) {
         console.error(error);
       }
@@ -33,8 +28,12 @@ export default function Chat() {
 
   //Filter contacts in order input search
   const fillteredUser = users.filter((user) =>
-    user.name.toLowerCase().includes(searchUser.toLowerCase())
+    user.name.toLowerCase().includes(searchUser)
   );
+
+  const handleSelectUser = (user: User) => {
+    setSelectedUser(user);
+  };
 
   return (
     <div className={style["chat"]}>
@@ -67,7 +66,11 @@ export default function Chat() {
           />
           <div className={style["contact-box"]}>
             {fillteredUser.map((user, index) => (
-              <div className={style["contact"]} key={index}>
+              <div
+                className={style["contact"]}
+                key={index}
+                onClick={() => handleSelectUser(user)}
+              >
                 {user.photo ? (
                   <img className={style["contact-img"]} src={user.photo} />
                 ) : (
@@ -78,7 +81,7 @@ export default function Chat() {
             ))}
           </div>
         </div>
-        <Messages />
+        <Messages selectedUser={selectedUser} />
       </form>
     </div>
   );

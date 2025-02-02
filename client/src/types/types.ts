@@ -6,19 +6,28 @@ export type Episode = {
   episodeNumber?: string;
 };
 
-export type userLogin = {
+export type UserLogin = {
   email: string;
   password: string;
 };
 
-export type userRegister = {
+export type UserRegister = {
   name: string;
   email: string;
   password: string;
+  photo: string | null;
 };
 
 export type UserInfo = {
   name: string;
   email: string;
   id: string;
+};
+
+export type User = {
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+  photo: string | undefined;
 };

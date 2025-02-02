@@ -27,9 +27,9 @@ export default function EmailCode() {
     try {
       const process = await registerInProcess(code);
       if (process) {
-        setAlert({ type: "success", message: process });
+        // setAlert({ type: "success", message: process });
         setCode("");
-        setTimeout(() => navigator("/"), 1000);
+        navigator("/");
       }
     } catch (error) {
       if (error instanceof Error) {
