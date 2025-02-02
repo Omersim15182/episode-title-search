@@ -50,15 +50,16 @@ export default function EmailCode() {
               <LockOutlined />
             </Avatar>
             <Typography variant="h5" className={style["signup-header-text"]}>
-              Register
+              Enter Code
             </Typography>
             <Box className={style["signup-form-box"]}>
               <Grid
+                sx={{ display: "flex", flexDirection: "column" }}
                 container
                 spacing={2}
                 className={style["signup-grid-container"]}
               >
-                <Grid item xs={12}>
+                <div>
                   <TextField
                     name="code"
                     required
@@ -70,10 +71,9 @@ export default function EmailCode() {
                     onChange={(e) => setCode(e.target.value)}
                     className={style["signup-text-field"]}
                   />
-                </Grid>
+                </div>
                 <Button
                   sx={{ backgroundColor: "#343A40" }}
-                  fullWidth
                   variant="contained"
                   className={style["signup-register-button"]}
                   onClick={handaleRegistrationProcess}
@@ -81,12 +81,6 @@ export default function EmailCode() {
                   Register
                 </Button>
               </Grid>
-
-              <Grid
-                container
-                justifyContent="flex-end"
-                className={style["signup-link-container"]}
-              ></Grid>
             </Box>
           </Box>
         </Container>
