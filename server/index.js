@@ -4,9 +4,12 @@ import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
+import socketServer from "./socket.js";
+import http from "http";
 dotenv.config();
 
 const app = express();
+const server = http.createServer(app);
 const PORT = process.env.PORT_SERVER;
 
 connectDB();
@@ -20,10 +23,11 @@ app.use(
   })
 );
 
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
 
 app.use("/episodeNamer", userRoutes);
+socketServer(server);
 
-app.listen(PORT, () => {
-  console.log(`App is listening on port ${PORT} with HTTP`);
+server.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

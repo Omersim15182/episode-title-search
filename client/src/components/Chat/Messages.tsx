@@ -1,9 +1,11 @@
 import style from "./Messages.module.css";
 import SendIcon from "@mui/icons-material/Send";
 import ChatButton from "./ChatButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "../../types/types";
 import { saveMessages } from "../../api/chat/messages.api";
+import { socket } from "../../socket/socket";
+import { setupSocketListeners } from "../../socket/socketEvents";
 
 interface selectedUserProps {
   selectedUser: User | null;
@@ -32,8 +34,27 @@ export default function Messages({ selectedUser }: selectedUserProps) {
       },
     ]);
     await saveMessages(messages);
+
+    socket.emit("private message", {
+      destination_id: selectedUser?._id,
+      message: inputMessage,
+    });
     setInputMessage("");
   };
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log(socket.id);
+    });
+    const cleanup = setupSocketListeners((data) => {
+      setMessages((prevMessages) => [...prevMessages, data]);
+    });
+
+    return () => {
+      cleanup();
+      socket.disconnect();
+    };
+  }, []);
   console.log(messages);
 
   return (

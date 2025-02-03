@@ -16,6 +16,7 @@ export const saveMessages = async (messages: Message[]) => {
         withCredentials: true,
       }
     );
+    console.log(response.data);
 
     return response;
   } catch (e) {
