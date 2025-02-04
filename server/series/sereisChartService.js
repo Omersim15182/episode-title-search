@@ -7,7 +7,6 @@ export const getSearchCount = async (userId) => {
   }
   try {
     const result = await SeriesRepository.getSeriesSearchCountByUserId(userId);
-    console.log("resuilt", result);
     return result;
   } catch (error) {
     console.log("error", error);

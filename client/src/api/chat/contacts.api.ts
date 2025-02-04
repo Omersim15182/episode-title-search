@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 
 export const fetchContacts = async () => {
   try {
-    const response = await axiosInstance.post("/episodeNamer/chat/contacts", {
+    const response = await axiosInstance.get("/episodeNamer/chat/contacts", {
       withCredentials: true,
     });
 

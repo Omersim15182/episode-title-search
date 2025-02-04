@@ -80,7 +80,8 @@ export async function userLogout(req, res) {
 }
 
 export async function UserInfo(req, res) {
-  const { userId } = req.body;
+  const { userId } = req.query;
+
   try {
     const info = await getUserInfo(userId);
     return res

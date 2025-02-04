@@ -5,13 +5,10 @@ export const userInfo = async () => {
   const userId = localStorage.getItem("userId");
 
   try {
-    const response = await axiosInstance.post(
-      "/episodeNamer/user/auth/info",
-      { userId },
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await axiosInstance.get("/episodeNamer/user/auth/info", {
+      params: { userId },
+      withCredentials: true,
+    });
     console.log("Status ", response.data.userInfo);
     return response.data.userInfo;
   } catch (e) {

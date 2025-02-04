@@ -8,10 +8,11 @@ interface Message {
 }
 
 export const saveMessages = async (messages: Message[]) => {
+  const userId = localStorage.getItem("userId");
   try {
     const response = await axiosInstance.post(
       "/episodeNamer/chat/messages/save",
-      { messages },
+      { messages, userId },
       {
         withCredentials: true,
       }

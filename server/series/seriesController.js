@@ -30,7 +30,8 @@ export async function getTitle(req, res) {
 }
 
 export async function recentSearches(req, res) {
-  const { userId } = req.body;
+  const { userId } = req.query;
+
   try {
     const recentSearches = await getRecentEpisodes(userId);
     return res.status(200).json({
@@ -42,11 +43,10 @@ export async function recentSearches(req, res) {
 }
 
 export async function seriesSearchCounts(req, res) {
-  const { userId } = req.body;
+  const { userId } = req.query;
 
   try {
     const searchCounts = await getSearchCount(userId);
-    console.log("controller", searchCounts);
 
     return res.status(200).json({
       data: searchCounts,

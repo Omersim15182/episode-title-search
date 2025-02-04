@@ -6,10 +6,9 @@ interface ActorDataPrpos {
 
 export const getActor = async ({ seriesId }: ActorDataPrpos) => {
   try {
-    const response = await axiosInstance.post(
+    const response = await axiosInstance.get(
       "/episodeNamer/Series/series-data/actorId",
-      { seriesId },
-      { withCredentials: true }
+      { params: { seriesId }, withCredentials: true }
     );
     console.log("response from actor id server", response.data);
     return response.data;

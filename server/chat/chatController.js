@@ -14,12 +14,10 @@ export async function contacts(req, res) {
 }
 
 export async function messages(req, res) {
-  console.log("Raw request body:", req.body);
-  const { messages } = req.body;
-  console.log("Extracted messages:", messages);
+  const { messages, userId } = req.body;
 
   try {
-    const result = await saveMessages(messages);
+    const result = await saveMessages(messages, userId);
     if (result) {
       return res.status(200).json({ message: "successful save messages" });
     }

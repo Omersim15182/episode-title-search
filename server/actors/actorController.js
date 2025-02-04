@@ -1,7 +1,8 @@
 import { getActorId } from "./actorService.js";
 
 export async function actorId(req, res) {
-  const { seriesId } = req.body;
+  const { seriesId } = req.query;
+
   try {
     const isActorIdExisting = await getActorId(seriesId);
     if (isActorIdExisting) {

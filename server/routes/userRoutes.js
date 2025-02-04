@@ -14,17 +14,17 @@ import {
   UserInfo,
   registerVerify,
 } from "../users/userController.js";
-import { contacts,messages } from "../chat/chatController.js";
+import { contacts, messages } from "../chat/chatController.js";
 import { checkAuth } from "../middleware/checkAuth.js";
 import { actorId } from "../actors/actorController.js";
 
 /*POST user controllers*/
 router.post("/Series/series-data", checkAuth, getTitle);
-router.post("/Series/series-data/recent-searches", checkAuth, recentSearches);
-router.post("/Series/series-data/actorId", checkAuth, actorId);
-router.post("/Series/series-data/seriesChart", checkAuth, seriesSearchCounts);
+router.get("/Series/series-data/seriesChart", checkAuth, seriesSearchCounts);
+router.get("/Series/series-data/actorId", checkAuth, actorId);
+router.get("/Series/series-data/recent-searches", checkAuth, recentSearches);
 
-router.post("/chat/contacts", checkAuth, contacts);
+router.get("/chat/contacts", checkAuth, contacts);
 router.post("/chat/messages/save", checkAuth, messages);
 
 router.post("/user/auth/Login", userLogin);
@@ -32,6 +32,6 @@ router.post("/user/auth/register", registerUser);
 router.post("/user/auth/verifyemail", registerVerify);
 router.post("/user/auth/Logout", checkAuth, userLogout);
 router.post("/user/auth/verify", checkAuth, userVerify);
-router.post("/user/auth/info", checkAuth, UserInfo);
+router.get("/user/auth/info", checkAuth, UserInfo);
 
 export default router;
