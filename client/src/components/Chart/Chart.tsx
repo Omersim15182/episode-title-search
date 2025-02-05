@@ -11,6 +11,7 @@ import {
 } from "chart.js";
 import { getSeriesSearchCount } from "../../api/chart/seriesChart.api";
 import style from "./Chart.module.css";
+import Notification from "../Notifications/Notification";
 
 ChartJS.register(
   CategoryScale,
@@ -28,6 +29,10 @@ interface Props {
 export default function Chart({ title }: Props) {
   const [data, setData] = useState<{ name: string; count: number }[]>([]);
   const [loading, setLoading] = useState<string | boolean>(false);
+  const [alert, setAlert] = useState<{
+    type: "error";
+    message: string;
+  } | null>(null);
 
   useEffect(() => {
     const fetchDataChart = async () => {
@@ -39,9 +44,11 @@ export default function Chart({ title }: Props) {
           setLoading(false);
         } else {
           setLoading("Error loading data");
+          setAlert({ type: "error", message: "Failed to show data" });
         }
       } catch (error) {
         setLoading("Error loading data");
+        setAlert({ type: "error", message: "Error loading data" });
       }
     };
 
@@ -96,6 +103,7 @@ export default function Chart({ title }: Props) {
       <div className={style["chart-container"]}>
         <Bar data={chartData} options={chartOptions} />
       </div>
+      <Notification alert={alert} setAlert={setAlert} />
     </div>
   );
 }

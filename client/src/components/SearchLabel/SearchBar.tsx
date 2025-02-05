@@ -6,6 +6,7 @@ import { Episode } from "../../types/types";
 import style from "./SearchBar.module.css";
 import { getEpisodeTitle } from "../../api/series/series.api";
 import ActorCard from "../Card/ActorCard";
+import Notification from "../Notifications/Notification";
 
 interface Props {
   title: string;
@@ -17,6 +18,10 @@ export default function SearchBar({ title, setTitle }: Props) {
   const [seriesInput, setSeriesInput] = useState("");
   const [seasonInput, setSeasonInput] = useState("");
   const [episodeInput, setEpisodeInput] = useState("");
+  const [alert, setAlert] = useState<{
+    type: "error";
+    message: string;
+  } | null>(null);
 
   //Visibility of the input labels
   const [showSeasonInput, setShowSeasonInput] = useState(false);
@@ -53,7 +58,10 @@ export default function SearchBar({ title, setTitle }: Props) {
       episodeNumber: episodeInput,
     };
     const episodeTitle = await getEpisodeTitle(seriesEpisode);
-    setTitle(episodeTitle);
+    if (episodeTitle) {
+      setTitle(episodeTitle);
+    }
+    setAlert({ type: "error", message: "Can't fetch episode title" });
   };
 
   console.log("title", title);
@@ -84,8 +92,9 @@ export default function SearchBar({ title, setTitle }: Props) {
           <AddButton onClick={handleAddEpisode} />
         </>
       )}
-      <ActorCard></ActorCard>
+      <ActorCard />
       <h3 className={style["h3-container"]}>{title}</h3>
+      <Notification alert={alert} setAlert={setAlert} />
     </Box>
   );
 }

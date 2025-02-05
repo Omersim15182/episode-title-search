@@ -19,7 +19,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState<{
-    type: "success" | "error";
+    type: "error";
     message: string;
   } | null>(null);
 
@@ -33,7 +33,6 @@ export default function Login() {
     try {
       const isSuccess = await userLogging(user);
       if (isSuccess) {
-        // setAlert({ type: "success", message: isSuccess });
         navigator("/home");
       }
     } catch (error) {

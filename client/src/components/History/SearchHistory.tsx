@@ -5,6 +5,7 @@ import ShowEpisodeData from "../Modal/EpisodeModal";
 import DescriptionIcon from "@mui/icons-material/Description";
 import FolderIcon from "@mui/icons-material/Folder";
 import style from "./SearchHistory.module.css";
+import Notification from "../Notifications/Notification";
 // import ActorCard from "../Card/ActorCard";
 
 interface Props {
@@ -16,17 +17,20 @@ export default function SearchHistory({ title }: Props) {
   const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [open, setOpen] = useState<boolean>(false);
+  const [alert, setAlert] = useState<{
+    type: "error";
+    message: string;
+  } | null>(null);
 
   useEffect(() => {
     const fetchRecentSearches = async () => {
       setIsLoading(true);
       const fetchedSeries = await getRecentSearches();
-      console.log("fetchedSeries", fetchedSeries);
 
       if (fetchedSeries && Array.isArray(fetchedSeries.data)) {
         setSeries(fetchedSeries.data);
       } else {
-        console.error("Unexpected data structure:", fetchedSeries);
+        setAlert({ type: "error", message: "Can't see searches history" });
       }
 
       setIsLoading(false);
@@ -90,6 +94,7 @@ export default function SearchHistory({ title }: Props) {
           setCloseModal={setCloseModal}
         />
       </div>
+      <Notification alert={alert} setAlert={setAlert} />
     </div>
   );
 }

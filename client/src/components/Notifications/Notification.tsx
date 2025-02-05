@@ -3,12 +3,10 @@ import { Dispatch, SetStateAction } from "react";
 
 interface NotificationProps {
   alert: {
-    type: "success" | "error";
+    type: "error";
     message: string;
   } | null;
-  setAlert: Dispatch<
-    SetStateAction<{ type: "success" | "error"; message: string } | null>
-  >;
+  setAlert: Dispatch<SetStateAction<{ type: "error"; message: string } | null>>;
 }
 
 export default function Notification({ alert, setAlert }: NotificationProps) {
@@ -26,9 +24,7 @@ export default function Notification({ alert, setAlert }: NotificationProps) {
             severity={alert.type}
             onClose={() => setAlert(null)}
           >
-            <AlertTitle>
-              {alert.type === "success" ? "Success" : "Error"}
-            </AlertTitle>
+            <AlertTitle>{alert.type === "error"}</AlertTitle>
             {alert.message}
           </Alert>
         )}

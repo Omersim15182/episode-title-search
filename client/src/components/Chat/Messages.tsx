@@ -26,7 +26,7 @@ export default function Messages({ selectedUser }: selectedUserProps) {
   const userId = localStorage.getItem("userId");
 
   const [alert, setAlert] = useState<{
-    type: "success" | "error";
+    type: "error";
     message: string;
   } | null>(null);
 

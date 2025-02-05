@@ -5,10 +5,15 @@ import Fab from "@mui/material/Fab";
 import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import Notification from "../Notifications/Notification";
 
 export default function ChatButton() {
   const [file, setFile] = useState<string>("");
   const [buttonPlus, setButtonPlus] = useState<boolean>(false);
+  const [alert, setAlert] = useState<{
+    type: "error";
+    message: string;
+  } | null>(null);
 
   const handleButton = () => {
     setButtonPlus(!buttonPlus);
@@ -31,6 +36,7 @@ export default function ChatButton() {
       };
       fileReader.onerror = (error) => {
         reject(error);
+        setAlert({ type: "error", message: "Failed to load file" });
       };
     });
   };
@@ -87,6 +93,7 @@ export default function ChatButton() {
           </Button>
         )}
       </Box>
+      <Notification alert={alert} setAlert={setAlert} />
     </div>
   );
 }

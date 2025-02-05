@@ -7,11 +7,16 @@ import { fetchContacts } from "../../api/chat/contacts.api";
 import Messages from "./Messages";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { User } from "../../types/types";
+import Notification from "../Notifications/Notification";
 
 export default function Chat() {
   const [users, setUsers] = useState<User[]>([]);
   const [searchUser, setSearchUser] = useState<string>("");
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [alert, setAlert] = useState<{
+    type: "error";
+    message: string;
+  } | null>(null);
 
   //Fetch contacts
   useEffect(() => {
@@ -20,7 +25,7 @@ export default function Chat() {
         const contacts = await fetchContacts();
         setUsers(contacts);
       } catch (error) {
-        console.error(error);
+        setAlert({ type: "error", message: "Failed to fetch contacts" });
       }
     };
     contactsData();
@@ -83,6 +88,7 @@ export default function Chat() {
         </div>
         <Messages selectedUser={selectedUser} />
       </form>
+      <Notification alert={alert} setAlert={setAlert} />
     </div>
   );
 }

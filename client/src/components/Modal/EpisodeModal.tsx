@@ -3,9 +3,10 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import { Episode } from "../../types/types";
 import style from "./EpisodeModal.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getActor } from "../../api/actors/actor.api";
 import { useActorContext } from "../../context/ActorContext";
+import Notification from "../Notifications/Notification";
 
 interface ShowEpisodeDataProps {
   open: boolean;
@@ -21,11 +22,22 @@ export default function ShowEpisodeData({
   console.log(episode);
 
   const { setActorData } = useActorContext();
+  const [alert, setAlert] = useState<{
+    type: "error";
+    message: string;
+  } | null>(null);
 
   useEffect(() => {
     const fetchActorData = async () => {
-      const actorData = await getActor({ seriesId: episode?.seriesId });
-      setActorData(actorData);
+      try {
+        const actorData = await getActor({ seriesId: episode?.seriesId });
+        setActorData(actorData);
+      } catch (error) {
+        if (error instanceof Error) {
+          setAlert({ type: "error", message: error.message });
+        }
+        setAlert({ type: "error", message: "try later." });
+      }
     };
     fetchActorData();
   }, [episode, setActorData]);
@@ -58,6 +70,7 @@ export default function ShowEpisodeData({
           <button onClick={() => setCloseModal()}>Close</button>
         </Box>
       </Modal>
+      <Notification alert={alert} setAlert={setAlert} />
     </div>
   );
 }
