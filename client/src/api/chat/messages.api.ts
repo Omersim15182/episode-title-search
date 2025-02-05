@@ -8,11 +8,10 @@ interface Message {
 }
 
 export const saveMessages = async (messages: Message[]) => {
-  const userId = localStorage.getItem("userId");
   try {
     const response = await axiosInstance.post(
       "/episodeNamer/chat/messages/save",
-      { messages, userId },
+      { messages },
       {
         withCredentials: true,
       }
@@ -20,6 +19,24 @@ export const saveMessages = async (messages: Message[]) => {
     console.log(response.data);
 
     return response;
+  } catch (e) {
+    if (e instanceof AxiosError) {
+      console.error("Axios error:", e.response?.data || e.message);
+    }
+    console.error("user info error:", e);
+  }
+};
+
+export const getMessages = async (destination_id: string | undefined) => {
+  const userId = localStorage.getItem("userId");
+  try {
+    const response = await axiosInstance.get(
+      "/episodeNamer/chat/messages/get",
+      { params: { userId, destination_id }, withCredentials: true }
+    );
+    console.log("response", response.data);
+
+    return response.data.messages;
   } catch (e) {
     if (e instanceof AxiosError) {
       console.error("Axios error:", e.response?.data || e.message);

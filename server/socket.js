@@ -23,7 +23,6 @@ const socketServer = (httpServer) => {
       if (destSocket) {
         socket.to(destSocket).emit("private message callback", msg);
       }
-      console.log("message socket :", msg);
     });
     socket.on("disconnect", () => {
       console.log("user disconnected:", socket.id);

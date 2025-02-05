@@ -3,9 +3,9 @@ import SendIcon from "@mui/icons-material/Send";
 import ChatButton from "./ChatButton";
 import { useEffect, useState } from "react";
 import { User } from "../../types/types";
-import { saveMessages } from "../../api/chat/messages.api";
+import { getMessages, saveMessages } from "../../api/chat/messages.api";
 import { socket } from "../../socket/socket";
-// import { setupSocketListeners } from "../../socket/socketEvents";
+import Notification from "../Notifications/Notification";
 
 interface selectedUserProps {
   selectedUser: User | null;
@@ -25,18 +25,22 @@ export default function Messages({ selectedUser }: selectedUserProps) {
   const [inputMessage, setInputMessage] = useState<string>("");
   const userId = localStorage.getItem("userId");
 
+  const [alert, setAlert] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+
   const handleMessage = async () => {
-    setMessages((prev) => [
-      ...prev,
-      {
-        message: inputMessage,
-        source_id: userId,
-        destination_id: selectedUser?._id,
-        destination_photo: selectedUser?.photo,
-        destination_name: selectedUser?.name,
-      },
-    ]);
-    await saveMessages(messages);
+    const newMessage: Message = {
+      message: inputMessage,
+      source_id: userId,
+      destination_id: selectedUser?._id,
+      destination_photo: selectedUser?.photo,
+      destination_name: selectedUser?.name,
+    };
+
+    setMessages((prev) => [...prev, newMessage]);
+    await saveMessages([newMessage]);
 
     socket.emit("private message", {
       source_id: userId,
@@ -50,6 +54,8 @@ export default function Messages({ selectedUser }: selectedUserProps) {
   };
 
   useEffect(() => {
+    if (!selectedUser) return;
+
     socket.on("connection", () => {
       console.log(socket.id);
     });
@@ -57,34 +63,52 @@ export default function Messages({ selectedUser }: selectedUserProps) {
     socket.emit("register", userId);
 
     socket.on("private message callback", (msg) => {
-      console.log("msg", msg);
-      setMessages((prev) => [
-        ...prev,
-        {
-          source_id: msg.source_id,
-          destination_id: msg.destination_id,
-          message: msg.message,
-          destination_photo: msg.destination_photo,
-          destination_name: msg.destination_name,
-        },
-      ]);
-      setSocketMsg(msg);
+      if (!msg) {
+        setAlert({ type: "error", message: "message failed" });
+      }
+      if (
+        (msg.source_id === userId &&
+          msg.destination_id === selectedUser?._id) ||
+        (msg.destination_id === userId && msg.source_id === selectedUser?._id)
+      ) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            source_id: msg.source_id,
+            destination_id: msg.destination_id,
+            message: msg.message,
+            destination_photo: msg.destination_photo,
+            destination_name: msg.destination_name,
+          },
+        ]);
+        setSocketMsg(msg);
+      }
     });
 
     return () => {
       socket.off("private message callback");
       socket.disconnect();
     };
-  }, []);
-  console.log("messages:", messages);
-  console.log("test id ", socketMsg?.destination_id, selectedUser?._id);
-  console.log("aaaa", socketMsg);
+  }, [selectedUser]);
+
+  useEffect(() => {
+    const messages = async () => {
+      try {
+        const fetchedMessages = await getMessages(selectedUser?._id);
+        console.log("Fetched Messages:", fetchedMessages);
+        setMessages(fetchedMessages);
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      }
+    };
+    messages();
+  }, [selectedUser]);
 
   return (
     <div className={style["messages"]}>
       <div className={style["messages-container"]}>
         {messages.map((msg, index) => (
-          <div key={index}>{msg.message} </div>
+          <div key={index}>{msg.message}</div>
         ))}
         <ChatButton />
         <div className={style["input-wrapper"]}>
@@ -99,6 +123,7 @@ export default function Messages({ selectedUser }: selectedUserProps) {
             <SendIcon />
           </div>
         </div>
+        <Notification alert={alert} setAlert={setAlert} />
       </div>
     </div>
   );
