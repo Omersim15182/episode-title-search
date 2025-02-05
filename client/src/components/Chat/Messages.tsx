@@ -107,9 +107,18 @@ export default function Messages({ selectedUser }: selectedUserProps) {
   return (
     <div className={style["messages"]}>
       <div className={style["messages-container"]}>
-        {messages.map((msg, index) => (
-          <div key={index}>{msg.message}</div>
-        ))}
+        <div style={{ overflow: "scroll" }}>
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`${style["message-wrapper"]} ${
+                msg.source_id === userId ? style["sent"] : style["received"]
+              }`}
+            >
+              <div className={style["message"]}>{msg.message}</div>
+            </div>
+          ))}
+        </div>
         <ChatButton />
         <div className={style["input-wrapper"]}>
           <input
