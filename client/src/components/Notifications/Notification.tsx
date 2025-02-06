@@ -24,7 +24,7 @@ export default function Notification({ alert, setAlert }: NotificationProps) {
             severity={alert.type}
             onClose={() => setAlert(null)}
           >
-            <AlertTitle>{alert.type === "error"}</AlertTitle>
+            <AlertTitle>{alert.type}</AlertTitle>
             {alert.message}
           </Alert>
         )}
