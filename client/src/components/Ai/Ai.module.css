@@ -1,5 +1,86 @@
-.ai-container{
-    background-color: #8e9191;
-    width: 70%;
+.ai-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensures the height is 75% of viewport height */
+    width: 40%;
+    background-color: #ced4da;
+  }
+  
+  .chat-box {
+    width: 100%;
     height: 100%;
-}
+    padding: 16px;
+    background-color: #343a40;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .chat-title {
+    text-align: center;
+    margin-bottom: 12px;
+    color: white;
+  }
+  
+  .chat-messages {
+    flex-grow: 1;
+    min-height: 100px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 8px;
+    background-color: #495057;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    color: white;
+  }
+  
+  .chat-input-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  
+  .chat-input {
+    flex: 1;
+    background-color: #495057 !important;
+    color: white !important;
+  }
+  
+  .chat-input .MuiOutlinedInput-root {
+    background-color: #495057 !important;
+    color: white !important;
+  }
+  
+  .chat-input .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: white !important;
+  }
+  
+  .chat-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: white !important;
+    box-shadow: none !important;
+  }
+  
+  .chat-input .MuiInputLabel-root {
+    color: white !important;
+    font-weight: bold;
+  }
+  
+  .chat-input input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px #495057 inset !important;
+    -webkit-text-fill-color: white !important;
+  }
+  
+  .chat-input input {
+    border: none !important;
+    outline: none !important;
+  }
+  
+  .chat-button {
+    background-color: #212529 !important;
+    color: white !important;
+    border-radius: 10px !important;
+  }
+  
