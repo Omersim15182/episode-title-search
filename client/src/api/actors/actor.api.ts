@@ -11,8 +11,7 @@ export const getActor = async ({ seriesId }: ActorDataPrpos) => {
       "/episodeNamer/Series/series-data/actorId",
       { params: { seriesId }, withCredentials: true }
     );
-    console.log("response from actor id server", response.data);
-    return response.data;
+    return response.data.actorData;
   } catch (e) {
     if (e instanceof AxiosError) {
       throw new Error(e.response?.data?.message || "get actors failed!");

@@ -7,8 +7,7 @@ export async function actorId(req, res) {
     const isActorIdExisting = await getActorId(seriesId);
     if (isActorIdExisting) {
       return res.status(200).json({
-        message: "actor successfully.",
-        actorData: isActorIdExisting.data,
+        actorData: isActorIdExisting,
       });
     } else {
       return res.status(500).json({
