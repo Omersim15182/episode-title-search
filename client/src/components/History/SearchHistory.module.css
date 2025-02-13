@@ -49,9 +49,7 @@
     display: block; 
     margin-bottom: 8px; 
     cursor: pointer;
-    /* background-color: transparent; */
     border-bottom: 1px solid #ddd;
-    /* transition: background-color 0.3s; */
     white-space: nowrap;     
     overflow: hidden;       
     text-overflow: ellipsis;

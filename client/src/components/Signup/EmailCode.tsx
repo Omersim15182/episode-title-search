@@ -18,7 +18,7 @@ import Notification from "../Notifications/Notification";
 export default function EmailCode() {
   const [code, setCode] = useState<string>("");
   const [alert, setAlert] = useState<{
-    type: "success" | "error";
+    type: "error";
     message: string;
   } | null>(null);
   const navigator = useNavigate();
@@ -27,7 +27,6 @@ export default function EmailCode() {
     try {
       const process = await registerInProcess(code);
       if (process) {
-        // setAlert({ type: "success", message: process });
         setCode("");
         navigator("/");
       }

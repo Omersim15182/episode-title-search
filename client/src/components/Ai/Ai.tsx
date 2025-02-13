@@ -1,6 +1,6 @@
 import { useState } from "react";
 import style from "./Ai.module.css";
-import { Button, TextField, Box, Paper, Typography } from "@mui/material";
+import { Button, TextField, Box, Paper } from "@mui/material";
 import { getDataAi } from "../../api/ai/ai.api";
 import Notification from "../Notifications/Notification";
 
@@ -16,10 +16,10 @@ export default function Ai() {
     if (message.length === 0) {
       return setAlert({ type: "error", message: "Please enter a message" });
     }
+    setMessage("");
+
     try {
       const response = await getDataAi(message);
-      console.log("res", response);
-
       if (!response) {
         setAlert({ type: "error", message: "No message from AI" });
       }
@@ -31,61 +31,18 @@ export default function Ai() {
 
   return (
     <div className={style["ai-container"]}>
-      <Paper
-        sx={{
-          backgroundColor: "#495057",
-          height: "85%",
-          borderRadius: "15px",
-          width: "70%",
-          padding: "20px",
-          justifyContent: "flex-end",
-        }}
-        elevation={3}
-        className={style["chat-box"]}
-      >
-        <Typography
-          sx={{ backgroundColor: "#495057" }}
-          variant="h6"
-          className={style["chat-title"]}
-        >
-          AI Chat
-        </Typography>
+      <Paper elevation={3} className={style["chat-box"]}>
         <Box className={style["chat-messages"]}>{messageAi}</Box>
-        <Box
-          className={style["chat-buttons-container"]}
-          sx={{
-            display: "flex",
-            gap: "10px",
-            marginTop: "15px",
-          }}
-        >
+        <Box className={style["chat-buttons-container"]}>
           <Button
-            sx={{
-              marginBottom: "10px",
-              borderRadius: "10px",
-              backgroundColor: "white",
-              color: "black",
-              padding: "8px 16px",
-              "&:hover": {
-                backgroundColor: "#f0f0f0",
-              },
-            }}
+            className={style["recomended-series-button"]}
             variant="contained"
             onClick={() => setMessage("Recommended series")}
           >
             Recommended Series
           </Button>
           <Button
-            sx={{
-              marginBottom: "10px",
-              borderRadius: "10px",
-              backgroundColor: "white",
-              color: "black",
-              padding: "8px 16px",
-              "&:hover": {
-                backgroundColor: "#f0f0f0",
-              },
-            }}
+            className={style["recomended-series-button"]}
             variant="contained"
             onClick={() => setMessage("Episode suggestion")}
           >
@@ -104,15 +61,6 @@ export default function Ai() {
             autoComplete="off"
           />
           <Button
-            sx={{
-              borderRadius: "10px",
-              marginTop: "10px",
-              backgroundColor: "white",
-              color: "black",
-              "&:hover": {
-                backgroundColor: "#f0f0f0",
-              },
-            }}
             variant="contained"
             className={style["chat-button"]}
             onClick={handleInput}

@@ -40,7 +40,6 @@ export default function Signup() {
     try {
       const registered = await registerUser(user);
       if (registered) {
-        // setAlert({ type: "success", message: registered });
         setName("");
         setEmail("");
         setPassword("");
