@@ -4,7 +4,6 @@ import Messages from "./model/Messages.js";
 
 export const saveMessages = async (messages) => {
   if (!messages) throw new NotFoundError("Message didn't send");
-  console.log("messages", messages);
 
   const lastMessage = messages[messages.length - 1];
 
@@ -24,15 +23,12 @@ export const saveMessages = async (messages) => {
     }
     throw new NotFoundError("Message didn't save in the database");
   } catch (error) {
-    console.log(error);
-
     throw new InternalServerError("Error didn't except int the messages save ");
   }
 };
 
 export const getMessages = async (userId, destination_id) => {
   try {
-    console.log(1);
 
     const messages = MessageRepository.getMessagesById(userId, destination_id);
     if (messages) {

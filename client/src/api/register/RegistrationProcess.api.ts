@@ -2,8 +2,6 @@ import { AxiosError } from "axios";
 import axiosInstance from "../axiosInstance";
 
 export const registerInProcess = async (code: string) => {
-  console.log(code);
-  console.log(1);
 
   try {
     const response = await axiosInstance.post(
@@ -13,7 +11,6 @@ export const registerInProcess = async (code: string) => {
         withCredentials: true,
       }
     );
-    console.log("rgister ", response.data.message);
     return response.data.message;
   } catch (e) {
     if (e instanceof AxiosError) {

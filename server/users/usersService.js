@@ -22,7 +22,6 @@ export const login = async (user) => {
       user.password,
       existingUser.password
     );
-    console.log("pass", isPasswordValid);
 
     if (!isPasswordValid) {
       throw new NotFoundError("Invalid password");
@@ -78,6 +77,7 @@ export const inProcess = async (code) => {
       photo: user.photo,
     });
     await newUser.save();
+    await RegistrationProcess.deleteOne({ code });
     return true;
   } catch (error) {
     throw new InternalServerError("Failed to confirm register user ");

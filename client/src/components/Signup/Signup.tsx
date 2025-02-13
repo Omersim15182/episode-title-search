@@ -24,7 +24,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [photo, setPhoto] = useState<string>("");
   const [alert, setAlert] = useState<{
-    type: "success" | "error";
+    type: "error";
     message: string;
   } | null>(null);
 

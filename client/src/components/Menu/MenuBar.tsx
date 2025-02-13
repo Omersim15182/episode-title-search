@@ -42,7 +42,7 @@ export default function MenuBar() {
   return (
     <div>
       <Box sx={{ display: "flex" }}>
-        <AppBar style={{ backgroundColor: "black" }} position="static">
+        <AppBar style={{ backgroundColor: "#2F4F4F" }} position="static">
           <Toolbar>
             <IconButton
               size="large"

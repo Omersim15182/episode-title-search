@@ -6,6 +6,7 @@ import {
 import { getOfferEpisodes } from "../series/nearbyEpisodesService.js";
 import isInvalidSeriesId from "../utils/idValidator.js";
 import { getSearchCount } from "./sereisChartService.js";
+import { getStreamingInfo } from "./streamingService.js";
 
 export async function getTitle(req, res) {
   const { series, userId } = req.body;
@@ -50,6 +51,25 @@ export async function seriesSearchCounts(req, res) {
 
     return res.status(200).json({
       data: searchCounts,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+export async function streamingInfo(req, res) {
+  const { seriesId } = req.query;
+
+  try {
+    const streamData = await getStreamingInfo(seriesId);
+
+    const streamOptions = streamData.streamingOptions.us.map(
+      (option) => option.link
+    );
+    console.log("data", streamOptions);
+
+    return res.status(200).json({
+      data: streamOptions,
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });

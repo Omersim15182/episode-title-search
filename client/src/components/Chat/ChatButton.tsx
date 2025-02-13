@@ -2,12 +2,20 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Notification from "../Notifications/Notification";
 
-export default function ChatButton() {
+type fileProps = {
+  fileForInput: string;
+  setFileForInput: Dispatch<SetStateAction<string>>;
+};
+
+export default function ChatButton({
+  setFileForInput,
+  fileForInput,
+}: fileProps) {
   const [file, setFile] = useState<string>("");
   const [buttonPlus, setButtonPlus] = useState<boolean>(false);
   const [alert, setAlert] = useState<{
@@ -23,6 +31,7 @@ export default function ChatButton() {
     const file = e.target.files?.[0];
     if (file) {
       const base64 = await convertToBase64(file);
+      setFileForInput(base64 as string);
       setFile(base64 as string);
     }
   };
@@ -50,6 +59,23 @@ export default function ChatButton() {
           alignItems: "flex-end",
         }}
       >
+        {/* {fileForInput && (
+          <div style={{ display: "flex" }}>
+            <img
+              src={fileForInput}
+              alt="preview"
+              width="50px"
+              height="50px"
+              style={{ display: "flex" }}
+            />
+            <span
+              onClick={() => setFileForInput("")}
+              style={{ cursor: "pointer", marginLeft: "10px", color: "red" }}
+            >
+              ✖
+            </span>
+          </div>
+        )} */}
         <Fab
           sx={{
             backgroundColor: "black",
@@ -68,6 +94,7 @@ export default function ChatButton() {
         >
           {buttonPlus ? <RemoveIcon /> : <AddIcon />}
         </Fab>
+
         {buttonPlus && (
           <Button
             style={{
@@ -93,6 +120,7 @@ export default function ChatButton() {
           </Button>
         )}
       </Box>
+
       <Notification alert={alert} setAlert={setAlert} />
     </div>
   );

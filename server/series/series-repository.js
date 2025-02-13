@@ -26,8 +26,6 @@ class SeriesRepository {
         count: item.count,
       }));
     } catch (error) {
-      console.log("error", error);
-
       throw new InternalServerError("Can't get search counts from Db");
     }
   }

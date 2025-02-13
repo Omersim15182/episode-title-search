@@ -1,5 +1,5 @@
 import Series from "./model/Series.js";
-import imdbInstance from "../common/axios-instance.js";
+import { imdbInstance } from "../common/axios-instance.js";
 import redisClient from "../config/redisClient.js";
 import UserRepository from "../users/user-repository.js";
 import { NotFoundError, InternalServerError } from "../custom-errors/errors.js";
@@ -35,6 +35,7 @@ export const getSeriesIdService = async (showDetails, userId) => {
     if (!seriesId) {
       throw new NotFoundError("series ID not found");
     }
+
     return seriesId;
   } catch (error) {
     throw new InternalServerError("api request failed", error.message);
@@ -76,6 +77,7 @@ export const getEpisodeTitleService = async (updateData, seriesId, userId) => {
     if (!updatedUser) {
       throw new NotFoundError("User not found");
     }
+
     return { title, seasons };
   } catch (error) {
     throw new InternalServerError("api request failed", error.message);

@@ -9,7 +9,6 @@ export const userInfo = async () => {
       params: { userId },
       withCredentials: true,
     });
-    console.log("Status ", response.data.userInfo);
     return response.data.userInfo;
   } catch (e) {
     if (e instanceof AxiosError) {

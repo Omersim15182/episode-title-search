@@ -23,6 +23,7 @@ export default function Messages({ selectedUser }: selectedUserProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [socketMsg, setSocketMsg] = useState<Message>();
   const [inputMessage, setInputMessage] = useState<string>("");
+  const [fileForInput, setFileForInput] = useState<string>("");
   const userId = localStorage.getItem("userId");
 
   const [alert, setAlert] = useState<{
@@ -31,6 +32,10 @@ export default function Messages({ selectedUser }: selectedUserProps) {
   } | null>(null);
 
   const handleMessage = async () => {
+    if (!inputMessage && !fileForInput) {
+      setAlert({ type: "error", message: "Enter a message" });
+      return;
+    }
     const newMessage: Message = {
       message: inputMessage,
       source_id: userId,
@@ -39,25 +44,29 @@ export default function Messages({ selectedUser }: selectedUserProps) {
       destination_name: selectedUser?.name,
     };
 
+    if (fileForInput) {
+      newMessage.message = fileForInput;
+    }
+
     setMessages((prev) => [...prev, newMessage]);
     await saveMessages([newMessage]);
 
     socket.emit("private message", {
       source_id: userId,
       destination_id: selectedUser?._id,
-      message: inputMessage,
+      message: inputMessage || fileForInput,
       destination_photo: selectedUser?.photo,
       destination_name: selectedUser?.name,
     });
 
     setInputMessage("");
+    setFileForInput("");
   };
 
   useEffect(() => {
     if (!selectedUser) return;
 
     socket.on("connection", () => {
-      console.log(socket.id);
     });
 
     socket.emit("register", userId);
@@ -95,7 +104,6 @@ export default function Messages({ selectedUser }: selectedUserProps) {
     const messages = async () => {
       try {
         const fetchedMessages = await getMessages(selectedUser?._id);
-        console.log("Fetched Messages:", fetchedMessages);
         setMessages(fetchedMessages);
       } catch (error) {
         console.error("Error fetching messages:", error);
@@ -103,6 +111,12 @@ export default function Messages({ selectedUser }: selectedUserProps) {
     };
     messages();
   }, [selectedUser]);
+
+  function isBase64(str: string) {
+    const base64Regex =
+      /^data:image\/(png|jpeg|jpg|gif|webp);base64,([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$/;
+    return base64Regex.test(str);
+  }
 
   return (
     <div className={style["messages"]}>
@@ -115,11 +129,24 @@ export default function Messages({ selectedUser }: selectedUserProps) {
                 msg.source_id === userId ? style["sent"] : style["received"]
               }`}
             >
-              <div className={style["message"]}>{msg.message}</div>
+              <div className={style["message"]}>
+                {isBase64(msg.message) ? (
+                  <img
+                    style={{ width: "400px", height: "200px" }}
+                    alt="image"
+                    src={msg.message}
+                  />
+                ) : (
+                  msg.message
+                )}
+              </div>
             </div>
           ))}
         </div>
-        <ChatButton />
+        <ChatButton
+          setFileForInput={setFileForInput}
+          fileForInput={fileForInput}
+        />
         <div className={style["input-wrapper"]}>
           <input
             type="text"

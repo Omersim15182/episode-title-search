@@ -17,7 +17,6 @@ export const userLogging = async (user: UserLogin) => {
     });
     const userId = response.data.userId;
     localStorage.setItem("userId", userId);
-    console.log("Status ", response.data.message);
 
     return response.data.message;
   } catch (e) {

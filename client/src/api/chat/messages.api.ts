@@ -16,7 +16,6 @@ export const saveMessages = async (messages: Message[]) => {
         withCredentials: true,
       }
     );
-    console.log(response.data);
 
     return response;
   } catch (e) {
@@ -34,7 +33,6 @@ export const getMessages = async (destination_id: string | undefined) => {
       "/episodeNamer/chat/messages/get",
       { params: { userId, destination_id }, withCredentials: true }
     );
-    console.log("response", response.data);
 
     return response.data.messages;
   } catch (e) {

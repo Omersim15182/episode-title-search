@@ -7,7 +7,6 @@ export const userLogout = async () => {
       "/episodeNamer/user/auth/Logout",
       { withCredentials: true }
     );
-    console.log("Status ", response.data.message);
     return true;
   } catch (e) {
     if (e instanceof AxiosError) {

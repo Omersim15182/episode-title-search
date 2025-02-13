@@ -50,10 +50,7 @@ export async function registerUser(req, res) {
 }
 
 export async function registerVerify(req, res) {
-  console.log(req.body);
-
   const code = req.body;
-  console.log(code.code);
 
   try {
     const result = await inProcess(code.code);

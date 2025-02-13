@@ -84,9 +84,10 @@ class UserRepository {
 
   /**
    * Get the contacts data
-   * @returns {Array<Object>} - An array of user objects
+   * @async
+   * @returns {Promise<Array<Object>>}  - A promise that resolves to an array of user objects
    */
-  static async getContacts(userId) {
+  static async getContacts() {
     try {
       const users = await Users.find({});
       if (!users || users.length === 0) {
@@ -99,6 +100,7 @@ class UserRepository {
       );
     }
   }
+
 }
 
 export default UserRepository;

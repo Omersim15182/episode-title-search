@@ -11,7 +11,6 @@ export const registerUser = async (user: UserRegister) => {
         withCredentials: true,
       }
     );
-    console.log("rgister ", response.data.message);
     return response.data.message;
   } catch (e) {
     if (e instanceof AxiosError) {

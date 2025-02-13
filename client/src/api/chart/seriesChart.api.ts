@@ -9,7 +9,6 @@ export const getSeriesSearchCount = async () => {
       "/episodeNamer/Series/series-data/seriesChart",
       { params: { userId }, withCredentials: true }
     );
-    console.log("response from series search counts server", response.data);
     return response.data;
   } catch (e) {
     if (e instanceof AxiosError) {

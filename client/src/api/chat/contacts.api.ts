@@ -10,7 +10,6 @@ export const fetchContacts = async () => {
       }
     );
 
-    console.log("Status ", response.data.contacts);
     return response.data.contacts;
   } catch (e) {
     if (e instanceof AxiosError) {

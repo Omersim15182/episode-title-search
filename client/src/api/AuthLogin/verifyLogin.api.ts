@@ -6,7 +6,6 @@ export const userVerify = async (): Promise<boolean> => {
       "/episodeNamer/user/auth/verify",
       { withCredentials: true }
     );
-    console.log("status user verify : ", response.data);
     return true;
   } catch (err: any) {
     localStorage.setItem("userId", "");

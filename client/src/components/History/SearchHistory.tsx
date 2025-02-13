@@ -58,7 +58,6 @@ export default function SearchHistory({ title }: Props) {
     setSelectedEpisode(episode);
     setOpen(true);
   };
-  console.log("title in history", title);
 
   return (
     <div className={style["search-history-container"]}>

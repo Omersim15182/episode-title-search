@@ -5,6 +5,7 @@ import {
   getTitle,
   seriesSearchCounts,
   recentSearches,
+  streamingInfo,
 } from "../series/seriesController.js";
 import {
   userLogin,
@@ -24,6 +25,7 @@ router.post("/Series/series-data", checkAuth, getTitle);
 router.get("/Series/series-data/seriesChart", checkAuth, seriesSearchCounts);
 router.get("/Series/series-data/actorId", checkAuth, actorId);
 router.get("/Series/series-data/recent-searches", checkAuth, recentSearches);
+router.get("/Series/series-data/streaming", checkAuth, streamingInfo);
 
 router.post("/chat/messages/save", checkAuth, messages);
 router.get("/chat/contacts/get", checkAuth, contacts);

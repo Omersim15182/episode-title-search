@@ -5,8 +5,9 @@ import AddButton from "../Button/AddButton";
 import { Episode } from "../../types/types";
 import style from "./SearchBar.module.css";
 import { getEpisodeTitle } from "../../api/series/series.api";
-import ActorCard from "../Card/ActorCard";
 import Notification from "../Notifications/Notification";
+import Chart from "../Chart/Chart";
+import StreamingOptions from "../Streaming/StreamingOptions";
 
 interface Props {
   title: string;
@@ -18,6 +19,8 @@ export default function SearchBar({ title, setTitle }: Props) {
   const [seriesInput, setSeriesInput] = useState("");
   const [seasonInput, setSeasonInput] = useState("");
   const [episodeInput, setEpisodeInput] = useState("");
+  const [seriesId, setSeriesId] = useState<string | null>("");
+  const [searchTrigger, setSearchTrigger] = useState(0);
   const [alert, setAlert] = useState<{
     type: "error";
     message: string;
@@ -59,12 +62,12 @@ export default function SearchBar({ title, setTitle }: Props) {
     };
     const episodeTitle = await getEpisodeTitle(seriesEpisode);
     if (episodeTitle) {
-      setTitle(episodeTitle);
+      setTitle(episodeTitle.episodeTitle);
+      setSeriesId(episodeTitle.seriesId);
+      setSearchTrigger((prev) => prev + 1);
     }
     setAlert({ type: "error", message: "Can't fetch episode title" });
   };
-
-  console.log("title", title);
 
   return (
     <Box className={style["search-bar-container"]}>
@@ -92,8 +95,9 @@ export default function SearchBar({ title, setTitle }: Props) {
           <AddButton onClick={handleAddEpisode} />
         </>
       )}
-      <ActorCard />
       <h3 className={style["h3-container"]}>{title}</h3>
+      {seriesId && <StreamingOptions seriesId={seriesId} searchTrigger={searchTrigger} />}
+      <Chart title={title} />
       <Notification alert={alert} setAlert={setAlert} />
     </Box>
   );

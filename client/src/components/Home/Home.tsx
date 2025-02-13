@@ -1,7 +1,8 @@
 import { useState } from "react";
 import SearchHistory from "../History/SearchHistory";
 import SearchBar from "../SearchLabel/SearchBar";
-import Chart from "../Chart/Chart";
+import Ai from "../Ai/Ai";
+import ActorCard from "../Card/ActorCard";
 
 export default function Home() {
   const [title, setTitle] = useState<string>("");
@@ -14,12 +15,13 @@ export default function Home() {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        backgroundColor: "#F8F9FA",
+        backgroundColor: " #ced4da",
       }}
     >
       <SearchHistory title={title} />
       <SearchBar title={title} setTitle={setTitle} />
-      <Chart title={title}></Chart>
+      <ActorCard />
+      <Ai></Ai>
     </div>
   );
 }

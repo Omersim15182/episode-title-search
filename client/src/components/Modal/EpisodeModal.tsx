@@ -19,8 +19,6 @@ export default function ShowEpisodeData({
   open,
   setCloseModal,
 }: ShowEpisodeDataProps) {
-  console.log(episode);
-
   const { setActorData } = useActorContext();
   const [alert, setAlert] = useState<{
     type: "error";
@@ -36,11 +34,10 @@ export default function ShowEpisodeData({
         if (error instanceof Error) {
           setAlert({ type: "error", message: error.message });
         }
-        setAlert({ type: "error", message: "try later." });
       }
     };
     fetchActorData();
-  }, [episode, setActorData]);
+  }, [episode?.episodeTitle]);
 
   return (
     <div>
