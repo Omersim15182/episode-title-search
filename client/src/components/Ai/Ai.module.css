@@ -2,12 +2,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%; /* Ensures the height is 75% of viewport height */
+    height: 98%;
     width: 40%;
     background-color: #ced4da;
   }
   
   .chat-box {
+    display: flex;
+    justify-content: flex-end;
     width: 100%;
     height: 100%;
     padding: 16px;

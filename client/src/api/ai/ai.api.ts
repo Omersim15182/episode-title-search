@@ -7,7 +7,6 @@ export const getDataAi = async (message: string) => {
       params: { message },
       withCredentials: true,
     });
-    console.log("response from Ai", response);
     return response.data;
   } catch (e) {
     if (e instanceof AxiosError) {

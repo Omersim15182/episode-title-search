@@ -11,24 +11,23 @@ export default function Ai() {
     type: "error";
     message: string;
   } | null>(null);
+
   const handleInput = async () => {
     if (message.length === 0) {
       return setAlert({ type: "error", message: "Please enter a message" });
     }
     try {
       const response = await getDataAi(message);
+      console.log("res", response);
+
       if (!response) {
         setAlert({ type: "error", message: "No message from AI" });
       }
-
-      const responseFromAi =
-        response?.choices?.[0]?.message?.content || "No message from AI";
-      setMessageAi(responseFromAi);
+      setMessageAi(response);
     } catch (error) {
-      console.log(error);
+      setAlert({ type: "error", message: "Error loading Ai" });
     }
   };
-  console.log(messageAi);
 
   return (
     <div className={style["ai-container"]}>
@@ -38,6 +37,8 @@ export default function Ai() {
           height: "85%",
           borderRadius: "15px",
           width: "70%",
+          padding: "20px",
+          justifyContent: "flex-end",
         }}
         elevation={3}
         className={style["chat-box"]}
@@ -50,6 +51,47 @@ export default function Ai() {
           AI Chat
         </Typography>
         <Box className={style["chat-messages"]}>{messageAi}</Box>
+        <Box
+          className={style["chat-buttons-container"]}
+          sx={{
+            display: "flex",
+            gap: "10px",
+            marginTop: "15px",
+          }}
+        >
+          <Button
+            sx={{
+              marginBottom: "10px",
+              borderRadius: "10px",
+              backgroundColor: "white",
+              color: "black",
+              padding: "8px 16px",
+              "&:hover": {
+                backgroundColor: "#f0f0f0",
+              },
+            }}
+            variant="contained"
+            onClick={() => setMessage("Recommended series")}
+          >
+            Recommended Series
+          </Button>
+          <Button
+            sx={{
+              marginBottom: "10px",
+              borderRadius: "10px",
+              backgroundColor: "white",
+              color: "black",
+              padding: "8px 16px",
+              "&:hover": {
+                backgroundColor: "#f0f0f0",
+              },
+            }}
+            variant="contained"
+            onClick={() => setMessage("Episode suggestion")}
+          >
+            Episode Suggestion
+          </Button>
+        </Box>
         <Box className={style["chat-input-container"]}>
           <TextField
             sx={{ input: { color: "white" } }}
@@ -62,7 +104,15 @@ export default function Ai() {
             autoComplete="off"
           />
           <Button
-            sx={{ borderRadius: "10px" }}
+            sx={{
+              borderRadius: "10px",
+              marginTop: "10px",
+              backgroundColor: "white",
+              color: "black",
+              "&:hover": {
+                backgroundColor: "#f0f0f0",
+              },
+            }}
             variant="contained"
             className={style["chat-button"]}
             onClick={handleInput}

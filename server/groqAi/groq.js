@@ -1,25 +1,34 @@
 import Groq from "groq-sdk";
 import dotenv from "dotenv";
+import { InternalServerError } from "../custom-errors/errors.js";
 
 dotenv.config();
 
 const apiKeyAi = process.env.GROQ_API_KEY;
-const groq = new Groq({ apiKey: `${apiKeyAi}` });
+const cleanedApiKey = apiKeyAi.slice(1, -1);
+
+const groq = new Groq({
+  apiKey: cleanedApiKey,
+});
 
 export async function main() {
   const chatCompletion = await getGroqChatCompletion();
-  // Print the completion returned by the LLM.
-  console.log(chatCompletion.choices[0]?.message?.content || "");
 }
 
 export async function getGroqChatCompletion(message) {
-  return groq.chat.completions.create({
-    messages: [
-      {
-        role: "user",
-        content: message,
-      },
-    ],
-    model: "llama-3.3-70b-versatile",
-  });
+  try {
+    const response = await groq.chat.completions.create({
+      messages: [
+        {
+          role: "user",
+          content: "write between 5 - 10 lines on :" + message,
+        },
+      ],
+      model: "llama-3.3-70b-versatile",
+    });
+    const aiMessage = response.choices[0].message.content;
+    return aiMessage;
+  } catch (error) {
+    throw InternalServerError("Error using Ai");
+  }
 }
