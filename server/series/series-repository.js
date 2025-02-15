@@ -29,6 +29,15 @@ class SeriesRepository {
       throw new InternalServerError("Can't get search counts from Db");
     }
   }
+
+  static async getAllRecommendedSeries(userId) {
+    try {
+      const series = await Series.distinct("seriesName", { userId: userId });
+      return series;
+    } catch (error) {
+      throw new InternalServerError("Can't get series name from Db");
+    }
+  }
 }
 
 export default SeriesRepository;

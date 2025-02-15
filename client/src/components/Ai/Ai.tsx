@@ -3,10 +3,11 @@ import style from "./Ai.module.css";
 import { Button, TextField, Box, Paper } from "@mui/material";
 import { getDataAi } from "../../api/ai/ai.api";
 import Notification from "../Notifications/Notification";
+import { getRecommendedSeries } from "../../api/ai/recommendedSeries.api";
 
 export default function Ai() {
-  const [messageAi, setMessageAi] = useState("");
-  const [message, setMessage] = useState("");
+  const [messageAi, setMessageAi] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
   const [alert, setAlert] = useState<{
     type: "error";
     message: string;
@@ -29,6 +30,18 @@ export default function Ai() {
     }
   };
 
+  const handleRecommendedSeries = async () => {
+    try {
+      const recommendedSeriesMessage = await getRecommendedSeries();
+      if (!recommendedSeriesMessage) {
+        setAlert({ type: "error", message: "No message from AI" });
+      }
+      setMessageAi(recommendedSeriesMessage);
+    } catch (error) {
+      setAlert({ type: "error", message: "Error loading Ai" });
+    }
+  };
+
   return (
     <div className={style["ai-container"]}>
       <Paper elevation={3} className={style["chat-box"]}>
@@ -37,7 +50,7 @@ export default function Ai() {
           <Button
             className={style["recomended-series-button"]}
             variant="contained"
-            onClick={() => setMessage("Recommended series")}
+            onClick={handleRecommendedSeries}
           >
             Recommended Series
           </Button>

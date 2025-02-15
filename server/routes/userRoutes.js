@@ -18,7 +18,7 @@ import {
 import { contacts, messages, fetchMessages } from "../chat/chatController.js";
 import { checkAuth } from "../middleware/checkAuth.js";
 import { actorId } from "../actors/actorController.js";
-import { fetchDataFromAi } from "../groqAi/groqController.js";
+import { fetchDataFromAi,fetchRecommendedSeries } from "../groqAi/groqController.js";
 
 /*POST user controllers*/
 router.post("/Series/series-data", checkAuth, getTitle);
@@ -39,5 +39,6 @@ router.post("/user/auth/verify", checkAuth, userVerify);
 router.get("/user/auth/info", checkAuth, UserInfo);
 
 router.get("/Ai/getData", checkAuth, fetchDataFromAi);
+router.get("/Ai/getRecommendedSeries", checkAuth, fetchRecommendedSeries);
 
 export default router;

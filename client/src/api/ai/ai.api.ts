@@ -7,7 +7,7 @@ export const getDataAi = async (message: string) => {
       params: { message },
       withCredentials: true,
     });
-    return response.data;
+    return response.data.chatCompletion;
   } catch (e) {
     if (e instanceof AxiosError) {
       return e.response?.data;
