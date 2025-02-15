@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { streaming } from "../../api/streamingAvailability/streaming.api";
 import Notification from "../Notifications/Notification";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 interface Props {
   seriesId: string | null;
@@ -8,11 +13,11 @@ interface Props {
 }
 
 export default function StreamingOptions({ seriesId, searchTrigger }: Props) {
-  // const [streamingInfo,setStreamingInfo] = useState
   const [alert, setAlert] = useState<{
     type: "error";
     message: string;
   } | null>(null);
+  const [links, setLinks] = useState<string[]>([]);
 
   useEffect(() => {
     const updateStreaming = async () => {
@@ -21,7 +26,7 @@ export default function StreamingOptions({ seriesId, searchTrigger }: Props) {
       }
       try {
         const streamingInfo = await streaming(seriesId);
-        console.log("stream", streamingInfo);
+        setLinks(streamingInfo.data);
       } catch (error) {
         if (error instanceof Error) {
           setAlert({ type: "error", message: error.message });
@@ -29,11 +34,30 @@ export default function StreamingOptions({ seriesId, searchTrigger }: Props) {
       }
     };
     updateStreaming();
-  }, [searchTrigger]);
+  }, [searchTrigger, seriesId]);
 
   return (
     <div>
-      <h1>heyyy</h1>
+      <Box sx={{ minWidth: 120 }}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Streaming</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Link"
+          >
+            <div style={{ overflow: "auto", height: "20vh" }}>
+              {links.map((link, index) => (
+                <MenuItem key={index}>
+                  <a target="_blank" href={link}>
+                    link
+                  </a>
+                </MenuItem>
+              ))}
+            </div>
+          </Select>
+        </FormControl>
+      </Box>
       <Notification alert={alert} setAlert={setAlert} />
     </div>
   );

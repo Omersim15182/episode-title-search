@@ -62,7 +62,6 @@ export async function streamingInfo(req, res) {
 
   try {
     const streamData = await getStreamingInfo(seriesId);
-
     const streamOptions = streamData.streamingOptions.us.map(
       (option) => option.link
     );
