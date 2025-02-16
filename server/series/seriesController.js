@@ -12,17 +12,25 @@ export async function getTitle(req, res) {
   const { series, userId } = req.body;
 
   try {
-    const seriesId = await getSeriesIdService(series, userId);
-    if (isInvalidSeriesId(seriesId)) {
+    const result = await getSeriesIdService(series, userId);
+    console.log("asd", result);
+
+    if (result.existingSeriesId && result.cachedEpisodeTitle) {
       return res.status(200).json({
-        episodeTitle: seriesId,
+        episodeTitle: result.cachedEpisodeTitle,
+        seriesId: result.existingSeriesId.seriesId,
       });
     }
 
-    const dataSeries = await getEpisodeTitleService(series, seriesId, userId);
+    const dataSeries = await getEpisodeTitleService(
+      series,
+      result.seriesId,
+      userId
+    );
+
     await getOfferEpisodes(req.body.series, dataSeries.seasons);
     return res.status(200).json({
-      seriesId,
+      seriesId: result.seriesId,
       episodeTitle: dataSeries.title,
     });
   } catch (error) {

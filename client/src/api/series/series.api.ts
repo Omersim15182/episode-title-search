@@ -15,8 +15,10 @@ export const getEpisodeTitle = async (series: Episode) => {
       requestData,
       { withCredentials: true }
     );
+    console.log("s", response.data);
     const seriesId = response.data.seriesId;
     const episodeTitle = response.data.episodeTitle;
+
     return { episodeTitle, seriesId };
   } catch (e) {
     if (e instanceof AxiosError) {

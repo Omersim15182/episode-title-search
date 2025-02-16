@@ -23,8 +23,14 @@ export const getSeriesIdService = async (showDetails, userId) => {
       userId,
       savedSeries._id
     );
+    const existingSeriesId = await Series.findOne({
+      seriesName,
+      userId,
+    }).select("seriesId");
 
-    return updatedUser ? cachedEpisodeTitle : null;
+    return updatedUser
+      ? { cachedEpisodeTitle, existingSeriesId }
+      : null;
   }
   try {
     const response = await imdbInstance.get("/auto-complete", {
@@ -36,7 +42,7 @@ export const getSeriesIdService = async (showDetails, userId) => {
       throw new NotFoundError("series ID not found");
     }
 
-    return seriesId;
+    return { seriesId };
   } catch (error) {
     throw new InternalServerError("api request failed", error.message);
   }

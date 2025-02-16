@@ -10,9 +10,14 @@ import Select from "@mui/material/Select";
 interface Props {
   seriesId: string | null;
   searchTrigger: number;
+  title: string | null;
 }
 
-export default function StreamingOptions({ seriesId, searchTrigger }: Props) {
+export default function StreamingOptions({
+  title,
+  seriesId,
+  searchTrigger,
+}: Props) {
   const [alert, setAlert] = useState<{
     type: "error";
     message: string;
@@ -34,11 +39,13 @@ export default function StreamingOptions({ seriesId, searchTrigger }: Props) {
       }
     };
     updateStreaming();
-  }, [searchTrigger, seriesId]);
+  }, [title, searchTrigger]);
+  console.log(title);
+  console.log(seriesId);
 
   return (
     <div>
-      <Box sx={{ minWidth: 120 }}>
+      <Box sx={{ minWidth: 120, height: "20px" }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Streaming</InputLabel>
           <Select

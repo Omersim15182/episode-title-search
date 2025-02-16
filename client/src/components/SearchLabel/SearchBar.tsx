@@ -96,8 +96,8 @@ export default function SearchBar({ title, setTitle }: Props) {
         </>
       )}
       <h3 className={style["h3-container"]}>{title}</h3>
-      {seriesId && (
-        <StreamingOptions seriesId={seriesId} searchTrigger={searchTrigger} />
+      {title && (
+        <StreamingOptions title={title} seriesId={seriesId} searchTrigger={searchTrigger} />
       )}
       <Chart title={title} />
       <Notification alert={alert} setAlert={setAlert} />
