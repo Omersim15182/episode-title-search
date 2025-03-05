@@ -14,7 +14,7 @@ export const verifyEmail = async (email, key) => {
   let mailOptions = {
     from: process.env.EMAIL,
     to: email,
-    subject: "Nodemailer - Test",
+    subject: "Verivy email",
     html: `
     <html>
       <body>

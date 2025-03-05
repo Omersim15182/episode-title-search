@@ -31,43 +31,10 @@ export default function Messages({ selectedUser }: selectedUserProps) {
     message: string;
   } | null>(null);
 
-  const handleMessage = async () => {
-    if (!inputMessage && !fileForInput) {
-      setAlert({ type: "error", message: "Enter a message" });
-      return;
-    }
-    const newMessage: Message = {
-      message: inputMessage,
-      source_id: userId,
-      destination_id: selectedUser?._id,
-      destination_photo: selectedUser?.photo,
-      destination_name: selectedUser?.name,
-    };
-
-    if (fileForInput) {
-      newMessage.message = fileForInput;
-    }
-
-    setMessages((prev) => [...prev, newMessage]);
-    await saveMessages([newMessage]);
-
-    socket.emit("private message", {
-      source_id: userId,
-      destination_id: selectedUser?._id,
-      message: inputMessage || fileForInput,
-      destination_photo: selectedUser?.photo,
-      destination_name: selectedUser?.name,
-    });
-
-    setInputMessage("");
-    setFileForInput("");
-  };
-
   useEffect(() => {
     if (!selectedUser) return;
 
-    socket.on("connection", () => {
-    });
+    socket.on("connection", () => {});
 
     socket.emit("register", userId);
 
@@ -111,6 +78,32 @@ export default function Messages({ selectedUser }: selectedUserProps) {
     };
     messages();
   }, [selectedUser]);
+
+  const handleMessage = async () => {
+    if (!inputMessage && !fileForInput) {
+      setAlert({ type: "error", message: "Enter a message" });
+      return;
+    }
+    const newMessage: Message = {
+      message: fileForInput || inputMessage,
+      source_id: userId,
+      destination_id: selectedUser?._id,
+      destination_photo: selectedUser?.photo,
+      destination_name: selectedUser?.name,
+    };
+
+    if (fileForInput) {
+      newMessage.message = fileForInput;
+    }
+
+    setMessages((prev) => [...prev, newMessage]);
+    await saveMessages([newMessage]);
+
+    socket.emit("private message", newMessage);
+
+    setInputMessage("");
+    setFileForInput("");
+  };
 
   function isBase64(str: string) {
     const base64Regex =
