@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import Stack from "@mui/material/Stack";
 import style from "./Button.module.css";
+
 interface AddButtonProps {
   onClick: () => void;
 }
@@ -13,6 +14,7 @@ export default function AddButton(props: AddButtonProps) {
         variant="contained"
         endIcon={<SearchIcon />}
         onClick={props.onClick}
+        className={style["add-button"]}
       >
         Search
       </Button>

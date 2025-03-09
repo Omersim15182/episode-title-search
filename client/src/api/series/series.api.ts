@@ -1,5 +1,6 @@
 import axiosInstance from "../axiosInstance";
 import { Episode } from "../../types/types";
+import { AxiosError } from "axios";
 
 export const getEpisodeTitle = async (series: Episode) => {
   const id = localStorage.getItem("userId");
@@ -14,9 +15,15 @@ export const getEpisodeTitle = async (series: Episode) => {
       requestData,
       { withCredentials: true }
     );
+    console.log("s", response.data);
+    const seriesId = response.data.seriesId;
     const episodeTitle = response.data.episodeTitle;
-    return episodeTitle;
-  } catch (e: any) {
-    return e.response.data;
+
+    return { episodeTitle, seriesId };
+  } catch (e) {
+    if (e instanceof AxiosError) {
+      console.error("Unexpected error:", e);
+    }
+    console.error("episode title error:", e);
   }
 };

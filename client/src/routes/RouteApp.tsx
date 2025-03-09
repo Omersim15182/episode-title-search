@@ -1,21 +1,38 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "../components/Login/Login";
 import Signup from "../components/Signup/Signup";
-import Home from "../components/Home";
 import { PrivateRoute } from "../auth/PrivateRoute";
+import Home from "../components/Home/Home";
+import MenuBar from "../components/Menu/MenuBar";
+import Chat from "../components/Chat/Chat";
+import EmailCode from "../components/Signup/EmailCode";
+
 export default function RouteApp() {
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/sign-up" element={<Signup />} />
-      <Route
-        path="/home"
-        element={
-          <PrivateRoute>
-            <Home />
-          </PrivateRoute>
-        }
-      />
-    </Routes>
+    <>
+      <MenuBar />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/sign-up" element={<Signup />} />
+        <Route path="/emailcode" element={<EmailCode />} />
+
+        <Route
+          path="/home"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/Chat"
+          element={
+            <PrivateRoute>
+              <Chat />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </>
   );
 }

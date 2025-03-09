@@ -1,8 +1,9 @@
 import axiosInstance from "../axiosInstance";
-import { userLogin } from "../../types/types";
+import { UserLogin } from "../../types/types";
 import { setCookie } from "typescript-cookie";
+import { AxiosError } from "axios";
 
-export const loginUser = async (user: userLogin) => {
+export const userLogging = async (user: UserLogin) => {
   try {
     const response = await axiosInstance.post(
       "/episodeNamer/user/auth/Login",
@@ -17,11 +18,11 @@ export const loginUser = async (user: userLogin) => {
     const userId = response.data.userId;
     localStorage.setItem("userId", userId);
 
-    return true;
-  } catch (err: any) {
-    console.error(
-      "Error occurred:",
-      err.response ? err.response.data : err.message
-    );
+    return response.data.message;
+  } catch (e) {
+    if (e instanceof AxiosError) {
+      throw new Error(e.response?.data?.message || "Login failed!");
+    }
+    throw new Error("An unexpected error occurred.");
   }
 };

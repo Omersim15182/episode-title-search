@@ -1,0 +1,23 @@
+.actor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    justify-content: flex-end;
+    background-color: #ced4da;
+}
+
+.actor-card {
+    width: 250px;
+    max-width: 100%;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.actor-card-media {
+    object-fit: cover;
+    width: 100%;
+    height: 230px;
+    cursor: pointer;
+}

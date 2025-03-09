@@ -1,11 +1,35 @@
-.add-button{
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-}
 
-.delete-button{
+.add-button {
     display: flex;
     flex-direction: row;
     gap: 16px;
-}
+    width: 72%;
+    align-items: center;
+  }
+  
+  .delete-button {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+  
+  .add-button button {
+    background-color: #f4f4f4;
+    color: black;
+    border-radius: 4px;
+  }
+  
+  .add-button button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .delete-button button {
+    background-color: #f4f4f4;
+    color: black;
+    border-radius: 4px;
+  }
+  
+  .delete-button button:hover {
+    background-color: #e0e0e0;
+  }
+  

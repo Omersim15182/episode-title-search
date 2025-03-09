@@ -1,0 +1,18 @@
+.search-bar-container {
+    display: flex;
+    width: 30%;
+    padding: 50px;
+    flex-direction: column;
+    gap: 16px;
+    height: 85%;
+    background-color: #ced4da;
+    align-items: center;
+  }
+
+.h3-container{
+  display: flex;
+  width: 0px;
+  min-width: 100%;
+  justify-content: center;
+}
+

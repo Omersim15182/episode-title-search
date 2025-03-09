@@ -4,10 +4,9 @@ import { AxiosError } from "axios";
 export const getRecentSearches = async () => {
   const userId = localStorage.getItem("userId");
   try {
-    const response = await axiosInstance.post(
+    const response = await axiosInstance.get(
       "/episodeNamer/Series/series-data/recent-searches",
-      { userId },
-      { withCredentials: true }
+      { params: { userId }, withCredentials: true }
     );
     return response.data;
   } catch (e) {

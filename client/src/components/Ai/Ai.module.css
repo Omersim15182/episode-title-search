@@ -1,0 +1,107 @@
+.ai-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 98%;
+  width: 40%;
+  background-color: #ced4da;
+  font-size: 22px;
+  font-family: sans-serif;
+}
+
+body .chat-box {
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  background-color: #495057;
+  height: 85%;
+  border-radius: 15px;
+  width: 70%;
+  padding: 20px;
+  justify-content: flex-end;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 8px;
+  background-color: #495057;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  color: white;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.chat-input-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.chat-input {
+  flex: 1;
+  background-color: #495057 !important;
+  color: white !important;
+}
+
+.chat-input .MuiOutlinedInput-root {
+  background-color: #495057 !important;
+  color: white !important;
+}
+
+.chat-input .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+}
+
+.chat-input
+  .MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+  box-shadow: none !important;
+}
+
+.chat-input .MuiInputLabel-root {
+  color: white !important;
+  font-weight: bold;
+}
+
+.chat-input input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px #495057 inset !important;
+  -webkit-text-fill-color: white !important;
+}
+
+.chat-input input {
+  border: none !important;
+  outline: none !important;
+}
+
+body .chat-button {
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: white;
+  color: black;
+}
+
+.chat-button:hover {
+  background-color: #f0f0f0;
+}
+
+.chat-buttons-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+body .recomended-series-button {
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.recomended-series-button:hover {
+  background-color: #f0f0f0;
+}
