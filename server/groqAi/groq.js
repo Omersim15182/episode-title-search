@@ -4,7 +4,7 @@ import { InternalServerError } from "../custom-errors/errors.js";
 
 dotenv.config();
 
-const apiKeyAi = process.env.GROQ_API_KEY;
+// const apiKeyAi = process.env.GROQ_API_KEY;
 
 const groq = new Groq({
   apiKey: "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",
