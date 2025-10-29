@@ -6,8 +6,6 @@ import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 import socketServer from "./socket.js";
 import http from "http";
-import { getGroqChatCompletion } from "./groqAi/groq.js";
-import Groq from "groq-sdk";
 
 dotenv.config();
 const app = express();
