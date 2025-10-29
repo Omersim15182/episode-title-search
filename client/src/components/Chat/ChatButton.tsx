@@ -6,6 +6,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import Notification from "../Notifications/Notification";
+import style from "./Messages.module.css";
 
 type fileProps = {
   fileForInput: string;
@@ -59,23 +60,25 @@ export default function ChatButton({
           alignItems: "flex-end",
         }}
       >
-        {/* {fileForInput && (
-          <div style={{ display: "flex" }}>
-            <img
-              src={fileForInput}
-              alt="preview"
-              width="50px"
-              height="50px"
-              style={{ display: "flex" }}
-            />
-            <span
-              onClick={() => setFileForInput("")}
-              style={{ cursor: "pointer", marginLeft: "10px", color: "red" }}
-            >
-              ✖
-            </span>
+        {fileForInput && (
+          <div>
+            <div style={{ display: "flex" }}>
+              <img
+                src={fileForInput}
+                alt="preview"
+                width="50px"
+                height="50px"
+                style={{ display: "flex" }}
+              />
+              <span
+                onClick={() => setFileForInput("")}
+                style={{ cursor: "pointer", marginLeft: "10px", color: "red" }}
+              >
+                ✖
+              </span>
+            </div>
           </div>
-        )} */}
+        )}
         <Fab
           sx={{
             backgroundColor: "black",

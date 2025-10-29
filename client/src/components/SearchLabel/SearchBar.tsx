@@ -65,8 +65,9 @@ export default function SearchBar({ title, setTitle }: Props) {
       setTitle(episodeTitle.episodeTitle);
       setSeriesId(episodeTitle.seriesId);
       setSearchTrigger((prev) => prev + 1);
+    } else {
+      setAlert({ type: "error", message: "Can't fetch episode title" });
     }
-    setAlert({ type: "error", message: "Can't fetch episode title" });
   };
 
   return (
@@ -97,7 +98,11 @@ export default function SearchBar({ title, setTitle }: Props) {
       )}
       <h3 className={style["h3-container"]}>{title}</h3>
       {title && (
-        <StreamingOptions title={title} seriesId={seriesId} searchTrigger={searchTrigger} />
+        <StreamingOptions
+          title={title}
+          seriesId={seriesId}
+          searchTrigger={searchTrigger}
+        />
       )}
       <Chart title={title} />
       <Notification alert={alert} setAlert={setAlert} />

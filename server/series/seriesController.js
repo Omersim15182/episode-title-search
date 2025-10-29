@@ -13,7 +13,6 @@ export async function getTitle(req, res) {
 
   try {
     const result = await getSeriesIdService(series, userId);
-    console.log("asd", result);
 
     if (result.existingSeriesId && result.cachedEpisodeTitle) {
       return res.status(200).json({

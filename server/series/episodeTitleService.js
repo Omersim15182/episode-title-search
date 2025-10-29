@@ -28,10 +28,9 @@ export const getSeriesIdService = async (showDetails, userId) => {
       userId,
     }).select("seriesId");
 
-    return updatedUser
-      ? { cachedEpisodeTitle, existingSeriesId }
-      : null;
+    return updatedUser ? { cachedEpisodeTitle, existingSeriesId } : null;
   }
+
   try {
     const response = await imdbInstance.get("/auto-complete", {
       params: { q: seriesName },

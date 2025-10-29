@@ -6,8 +6,10 @@ import userRoutes from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 import socketServer from "./socket.js";
 import http from "http";
-dotenv.config();
+import { getGroqChatCompletion } from "./groqAi/groq.js";
+import Groq from "groq-sdk";
 
+dotenv.config();
 const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT_SERVER;
@@ -25,8 +27,9 @@ app.use(
 
 app.use(express.json({ limit: "50mb" }));
 
-app.use("/episodeNamer", userRoutes);
 socketServer(server);
+
+app.use("/episodeNamer", userRoutes);
 
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

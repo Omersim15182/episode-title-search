@@ -6,7 +6,7 @@ import Notification from "../Notifications/Notification";
 import { getRecommendedSeries } from "../../api/ai/recommendedSeries.api";
 
 export default function Ai() {
-  const [messageAi, setMessageAi] = useState<string>("");
+  const [messageAi, setMessageAi] = useState<string>(""); // Initialize as string
   const [message, setMessage] = useState<string>("");
   const [alert, setAlert] = useState<{
     type: "error";
@@ -24,7 +24,7 @@ export default function Ai() {
       if (!response) {
         setAlert({ type: "error", message: "No message from AI" });
       }
-      setMessageAi(response);
+      setMessageAi(formatResponse(response)); // Format response
     } catch (error) {
       setAlert({ type: "error", message: "Error loading Ai" });
     }
@@ -36,16 +36,30 @@ export default function Ai() {
       if (!recommendedSeriesMessage) {
         setAlert({ type: "error", message: "No message from AI" });
       }
-      setMessageAi(recommendedSeriesMessage);
+      setMessageAi(formatResponse(recommendedSeriesMessage)); // Format response
     } catch (error) {
       setAlert({ type: "error", message: "Error loading Ai" });
     }
   };
 
+  // Function to format the response from AI
+  const formatResponse = (response: string): string => {
+    const seriesList = response
+      .split("\n")
+      .map((line, index) => {
+        return `<p>${index + 1}. ${line.trim()}</p>`; // Add numbering to each line
+      })
+      .join("");
+    return seriesList;
+  };
+
   return (
     <div className={style["ai-container"]}>
       <Paper elevation={3} className={style["chat-box"]}>
-        <Box className={style["chat-messages"]}>{messageAi}</Box>
+        <Box className={style["chat-messages"]}>
+          <div dangerouslySetInnerHTML={{ __html: messageAi }} />{" "}
+          {/* Render formatted response */}
+        </Box>
         <Box className={style["chat-buttons-container"]}>
           <Button
             className={style["recomended-series-button"]}
