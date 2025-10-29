@@ -12,6 +12,8 @@ export const getRecommendedSeries = async (userId) => {
       const groqMessage = await getGroqChatCompletion(
         `Please provide recommendations based on these series and show every series in number : ${seriesList}`
       );
+      console.log(groqMessage);
+
       return groqMessage;
     }
     throw new NotFoundError("Series not found");

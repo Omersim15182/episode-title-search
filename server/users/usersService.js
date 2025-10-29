@@ -34,6 +34,7 @@ export const login = async (user) => {
 };
 
 export const register = async (user) => {
+  
   const isValid = emailValid.validate(user.email);
   if (!isValid) {
     throw new NotFoundError("Invalid email format");

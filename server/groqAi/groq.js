@@ -5,10 +5,9 @@ import { InternalServerError } from "../custom-errors/errors.js";
 dotenv.config();
 
 const apiKeyAi = process.env.GROQ_API_KEY;
-const cleanedApiKey = apiKeyAi.slice(1, -1);
 
 const groq = new Groq({
-  apiKey: cleanedApiKey,
+  apiKey: "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",
 });
 
 export async function main() {

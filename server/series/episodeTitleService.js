@@ -30,16 +30,18 @@ export const getSeriesIdService = async (showDetails, userId) => {
 
     return updatedUser ? { cachedEpisodeTitle, existingSeriesId } : null;
   }
+  console.log(seriesName);
 
   try {
     const response = await imdbInstance.get("/auto-complete", {
       params: { q: seriesName },
     });
 
-    const seriesId = response.data.d?.[0]?.id || null;
+    const seriesId = response.data.d?.[1]?.id || null;
     if (!seriesId) {
       throw new NotFoundError("series ID not found");
     }
+    console.log("asd", seriesId);
 
     return { seriesId };
   } catch (error) {
@@ -57,12 +59,15 @@ export const getEpisodeTitleService = async (updateData, seriesId, userId) => {
         tconst: seriesId,
       },
     });
+    console.log(response.data);
 
     //filter the data for get the title
     const seasons = response.data[(parseInt(seasonNumber, 10) - 1).toString()];
     const episodeIndex = parseInt(episodeNumber, 10) - 1;
     const episode = seasons.episodes[episodeIndex.toString()];
     const title = episode.title;
+
+    console.log(title);
 
     const newSeries = new Series({
       episodeTitle: title,
