@@ -1,5 +1,5 @@
 import { InternalServerError } from "../custom-errors/errors.js";
-import Messages from "./model/Messages.js";
+import Messages from "./model/messages.js";
 
 class MessageRepository {
   static async getMessagesById(userId, dest_id) {

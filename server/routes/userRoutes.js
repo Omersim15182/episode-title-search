@@ -18,7 +18,10 @@ import {
 import { contacts, messages, fetchMessages } from "../chat/chatController.js";
 import { checkAuth } from "../middleware/checkAuth.js";
 import { actorId } from "../actors/actorController.js";
-import { fetchDataFromAi,fetchRecommendedSeries } from "../groqAi/groqController.js";
+import {
+  fetchDataFromAi,
+  fetchRecommendedSeries,
+} from "../groqAi/groqController.js";
 
 /*POST user controllers*/
 router.post("/Series/series-data", checkAuth, getTitle);

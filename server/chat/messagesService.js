@@ -1,6 +1,6 @@
 import { InternalServerError, NotFoundError } from "../custom-errors/errors.js";
 import MessageRepository from "./messages-repository.js";
-import Messages from "./model/Messages.js";
+import Messages from "./model/messages.js";
 
 export const saveMessages = async (messages) => {
   if (!messages) throw new NotFoundError("Message didn't send");
@@ -29,7 +29,6 @@ export const saveMessages = async (messages) => {
 
 export const getMessages = async (userId, destination_id) => {
   try {
-
     const messages = MessageRepository.getMessagesById(userId, destination_id);
     if (messages) {
       return messages;

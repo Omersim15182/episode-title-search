@@ -16,6 +16,8 @@ export const userLogging = async (user: UserLogin) => {
       path: "/",
     });
     const userId = response.data.userId;
+    console.log(response);
+
     localStorage.setItem("userId", userId);
 
     return response.data.message;
