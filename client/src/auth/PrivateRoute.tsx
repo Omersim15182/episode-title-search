@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { userVerify } from "../api/authLogin/verifyLogin.api";
+import { userVerify } from "../api/authLogin/verifyLogin.api.ts";
 
 export const PrivateRoute = ({ children }: any) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
