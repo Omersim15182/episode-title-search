@@ -7,7 +7,7 @@ dotenv.config();
 // const apiKeyAi = process.env.GROQ_API_KEY;
 
 const groq = new Groq({
-  apiKey: "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",
+  apiKey: process.env.MY_GROQ_KEY,
 });
 
 export async function main() {
@@ -25,9 +25,12 @@ export async function getGroqChatCompletion(message) {
       ],
       model: "llama-3.3-70b-versatile",
     });
+    console.log(response);
     const aiMessage = response.choices[0].message.content;
+
     return aiMessage;
   } catch (error) {
-    throw InternalServerError("Error using Ai");
+    console.error("DEBUG GROQ ERROR:", error); // זה יגיד לנו אם המפתח לא תקין או שיש בעיית רשת
+    throw new InternalServerError("Error using Ai");
   }
 }
