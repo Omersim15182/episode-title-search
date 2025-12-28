@@ -10,15 +10,14 @@ import http from "http";
 dotenv.config();
 const app = express();
 const server = http.createServer(app);
-const PORT = process.env.PORT_SERVER;
-
+const PORT = process.env.PORT_SERVER || 3501;
 connectDB();
 
 app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: true,
     credentials: true,
   })
 );
@@ -29,6 +28,7 @@ socketServer(server);
 
 app.use("/episodeNamer", userRoutes);
 
-server.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+server.listen(PORT, "0.0.0.0", () => {
+  // הוספתי "0.0.0.0" כדי שהשרת יקשיב לכל הכתובות ב-AWS
+  console.log(`🚀 Server is running on port ${PORT}`);
 });

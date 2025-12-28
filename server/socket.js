@@ -5,7 +5,7 @@ const users = new Map();
 const socketServer = (httpServer) => {
   const io = new Server(httpServer, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: true,
       credentials: true,
     },
   });
@@ -17,7 +17,7 @@ const socketServer = (httpServer) => {
       users.set(userId, socket.id);
       console.log("users", users);
     });
-                                                                
+
     socket.on("private message", (msg) => {
       const destSocket = users.get(msg.destination_id);
       if (destSocket) {
