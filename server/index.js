@@ -10,7 +10,7 @@ import http from "http";
 dotenv.config();
 const app = express();
 const server = http.createServer(app);
-const PORT = process.env.PORT_SERVER || 3501;
+const PORT = process.env.PORT_SERVER || process.env.PORT || 3501;
 connectDB();
 
 app.use(cookieParser());
