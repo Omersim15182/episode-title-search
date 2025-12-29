@@ -4,6 +4,7 @@ export const userVerify = async (): Promise<boolean> => {
   try {
     const response = await axiosInstance.post(
       "/episodeNamer/user/auth/verify",
+      {},
       { withCredentials: true }
     );
     return true;
