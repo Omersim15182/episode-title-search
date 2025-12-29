@@ -17,7 +17,10 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: true,
+    origin: [
+      "https://startling-custard-e2d315.netlify.app",
+      "http://localhost:5173",
+    ],
     credentials: true,
   })
 );

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "/api/episodeNamer",
+  baseURL: "/api",
   timeout: 5000,
   withCredentials: true,
 });
