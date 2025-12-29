@@ -17,10 +17,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: [
-      "https://delicate-alpaca-87e732.netlify.app",
-      "http://localhost:5173",
-    ],
+    origin: "https://delicate-alpaca-87e732.netlify.app",
     credentials: true,
   })
 );
