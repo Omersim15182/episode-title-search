@@ -17,7 +17,8 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://delicate-alpaca-87e732.netlify.app",
+    origin:
+      "https://69530c3e653b5d392d01278b--snazzy-marzipan-7e4dc6.netlify.app",
     credentials: true,
   })
 );
