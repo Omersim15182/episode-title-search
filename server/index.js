@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      "https://startling-custard-e2d315.netlify.app",
+      "https://delicate-alpaca-87e732.netlify.app",
       "http://localhost:5173",
     ],
     credentials: true,
