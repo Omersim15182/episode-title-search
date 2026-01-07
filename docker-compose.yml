@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  server:
+    build:
+      context: ./server
+    ports:
+      - "3501:3501"
+    environment:
+      MONGO_URI: ${MONGO_URI}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - mongo
+      - redis
+
+  client:
+    build:
+      context: ./client
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:3501
+    depends_on:
+      - server

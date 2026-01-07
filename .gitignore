@@ -27,3 +27,4 @@ dist-ssr
 # Ignore .env files only in the server folder
 /server/node_modules
 /server/.env
+/.env
