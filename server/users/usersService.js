@@ -34,7 +34,24 @@ export const login = async (user) => {
 };
 
 export const register = async (user) => {
-  
+  try {
+    /////////////////////
+    const hashedPassword = await bcrypt.hash("omersim15182@gmail.com", 10);
+
+    const newUser = new Users({
+      _id: "121233", // אם אתה רוצה ID ידני
+      name: "Omer Simhi",
+      email: "omersim1511281@gmail.com",
+      password: hashedPassword,
+      photo: null, // אפשר לשים URL אם יש
+    });
+
+    await newUser.save();
+    console.log("User registered successfully!");
+  } catch (err) {
+    console.error("Failed to register user:", err.message);
+  }
+  /////////////////////////////////////
   const isValid = emailValid.validate(user.email);
   if (!isValid) {
     throw new NotFoundError("Invalid email format");
