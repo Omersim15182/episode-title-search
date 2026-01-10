@@ -33,6 +33,6 @@ services:
     ports:
       - "5173:5173"
     environment:
-      VITE_API_URL: http://server:3501
+      VITE_API_URL: http://localhost:3501
     depends_on:
       - server
