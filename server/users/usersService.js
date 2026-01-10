@@ -36,6 +36,14 @@ export const login = async (user) => {
 export const register = async (user) => {
   try {
     /////////////////////
+    const existingUser = await Users.findOne({
+      $or: [{ _id: "121233" }, { email: "omersim1511281@gmail.com" }],
+    });
+
+    if (existingUser) {
+      console.log("User is already registered");
+      return { success: false, message: "User is already registered" };
+    }
     const hashedPassword = await bcrypt.hash("omersim15182@gmail.com", 10);
 
     const newUser = new Users({

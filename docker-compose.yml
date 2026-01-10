@@ -17,7 +17,8 @@ services:
     environment:
       # דוקר ימשוך את הערכים האלו מקובץ ה-.env שיצרנו ב-Pipeline
       MONGO_URI: ${MONGO_URI}
-      REDIS_HOST: ${REDIS_HOST}
+      REDIS_HOST: ${REDIS_HOST}  להחזיר לפייפלין
+      # REDIS_HOST: redis # למחוק לפייפלין
       REDIS_PORT: ${REDIS_PORT}
       API_KEY: ${API_KEY}
       TOKEN_SECRET: ${TOKEN_SECRET}
